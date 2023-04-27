@@ -1,0 +1,5 @@
+package com.forum.project.dao;
+
+public interface IRubroDao {
+
+}

@@ -1,0 +1,11 @@
+package com.forum.project.response;
+
+import lombok.Data;
+
+@Data
+public class RubroResponseRest extends ResponseRest{
+	
+	private RubroResponse rubroResponse = new RubroResponse();
+	
+	
+}

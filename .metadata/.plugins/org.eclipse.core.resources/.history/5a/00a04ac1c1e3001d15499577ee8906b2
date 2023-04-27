@@ -1,0 +1,17 @@
+package com.forum.project.response;
+
+import java.util.List;
+
+import com.forum.project.model.Rubro;
+
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
+public class RubroResponse {
+
+	private List<Rubro> rubro;
+	
+	
+}

@@ -1,0 +1,41 @@
+package com.forum.project.services;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+
+import java.util.List;
+import com.forum.project.dao.IRubroDao;
+import com.forum.project.response.RubroResponseRest;
+import com.forum.project.model.Rubro;
+
+public class RubroServiceImpl implements IRubroService{
+	
+	@Autowired(required=true)
+	private IRubroDao rubroDao;
+
+	@Override
+	public ResponseEntity<RubroResponseRest> search() {
+
+		RubroResponseRest response = new RubroResponseRest();
+		
+		try {
+			
+			List<Rubro> rubro = (List<Rubro>) rubroDao.findAll();
+			
+			response.getRubroResponse().setRubro(rubro);
+			response.setMetadata("Respuesta ok", "00", "Respuesta exitosa");
+			
+		} catch(Exception e) {
+			
+			response.setMetadata("Respuesta no ok", "-1", "Error al no consultar");
+			e.getStackTrace();
+			return new ResponseEntity<RubroResponseRest>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+			
+		}
+		
+		return new ResponseEntity<RubroResponseRest>(response, HttpStatus.OK);
+		
+	}
+
+}

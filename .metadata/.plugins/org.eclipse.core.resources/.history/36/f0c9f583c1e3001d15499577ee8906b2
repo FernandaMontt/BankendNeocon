@@ -1,0 +1,8 @@
+package com.forum.project.response;
+
+public class RubroResponseRest extends ResponseRest{
+	
+	private RubroResponse rubroResponse = new RubroResponse();
+	
+	
+}

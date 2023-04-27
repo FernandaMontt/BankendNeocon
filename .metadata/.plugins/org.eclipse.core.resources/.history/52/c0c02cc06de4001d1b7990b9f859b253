@@ -1,0 +1,15 @@
+package com.forum.project.services;
+
+import javax.ws.rs.Consumes;
+import javax.ws.rs.core.MediaType;
+
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.forum.project.response.RubroResponseRest;
+
+public interface IRubroService {
+	@Consumes({MediaType.APPLICATION_XML})
+	public @ResponseBody ResponseEntity<RubroResponseRest> findAll();
+	
+}

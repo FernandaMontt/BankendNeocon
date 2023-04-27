@@ -1,0 +1,25 @@
+package com.forum.project.response;
+
+import javax.ws.rs.Consumes;
+import javax.ws.rs.core.MediaType;
+
+import lombok.Getter;
+import lombok.Setter;
+
+
+@Getter
+@Setter
+public class RubroResponseRest{
+	
+	private RubroResponse rubroResponse = new RubroResponse();
+	@Consumes({MediaType.APPLICATION_XML})
+	public RubroResponse getRubroResponse() {
+		return rubroResponse;
+	}
+	@Consumes({MediaType.APPLICATION_XML})
+	public void setRubroResponse(RubroResponse rubroResponse) {
+		this.rubroResponse = rubroResponse;
+	}
+	
+	
+}

@@ -1,0 +1,46 @@
+package com.forum.project.response;
+
+import java.util.List;
+import java.util.Objects;
+
+import com.forum.project.model.Rubro;
+
+public class RubroResponse {
+
+	private List<Rubro> rubro;
+
+	public List<Rubro> getRubro() {
+		return rubro;
+	}
+
+	public void setRubro(List<Rubro> rubro) {
+		this.rubro = rubro;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(rubro);
+	}
+	
+	
+
+	@Override
+	public String toString() {
+		return "RubroResponse [rubro=" + rubro + "]";
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		RubroResponse other = (RubroResponse) obj;
+		return Objects.equals(rubro, other.rubro);
+	}
+
+	
+	
+}

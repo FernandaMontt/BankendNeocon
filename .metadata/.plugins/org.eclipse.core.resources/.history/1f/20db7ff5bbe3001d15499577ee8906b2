@@ -1,0 +1,9 @@
+package com.forum.project.services;
+
+import org.springframework.http.ResponseEntity;
+
+public interface IRubroService {
+
+	public ResponseEntity<RubroResponseRest> search();
+	
+}

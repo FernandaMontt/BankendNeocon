@@ -1,0 +1,12 @@
+package com.forum.project.services;
+
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.forum.project.response.RubroResponseRest;
+
+public interface IRubroService {
+	
+	public @ResponseBody ResponseEntity<RubroResponseRest> findAll();
+	
+}

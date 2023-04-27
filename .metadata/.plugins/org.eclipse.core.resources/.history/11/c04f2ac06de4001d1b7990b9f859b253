@@ -1,0 +1,30 @@
+package com.forum.project.response;
+
+import java.util.List;
+
+import javax.ws.rs.Consumes;
+import javax.ws.rs.core.MediaType;
+import javax.xml.bind.annotation.XmlRootElement;
+
+
+
+import com.forum.project.model.Rubro;
+
+import lombok.Data;
+
+@Data
+@XmlRootElement
+public class RubroResponse {
+
+	private List<Rubro> rubro;
+	@Consumes({MediaType.APPLICATION_XML})
+	public List<Rubro> getRubro() {
+		return rubro;
+	}
+	@Consumes({MediaType.APPLICATION_XML})
+	public void setRubro(List<Rubro> rubro) {
+		this.rubro = rubro;
+	}
+	
+	
+}
