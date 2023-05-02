@@ -162,7 +162,7 @@ public class RubroServiceImpl implements IRubroService{
 	try {
 			cn = DriverManager.getConnection(connectionUrl);
 			// Llamada al procedimiento almacenado
-			CallableStatement cst = cn.prepareCall("{CALL SP_GET_SOURCEBYCODIGO_RUBROS(?) }");
+			CallableStatement cst = cn.prepareCall("{SP_GET_SOURCEBYCODIGO_RUBROS('?') }");
 			//Obtener Id
 			cst.setString(1, Codigo.toString());
 			// Ejecuta el procedimiento almacenado

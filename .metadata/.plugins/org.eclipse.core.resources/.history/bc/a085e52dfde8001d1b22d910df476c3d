@@ -164,7 +164,7 @@ public class RubroServiceImpl implements IRubroService{
 			// Llamada al procedimiento almacenado
 			CallableStatement cst = cn.prepareCall("{CALL SP_GET_SOURCEBYCODIGO_RUBROS(?) }");
 			//Obtener Id
-			cst.setString(1, Codigo.toString());
+			cst.setString(0, Codigo.toString());
 			// Ejecuta el procedimiento almacenado
 			rs = cst.executeQuery();
 			while(rs.next()) {

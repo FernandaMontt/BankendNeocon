@@ -47,7 +47,7 @@ public class RubroRestController {
 		return response;
 	}
 	
-	@GetMapping("/rubros/codigo/{codigo}")
+	@GetMapping("/rubros/{codigo}")
 	public ResponseEntity<RubroResponseRest> findByRubrosCodigo(@PathVariable String codigo){
 		ResponseEntity<RubroResponseRest> response = service.findByRubroCodigo(codigo);
 		return response;
