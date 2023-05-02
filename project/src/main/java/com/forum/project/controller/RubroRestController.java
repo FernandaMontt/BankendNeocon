@@ -6,10 +6,13 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.forum.project.model.Rubro;
 import com.forum.project.response.RubroResponseRest;
 import com.forum.project.services.IRubroService;
 
@@ -41,6 +44,24 @@ public class RubroRestController {
 	@DeleteMapping("/rubros/{id}")
 	public ResponseEntity<RubroResponseRest> updatestate(@PathVariable Integer id){
 		ResponseEntity<RubroResponseRest> response = service.updatestate(id);
+		return response;
+	}
+	
+	@GetMapping("/rubros/{codigo}")
+	public ResponseEntity<RubroResponseRest> findByRubrosCodigo(@PathVariable String codigo){
+		ResponseEntity<RubroResponseRest> response = service.findByRubroCodigo(codigo);
+		return response;
+	}
+	
+	@PostMapping("/rubros")
+	public ResponseEntity<RubroResponseRest> saveRubros(@RequestBody Rubro rubro){
+		ResponseEntity<RubroResponseRest> response = service.saveRubros(rubro);
+		return response;
+	}
+	
+	@PutMapping("/rubros/{id}")
+	public ResponseEntity<RubroResponseRest> updateRubros(@RequestBody Rubro rubro){
+		ResponseEntity<RubroResponseRest> response = service.updateRubros(rubro);
 		return response;
 	}
 }
