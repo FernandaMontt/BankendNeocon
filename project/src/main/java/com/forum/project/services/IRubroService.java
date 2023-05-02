@@ -7,5 +7,6 @@ public interface IRubroService {
 	
 	public ResponseEntity<RubroResponseRest> findAll();
 	public ResponseEntity<RubroResponseRest> findByRubroId(Integer Id);
+	public ResponseEntity<RubroResponseRest> updatestate(Integer Id);
 	
 }

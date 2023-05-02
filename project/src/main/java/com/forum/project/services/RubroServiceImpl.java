@@ -113,4 +113,44 @@ public class RubroServiceImpl implements IRubroService{
 		return new ResponseEntity<RubroResponseRest>(response, HttpStatus.OK);
 	}
 
+	@Override
+	@Transactional
+	public ResponseEntity<RubroResponseRest> updatestate(Integer Id) {
+		// TODO Auto-generated method stub
+		RubroResponseRest response = new RubroResponseRest();
+		List<Rubro> rubros = new ArrayList<Rubro>();
+		
+	try {
+			cn = DriverManager.getConnection(connectionUrl);
+			// Llamada al procedimiento almacenado
+			CallableStatement cst = cn.prepareCall("{CALL SP_CHANGESTATE_RUBROS(?) }");
+			//Obtener Id
+			cst.setString(1, Id.toString());
+			// Ejecuta el procedimiento almacenado
+			rs = cst.executeQuery();
+			while(rs.next()) {
+				// Se obtienen la salida del procedimineto almacenado
+				Rubro rubro = new Rubro();
+				rubro.setRubroId(rs.getInt("RUBRO_ID"));
+				rubro.setRubroCodigo(rs.getString("RUBRO_CODIGO"));
+				rubro.setRubroDescripcion(rs.getString("RUBRO_DESCRIPCION"));
+				rubro.setRubroNaturaleza(rs.getString("RUBRO_NATURALEZA"));
+				rubro.setRubroEstado(rs.getString("RUBRO_ESTADO"));
+				rubros.add(rubro);
+			}
+			response.getRubroResponse().setRubro(rubros);
+		} catch (SQLException e) {
+			e.getStackTrace();
+			return new ResponseEntity<RubroResponseRest>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+		} finally{
+			try {
+				cn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}	
+		return new ResponseEntity<RubroResponseRest>(response, HttpStatus.OK);
+	}
+
 }

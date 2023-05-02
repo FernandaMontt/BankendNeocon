@@ -3,8 +3,10 @@ package com.forum.project.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -33,6 +35,12 @@ public class RubroRestController {
 	@GetMapping("/rubros/{id}")
 	public ResponseEntity<RubroResponseRest> findByRubrosId(@PathVariable Integer id){
 		ResponseEntity<RubroResponseRest> response = service.findByRubroId(id);
+		return response;
+	}
+	
+	@DeleteMapping("/rubros/{id}")
+	public ResponseEntity<RubroResponseRest> updatestate(@PathVariable Integer id){
+		ResponseEntity<RubroResponseRest> response = service.updatestate(id);
 		return response;
 	}
 }
