@@ -1,0 +1,13 @@
+package com.forum.project.services;
+
+import org.springframework.http.ResponseEntity;
+
+import com.forum.project.response.PlanCuentasResponseRest;
+import com.forum.project.response.RubroResponseRest;
+
+public interface IPlanCuentasService {
+	
+	public ResponseEntity<PlanCuentasResponseRest> findAll();
+	public ResponseEntity<PlanCuentasResponseRest> findByPlanCuentasId(Integer Id);
+
+}

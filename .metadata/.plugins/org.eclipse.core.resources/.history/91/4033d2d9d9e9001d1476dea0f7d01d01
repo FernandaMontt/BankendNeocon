@@ -1,0 +1,84 @@
+package com.forum.project.services;
+
+import java.sql.CallableStatement;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+
+import com.forum.project.model.CuentaEmpresa;
+import com.forum.project.response.CuentaEmpresaResponseRest;
+import com.forum.project.response.EmpresaResponseRest;
+
+public class EmpresaServiceImpl implements IEmpresaService{
+
+	
+	Connection cn;
+	String connectionUrl =
+            "jdbc:sqlserver://localhost:1433;"
+                    + "database=BD_NEOCON;"
+                    + "user=sa;"
+                    + "password=abril.2023;"
+                    + "encrypt=true;"
+                    + "trustServerCertificate=true;"
+                    + "loginTimeout=30;";
+	ResultSet rs;
+
+	
+	
+	@Override
+	public ResponseEntity<EmpresaResponseRest> findAll() {
+
+		EmpresaResponseRest response = new EmpresaResponseRest();
+		List<Empresa> empresas = new ArrayList<Empresa>();
+		
+	try {
+			cn = DriverManager.getConnection(connectionUrl);
+			// Llamada al procedimiento almacenado
+			CallableStatement cst = cn.prepareCall("{CALL SP_GET_SOURCEBYID_EMPRESA }");
+            // Ejecuta el procedimiento almacenado
+            rs = cst.executeQuery();
+            while(rs.next()) {
+            	// Se obtienen la salida del procedimineto almacenado
+            	Empresa empresa = new Empresa();
+            	empresa.setEmpresaId(rs.getInt("EMPRESA_ID"));
+            	empresa.setEmpresaId(rs.getInt("EMPRESA_ID"));
+            	empresa.setCuentaId(rs.getInt("CUENTA_ID"));
+            	empresa.setRubroId(rs.getInt("RUBRO_ID"));
+            	empresa.setEstado(rs.getString("Estado"));
+            	empresas.add(cuentaEmpresa);
+         }
+			response.getCuentaEmpresaResponse().setCuentaEmpresa(cuentaEmpresas);
+			//response.setMetadata("Respuesta ok", "00", "Respuesta exitosa");
+			
+		} catch(Exception e) {
+			
+			//response.setMetadata("Respuesta no ok", "-1", "Error al no consultar");
+			e.getStackTrace();
+			return new ResponseEntity<CuentaEmpresaResponseRest>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+			
+		} finally{
+			try {
+				cn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return new ResponseEntity<CuentaEmpresaResponseRest>(response, HttpStatus.OK);
+	}
+
+
+
+	@Override
+	public ResponseEntity<EmpresaResponseRest> findByEmpresaId(Integer Id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

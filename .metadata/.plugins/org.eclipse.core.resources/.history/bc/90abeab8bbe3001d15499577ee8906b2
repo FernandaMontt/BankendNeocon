@@ -1,7 +1,0 @@
-package com.forum.project.services;
-
-public interface IRubroService {
-
-	public ResponseEntity<RubroResponseRest> search();
-	
-}
