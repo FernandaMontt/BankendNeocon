@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.forum.project.response.CuentaEmpresaResponseRest;
+import com.forum.project.response.EmpresaResponseRest;
 import com.forum.project.services.ICuentaEmpresaService;
 
 @CrossOrigin(origins = {"http://localhost:4200"})
