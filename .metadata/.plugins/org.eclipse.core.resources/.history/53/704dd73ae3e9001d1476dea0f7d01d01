@@ -34,10 +34,4 @@ public class CuentaEmpresaController {
 		ResponseEntity<CuentaEmpresaResponseRest> response = service.findByCuentasEmpresaId(id);
 		return response;
 	}
-	
-	@GetMapping("/cuentaEmpresas/idempresa/{idempresa}")
-	public ResponseEntity<CuentaEmpresaResponseRest> findByCuentasEmpresaEmpresaId(@PathVariable Integer idempresa){
-		ResponseEntity<CuentaEmpresaResponseRest> response = service.findByCuentasEmpresaEmpresaId(idempresa);
-		return response;
-	}
 }

@@ -10,13 +10,11 @@ import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.forum.project.model.CuentaEmpresa;
 import com.forum.project.response.CuentaEmpresaResponseRest;
 
-@Service
 public class CuentaEmpresaServiceImpl implements ICuentaEmpresaService{
 
 	Connection cn;
@@ -119,10 +117,10 @@ public class CuentaEmpresaServiceImpl implements ICuentaEmpresaService{
 		}	
 		return new ResponseEntity<CuentaEmpresaResponseRest>(response, HttpStatus.OK);
 	}
-
+	
 	@Override
 	@Transactional(readOnly=true)
-	public ResponseEntity<CuentaEmpresaResponseRest> findByCuentasEmpresaEmpresaId(Integer IdEmpresa) {
+	public ResponseEntity<CuentaEmpresaResponseRest> findByCuentasEmpresaIdEmpresa(Integer IdEmpresa) {
 
 		CuentaEmpresaResponseRest response = new CuentaEmpresaResponseRest();
 		List<CuentaEmpresa> cuentaEmpresas = new ArrayList<CuentaEmpresa>();
@@ -130,7 +128,7 @@ public class CuentaEmpresaServiceImpl implements ICuentaEmpresaService{
 	try {
 			cn = DriverManager.getConnection(connectionUrl);
 			// Llamada al procedimiento almacenado
-			CallableStatement cst = cn.prepareCall("{CALL SP_GET_SOURCEBYEMPRESACUENTA_EMPRESA(?) }");
+			CallableStatement cst = cn.prepareCall("{SP_GET_SOURCEBYEMPRESACUENTA_EMPRESA(?) }");
 			//Obtener Id
 			cst.setString(1, IdEmpresa.toString());
 			// Ejecuta el procedimiento almacenado
