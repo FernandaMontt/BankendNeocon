@@ -222,7 +222,7 @@ public class CuentaEmpresaServiceImpl implements ICuentaEmpresaService{
 					//Obtener Id
 					cst.setInt(1, cuentaEmpresa.getEmpresaId());
 					cst.setInt(2, cuentaEmpresa.getRubroId());
-					cst.setFloat(3, cuentaEmpresa.getCuentaCodigo());
+					cst.setInt(3, cuentaEmpresa.getCuentaCodigo());
 					cst.setString(4, cuentaEmpresa.getCuentaDescripcion());
 					cst.setString(5, cuentaEmpresa.getEstado());
 					// Ejecuta el procedimiento almacenado
@@ -271,7 +271,7 @@ public class CuentaEmpresaServiceImpl implements ICuentaEmpresaService{
 					cst.setInt(1, cuentaEmpresa.getCuentaEmpresaId());
 					cst.setInt(1, cuentaEmpresa.getEmpresaId());
 					cst.setInt(2, cuentaEmpresa.getRubroId());
-					cst.setFloat(3, cuentaEmpresa.getCuentaCodigo());
+					cst.setInt(3, cuentaEmpresa.getCuentaCodigo());
 					cst.setString(4, cuentaEmpresa.getCuentaDescripcion());
 					cst.setString(5, cuentaEmpresa.getEstado());
 					// Ejecuta el procedimiento almacenado
