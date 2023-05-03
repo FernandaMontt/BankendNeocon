@@ -14,7 +14,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.forum.project.model.CuentaEmpresa;
+import com.forum.project.model.Rubro;
 import com.forum.project.response.CuentaEmpresaResponseRest;
+import com.forum.project.response.RubroResponseRest;
 
 @Service
 public class CuentaEmpresaServiceImpl implements ICuentaEmpresaService{

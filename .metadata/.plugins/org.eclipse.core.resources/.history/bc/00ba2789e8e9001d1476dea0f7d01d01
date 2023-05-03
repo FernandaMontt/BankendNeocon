@@ -14,7 +14,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.forum.project.model.CuentaEmpresa;
+import com.forum.project.model.Rubro;
 import com.forum.project.response.CuentaEmpresaResponseRest;
+import com.forum.project.response.RubroResponseRest;
 
 @Service
 public class CuentaEmpresaServiceImpl implements ICuentaEmpresaService{
@@ -212,46 +214,7 @@ public class CuentaEmpresaServiceImpl implements ICuentaEmpresaService{
 	@Transactional
 	public ResponseEntity<CuentaEmpresaResponseRest> saveCuentaEmpresa(CuentaEmpresa cuentaEmpresa) {
 		// TODO Auto-generated method stub
-		CuentaEmpresaResponseRest response = new CuentaEmpresaResponseRest();
-		List<CuentaEmpresa> cuentaEmpresas = new ArrayList<CuentaEmpresa>();
-				
-			try {
-					cn = DriverManager.getConnection(connectionUrl);
-					// Llamada al procedimiento almacenado
-					CallableStatement cst = cn.prepareCall("{CALL SP_CREATE_CUENTA_EMPRESA(?,?,?,?,?) }");
-					//Obtener Id
-					cst.setInt(1, cuentaEmpresa.getEmpresaId());
-					cst.setInt(2, cuentaEmpresa.getRubroId());
-					cst.setFloat(3, cuentaEmpresa.getCuentaCodigo());
-					cst.setString(4, cuentaEmpresa.getCuentaDescripcion());
-					cst.setString(5, cuentaEmpresa.getEstado());
-					// Ejecuta el procedimiento almacenado
-					rs = cst.executeQuery();
-					while(rs.next()) {
-						// Se obtienen la salida del procedimineto almacenado
-						CuentaEmpresa cuentaEmpresass = new CuentaEmpresa();
-						cuentaEmpresass.setCuentaEmpresaId(rs.getInt("ID_CUENTA_EMPRESA"));
-						cuentaEmpresass.setEmpresaId(rs.getInt("EMPRESA_ID"));
-						cuentaEmpresass.setRubroId(rs.getInt("RUBRO_ID"));
-						cuentaEmpresass.setCuentaCodigo(rs.getInt("CUENTA_CODIGO"));
-						cuentaEmpresass.setCuentaDescripcion(rs.getString("CUENTA_DESCRIPCION"));
-						cuentaEmpresass.setCuentaTipo(rs.getString("CUENTA_TIPO"));
-						cuentaEmpresass.setEstado(rs.getString("ESTADO"));
-		            	cuentaEmpresas.add(cuentaEmpresass);
-					}
-					response.getCuentaEmpresaResponse().setCuentaEmpresa(cuentaEmpresas);
-				} catch (SQLException e) {
-					e.getStackTrace();
-					return new ResponseEntity<CuentaEmpresaResponseRest>(response, HttpStatus.INTERNAL_SERVER_ERROR);
-				} finally{
-					try {
-						cn.close();
-					} catch (SQLException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				}	
-				return new ResponseEntity<CuentaEmpresaResponseRest>(response, HttpStatus.OK);
+		return null;
 	}
 
 
@@ -260,47 +223,7 @@ public class CuentaEmpresaServiceImpl implements ICuentaEmpresaService{
 	@Transactional
 	public ResponseEntity<CuentaEmpresaResponseRest> updateCuentaEmpresa(CuentaEmpresa cuentaEmpresa) {
 		// TODO Auto-generated method stub
-		CuentaEmpresaResponseRest response = new CuentaEmpresaResponseRest();
-		List<CuentaEmpresa> cuentaEmpresas = new ArrayList<CuentaEmpresa>();
-				
-			try {
-					cn = DriverManager.getConnection(connectionUrl);
-					// Llamada al procedimiento almacenado
-					CallableStatement cst = cn.prepareCall("{CALL SP_UPDATE_CUENTA_EMPRESA(?,?,?,?,?) }");
-					//Obtener Id
-					cst.setInt(1, cuentaEmpresa.getCuentaEmpresaId());
-					cst.setInt(1, cuentaEmpresa.getEmpresaId());
-					cst.setInt(2, cuentaEmpresa.getRubroId());
-					cst.setFloat(3, cuentaEmpresa.getCuentaCodigo());
-					cst.setString(4, cuentaEmpresa.getCuentaDescripcion());
-					cst.setString(5, cuentaEmpresa.getEstado());
-					// Ejecuta el procedimiento almacenado
-					rs = cst.executeQuery();
-					while(rs.next()) {
-						// Se obtienen la salida del procedimineto almacenado
-						CuentaEmpresa cuentaEmpresass = new CuentaEmpresa();
-						cuentaEmpresass.setCuentaEmpresaId(rs.getInt("ID_CUENTA_EMPRESA"));
-						cuentaEmpresass.setEmpresaId(rs.getInt("EMPRESA_ID"));
-						cuentaEmpresass.setRubroId(rs.getInt("RUBRO_ID"));
-						cuentaEmpresass.setCuentaCodigo(rs.getInt("CUENTA_CODIGO"));
-						cuentaEmpresass.setCuentaDescripcion(rs.getString("CUENTA_DESCRIPCION"));
-						cuentaEmpresass.setCuentaTipo(rs.getString("CUENTA_TIPO"));
-						cuentaEmpresass.setEstado(rs.getString("ESTADO"));
-		            	cuentaEmpresas.add(cuentaEmpresass);
-					}
-					response.getCuentaEmpresaResponse().setCuentaEmpresa(cuentaEmpresas);
-			} catch (SQLException e) {
-				e.getStackTrace();
-				return new ResponseEntity<CuentaEmpresaResponseRest>(response, HttpStatus.INTERNAL_SERVER_ERROR);
-			} finally{
-				try {
-					cn.close();
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}	
-			return new ResponseEntity<CuentaEmpresaResponseRest>(response, HttpStatus.OK);
+		return null;
 	}
 
 }
