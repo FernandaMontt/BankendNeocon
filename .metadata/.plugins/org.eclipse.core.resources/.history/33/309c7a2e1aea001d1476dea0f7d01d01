@@ -51,8 +51,6 @@ public class CuentaEmpresaServiceImpl implements ICuentaEmpresaService{
 	            	cuentaEmpresa.setEmpresaId(rs.getInt("EMPRESA_ID"));
 	            	cuentaEmpresa.setRubroId(rs.getInt("RUBRO_ID"));
 	            	cuentaEmpresa.setCuentaCodigo(rs.getInt("Cuenta"));
-	            	cuentaEmpresa.setRubroCodigo(rs.getString("Rubro"));
-	            	cuentaEmpresa.setRubroDescripcion(rs.getString("Descripcion_Rubro"));
 	            	cuentaEmpresa.setCuentaDescripcion(rs.getString("Descripcion"));
 	            	cuentaEmpresa.setCuentaTipo(rs.getString("TipoCuenta"));
 	            	cuentaEmpresa.setEstado(rs.getString("Estado"));
@@ -146,8 +144,6 @@ public class CuentaEmpresaServiceImpl implements ICuentaEmpresaService{
             	cuentaEmpresa.setEmpresaId(rs.getInt("EMPRESA_ID"));
             	cuentaEmpresa.setRubroId(rs.getInt("RUBRO_ID"));
             	cuentaEmpresa.setCuentaCodigo(rs.getInt("Cuenta"));
-            	cuentaEmpresa.setRubroCodigo(rs.getString("Rubro"));
-            	cuentaEmpresa.setRubroDescripcion(rs.getString("Descripcion_Rubro"));
             	cuentaEmpresa.setCuentaDescripcion(rs.getString("Descripcion"));
             	cuentaEmpresa.setCuentaTipo(rs.getString("TipoCuenta"));
             	cuentaEmpresa.setEstado(rs.getString("Estado"));

@@ -31,10 +31,6 @@ public class CuentaEmpresa implements Serializable{
     private int rubroId;
     @Basic(optional = false)
     
-    private String rubroCodigo;
-
-    private String rubroDescripcion;
-    
     @Column(name = "CUENTA_CODIGO")
     private int cuentaCodigo;
     @Basic(optional = false)
@@ -89,22 +85,6 @@ public class CuentaEmpresa implements Serializable{
 
     public void setRubroId(int rubroId) {
         this.rubroId = rubroId;
-    }
-    
-    public String getRubroCodigo() {
-        return rubroCodigo;
-    }
-
-    public void setRubroCodigo(String rubroCodigo) {
-        this.rubroCodigo = rubroCodigo;
-    }
-
-    public String getRubroDescripcion() {
-        return rubroDescripcion;
-    }
-
-    public void setRubroDescripcion(String rubroDescripcion) {
-        this.rubroDescripcion = rubroDescripcion;
     }
 
     public int getCuentaCodigo() {
