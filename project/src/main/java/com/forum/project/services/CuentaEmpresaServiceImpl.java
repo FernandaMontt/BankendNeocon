@@ -312,4 +312,55 @@ public class CuentaEmpresaServiceImpl implements ICuentaEmpresaService{
 			return new ResponseEntity<CuentaEmpresaResponseRest>(response, HttpStatus.OK);
 	}
 
+
+
+	@Override
+	@Transactional(readOnly=true)
+	public ResponseEntity<CuentaEmpresaResponseRest> findByCuentaCodigo(String Codigo) {
+		CuentaEmpresaResponseRest response = new CuentaEmpresaResponseRest();
+		List<CuentaEmpresa> cuentaEmpresas = new ArrayList<CuentaEmpresa>();
+		
+	try {
+			cn = DriverManager.getConnection(connectionUrl);
+			// Llamada al procedimiento almacenado
+			CallableStatement cst = cn.prepareCall("{CALL SP_GET_SOURCEBYCODIGOCUENTA_EMPRESA(?) }");
+			//Obtener Id
+			cst.setString(1, Codigo.toString());
+			// Ejecuta el procedimiento almacenado
+			rs = cst.executeQuery();
+			while(rs.next()) {
+			// Se obtienen la salida del procedimineto almacenado
+				CuentaEmpresa cuentaEmpresa = new CuentaEmpresa();
+            	cuentaEmpresa.setCuentaEmpresaId(rs.getInt("ID_CUENTA_EMPRESA"));
+            	cuentaEmpresa.setEmpresaId(rs.getInt("EMPRESA_ID"));
+            	cuentaEmpresa.setNombreempresa(rs.getString("Empresa"));
+            	cuentaEmpresa.setRubroId(rs.getInt("RUBRO_ID"));
+            	cuentaEmpresa.setCuentaCodigo(rs.getInt("Cuenta"));
+            	cuentaEmpresa.setRubroCodigo(rs.getString("Rubro"));
+            	cuentaEmpresa.setRubroDescripcion(rs.getString("Descripcion_Rubro"));
+            	cuentaEmpresa.setCuentaDescripcion(rs.getString("Descripcion"));
+            	cuentaEmpresa.setCuentaTipo(rs.getString("TipoCuenta"));
+            	cuentaEmpresa.setEstado(rs.getString("Estado"));
+            	cuentaEmpresas.add(cuentaEmpresa);
+		}
+			response.getCuentaEmpresaResponse().setCuentaEmpresa(cuentaEmpresas);
+			//response.setMetadata("Respuesta ok", "00", "Respuesta exitosa");
+			
+		} catch(Exception e) {
+			
+			//response.setMetadata("Respuesta no ok", "-1", "Error al no consultar");
+			e.getStackTrace();
+			return new ResponseEntity<CuentaEmpresaResponseRest>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+			
+		} finally{
+			try {
+				cn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return new ResponseEntity<CuentaEmpresaResponseRest>(response, HttpStatus.OK);
+	}
+
 }

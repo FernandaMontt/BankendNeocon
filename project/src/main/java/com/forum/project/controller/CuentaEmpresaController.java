@@ -63,4 +63,10 @@ public class CuentaEmpresaController {
 		ResponseEntity<CuentaEmpresaResponseRest> response = service.updateCuentaEmpresa(cuentaEmpresa);
 		return response;
 	}
+	
+	@GetMapping("/cuentaEmpresas/codigo/{codigo}")
+	public ResponseEntity<CuentaEmpresaResponseRest> findByCuentaEmpresaCodigo(@PathVariable String codigo){
+		ResponseEntity<CuentaEmpresaResponseRest> response = service.findByCuentaCodigo(codigo);
+		return response;
+	}
 }

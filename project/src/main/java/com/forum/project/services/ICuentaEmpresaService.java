@@ -13,5 +13,6 @@ public interface ICuentaEmpresaService {
 	public ResponseEntity<CuentaEmpresaResponseRest> updatestateCuentaEmpresa(Integer Id);
 	public ResponseEntity<CuentaEmpresaResponseRest> saveCuentaEmpresa(CuentaEmpresa cuentaEmpresa);
 	public ResponseEntity<CuentaEmpresaResponseRest> updateCuentaEmpresa(CuentaEmpresa cuentaEmpresa);
+	public ResponseEntity<CuentaEmpresaResponseRest> findByCuentaCodigo(String Codigo);
 
 }
