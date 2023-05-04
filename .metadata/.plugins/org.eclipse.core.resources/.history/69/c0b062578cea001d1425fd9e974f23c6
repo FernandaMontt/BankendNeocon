@@ -49,7 +49,6 @@ public class CuentaEmpresaServiceImpl implements ICuentaEmpresaService{
 	            	CuentaEmpresa cuentaEmpresa = new CuentaEmpresa();
 	            	cuentaEmpresa.setCuentaEmpresaId(rs.getInt("ID_CUENTA_EMPRESA"));
 	            	cuentaEmpresa.setEmpresaId(rs.getInt("EMPRESA_ID"));
-	            	cuentaEmpresa.setNombreempresa(rs.getString("Empresa"));
 	            	cuentaEmpresa.setRubroId(rs.getInt("RUBRO_ID"));
 	            	cuentaEmpresa.setCuentaCodigo(rs.getInt("Cuenta"));
 	            	cuentaEmpresa.setRubroCodigo(rs.getString("Rubro"));
@@ -101,7 +100,6 @@ public class CuentaEmpresaServiceImpl implements ICuentaEmpresaService{
 				CuentaEmpresa cuentaEmpresa = new CuentaEmpresa();
             	cuentaEmpresa.setCuentaEmpresaId(rs.getInt("ID_CUENTA_EMPRESA"));
             	cuentaEmpresa.setEmpresaId(rs.getInt("EMPRESA_ID"));
-            	cuentaEmpresa.setNombreempresa(rs.getString("Empresa"));
             	cuentaEmpresa.setRubroId(rs.getInt("RUBRO_ID"));
             	cuentaEmpresa.setCuentaCodigo(rs.getInt("Cuenta"));
             	cuentaEmpresa.setRubroCodigo(rs.getString("Rubro"));
@@ -146,7 +144,6 @@ public class CuentaEmpresaServiceImpl implements ICuentaEmpresaService{
 				CuentaEmpresa cuentaEmpresa = new CuentaEmpresa();
             	cuentaEmpresa.setCuentaEmpresaId(rs.getInt("ID_CUENTA_EMPRESA"));
             	cuentaEmpresa.setEmpresaId(rs.getInt("EMPRESA_ID"));
-            	cuentaEmpresa.setNombreempresa(rs.getString("Empresa"));
             	cuentaEmpresa.setRubroId(rs.getInt("RUBRO_ID"));
             	cuentaEmpresa.setCuentaCodigo(rs.getInt("Cuenta"));
             	cuentaEmpresa.setRubroCodigo(rs.getString("Rubro"));

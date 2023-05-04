@@ -26,8 +26,6 @@ public class CuentaEmpresa implements Serializable{
     @Column(name = "EMPRESA_ID")
     private int empresaId;
     @Basic(optional = false)
-    
-    private String nombreempresa;
 
     @Column(name = "RUBRO_ID")
     private int rubroId;
@@ -35,7 +33,7 @@ public class CuentaEmpresa implements Serializable{
     
     private String rubroCodigo;
 
-	private String rubroDescripcion;
+    private String rubroDescripcion;
     
     @Column(name = "CUENTA_CODIGO")
     private int cuentaCodigo;
@@ -84,14 +82,6 @@ public class CuentaEmpresa implements Serializable{
     public void setEmpresaId(int empresaId) {
         this.empresaId = empresaId;
     }
-    
-    public String getNombreempresa() {
-		return nombreempresa;
-	}
-
-	public void setNombreempresa(String nombreempresa) {
-		this.nombreempresa = nombreempresa;
-	}
 
     public int getRubroId() {
         return rubroId;

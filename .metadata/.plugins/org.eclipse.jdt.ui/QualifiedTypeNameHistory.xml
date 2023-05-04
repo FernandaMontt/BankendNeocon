@@ -1,11 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-    <fullyQualifiedTypeName name="java.io.Serializable"/>
-    <fullyQualifiedTypeName name="javax.persistence.Id"/>
-    <fullyQualifiedTypeName name="javax.persistence.Basic"/>
-    <fullyQualifiedTypeName name="javax.persistence.Column"/>
     <fullyQualifiedTypeName name="org.springframework.data.repository.CrudRepository"/>
-    <fullyQualifiedTypeName name="java.util.List"/>
     <fullyQualifiedTypeName name="com.forum.project.dao.IRubroDao"/>
     <fullyQualifiedTypeName name="org.springframework.http.HttpStatus"/>
     <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.CrossOrigin"/>
@@ -18,7 +13,6 @@
     <fullyQualifiedTypeName name="com.forum.project.response.RubroResponseRest"/>
     <fullyQualifiedTypeName name="lombok.Setter"/>
     <fullyQualifiedTypeName name="lombok.Getter"/>
-    <fullyQualifiedTypeName name="lombok.Data"/>
     <fullyQualifiedTypeName name="javax.persistence.Entity"/>
     <fullyQualifiedTypeName name="javax.persistence.Table"/>
     <fullyQualifiedTypeName name="org.springframework.stereotype.Service"/>
@@ -49,4 +43,19 @@
     <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.PostMapping"/>
     <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.RequestBody"/>
     <fullyQualifiedTypeName name="com.forum.project.model.Rubro"/>
+    <fullyQualifiedTypeName name="java.io.Serializable"/>
+    <fullyQualifiedTypeName name="javax.persistence.Id"/>
+    <fullyQualifiedTypeName name="javax.persistence.Basic"/>
+    <fullyQualifiedTypeName name="javax.persistence.Column"/>
+    <fullyQualifiedTypeName name="java.util.List"/>
+    <fullyQualifiedTypeName name="lombok.Data"/>
+    <fullyQualifiedTypeName name="com.forum.project.response.CuentaEmpresaResponseRest"/>
+    <fullyQualifiedTypeName name="com.forum.project.services.ICuentaEmpresaService"/>
+    <fullyQualifiedTypeName name="com.forum.project.model.Empresa"/>
+    <fullyQualifiedTypeName name="com.forum.project.model.PlanCuentas"/>
+    <fullyQualifiedTypeName name="com.forum.project.response.EmpresaResponseRest"/>
+    <fullyQualifiedTypeName name="com.forum.project.services.IEmpresaService"/>
+    <fullyQualifiedTypeName name="com.forum.project.response.PlanCuentasResponseRest"/>
+    <fullyQualifiedTypeName name="com.forum.project.services.IPlanCuentasService"/>
+    <fullyQualifiedTypeName name="com.forum.project.model.CuentaEmpresa"/>
 </qualifiedTypeNameHistroy>
