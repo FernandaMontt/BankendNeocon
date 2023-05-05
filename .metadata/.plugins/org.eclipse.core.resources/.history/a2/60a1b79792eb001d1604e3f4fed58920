@@ -275,7 +275,7 @@ public class CuentaEmpresaServiceImpl implements ICuentaEmpresaService{
 			try {
 					cn = DriverManager.getConnection(connectionUrl);
 					// Llamada al procedimiento almacenado
-					CallableStatement cst = cn.prepareCall("{CALL SP_UPDATE_CUENTA_EMPRESA(?,?,?,?,?,?) }");
+					CallableStatement cst = cn.prepareCall("{CALL SP_UPDATE_CUENTA_EMPRESA(?,?,?,?,?) }");
 					//Obtener Id
 					cst.setInt(1, cuentaEmpresa.getCuentaEmpresaId());
 					cst.setInt(2, cuentaEmpresa.getEmpresaId());
