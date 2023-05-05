@@ -13,6 +13,5 @@ public interface IRubroService {
 	public ResponseEntity<RubroResponseRest> findByRubroCodigo(String Codigo);
 	public ResponseEntity<RubroResponseRest> saveRubros(Rubro rubro);
 	public ResponseEntity<RubroResponseRest> updateRubros(Rubro rubro);
-	public ResponseEntity<RubroResponseRest> findAllActivos();
 	
 }

@@ -64,10 +64,4 @@ public class RubroRestController {
 		ResponseEntity<RubroResponseRest> response = service.updateRubros(rubro);
 		return response;
 	}
-	
-	@GetMapping("/rubros/activos")
-	public ResponseEntity<RubroResponseRest> findAllRubrosActivos(){
-		ResponseEntity<RubroResponseRest> response = service.findAllActivos();
-		return response;
-	}
 }

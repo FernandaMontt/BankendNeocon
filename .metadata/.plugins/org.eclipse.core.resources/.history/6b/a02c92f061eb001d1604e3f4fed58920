@@ -287,7 +287,7 @@ public class RubroServiceImpl implements IRubroService{
 	try {
 			cn = DriverManager.getConnection(connectionUrl);
 			// Llamada al procedimiento almacenado
-			CallableStatement cst = cn.prepareCall("{CALL SP_ALL_RUBROSACTIVOS }");
+			CallableStatement cst = cn.prepareCall("{CALL SP_ALL_RUBROS }");
             // Ejecuta el procedimiento almacenado
             rs = cst.executeQuery();
             while(rs.next()) {
