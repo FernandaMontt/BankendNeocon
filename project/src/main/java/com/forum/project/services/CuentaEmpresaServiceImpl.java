@@ -278,11 +278,11 @@ public class CuentaEmpresaServiceImpl implements ICuentaEmpresaService{
 					CallableStatement cst = cn.prepareCall("{CALL SP_UPDATE_CUENTA_EMPRESA(?,?,?,?,?) }");
 					//Obtener Id
 					cst.setInt(1, cuentaEmpresa.getCuentaEmpresaId());
-					cst.setInt(1, cuentaEmpresa.getEmpresaId());
-					cst.setInt(2, cuentaEmpresa.getRubroId());
-					cst.setInt(3, cuentaEmpresa.getCuentaCodigo());
-					cst.setString(4, cuentaEmpresa.getCuentaDescripcion());
-					cst.setString(5, cuentaEmpresa.getEstado());
+					cst.setInt(2, cuentaEmpresa.getEmpresaId());
+					cst.setInt(3, cuentaEmpresa.getRubroId());
+					cst.setInt(4, cuentaEmpresa.getCuentaCodigo());
+					cst.setString(5, cuentaEmpresa.getCuentaDescripcion());
+					cst.setString(6, cuentaEmpresa.getEstado());
 					// Ejecuta el procedimiento almacenado
 					rs = cst.executeQuery();
 					while(rs.next()) {
