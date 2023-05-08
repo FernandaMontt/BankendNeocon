@@ -87,7 +87,7 @@ public class BalanceServiceImpl implements IBalanceService{
 	try {
 			cn = DriverManager.getConnection(connectionUrl);
 			// Llamada al procedimiento almacenado
-			CallableStatement cst = cn.prepareCall("{CALL SP_GET_SOURCEBALANCE_BYID(?) }");
+			CallableStatement cst = cn.prepareCall("{CALL SP_GET_SOURCEBYIDCUENTA_EMPRESA(?) }");
 			//Obtener Id
 			cst.setString(1, Id.toString());
 			// Ejecuta el procedimiento almacenado
