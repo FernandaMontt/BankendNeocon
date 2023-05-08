@@ -1,0 +1,124 @@
+package com.forum.project.services;
+
+import java.sql.CallableStatement;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.forum.project.model.Balance;
+import com.forum.project.response.BalanceResponseRest;
+
+@Service
+public class BalanceServiceImpl implements IBalanceService{
+
+	Connection cn;
+	String connectionUrl =
+            "jdbc:sqlserver://localhost:1433;"
+                    + "database=BD_NEOCON;"
+                    + "user=sa;"
+                    + "password=abril.2023;"
+                    + "encrypt=true;"
+                    + "trustServerCertificate=true;"
+                    + "loginTimeout=30;";
+	ResultSet rs;
+	
+	
+	@Override
+	public ResponseEntity<BalanceResponseRest> findAll() {
+
+		BalanceResponseRest response = new BalanceResponseRest();
+		List<Balance> balances = new ArrayList<Balance>();
+		
+	try {
+			cn = DriverManager.getConnection(connectionUrl);
+			// Llamada al procedimiento almacenado
+			CallableStatement cst = cn.prepareCall("{CALL SP_ALL_BALANCE_NOCERO }");
+            // Ejecuta el procedimiento almacenado
+            rs = cst.executeQuery();
+            while(rs.next()) {
+            	// Se obtienen la salida del procedimineto almacenado
+            	Balance balance = new Balance();
+            	balance.setBalanceId(rs.getInt("BALANCE_ID"));
+            	balance.setCuentaempresaId(rs.getInt("ID_CUENTA_EMPRESA"));
+            	balance.setCuentaCodigo(rs.getInt("Cuenta"));
+            	balance.setCuentaDescripcion(rs.getString("DescripcionCuenta"));
+            	balance.setEmpresaId(rs.getInt("EMPRESA_ID"));
+            	balance.setNombreempresa(rs.getString("Acronico"));
+            	balance.setRubroId(rs.getInt("RUBRO_ID"));
+            	balance.setRubroCodigo(rs.getString("CodigoRubro"));
+            	balance.setRubroDescripcion(rs.getString("DescripcionRubro"));
+            	balances.add(balance);
+         }
+			response.getBalanceResponse().setBalance(balances);
+			//response.setMetadata("Respuesta ok", "00", "Respuesta exitosa");
+			
+		} catch(Exception e) {
+			
+			//response.setMetadata("Respuesta no ok", "-1", "Error al no consultar");
+			e.getStackTrace();
+			return new ResponseEntity<BalanceResponseRest>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+			
+		} finally{
+			try {
+				cn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return new ResponseEntity<BalanceResponseRest>(response, HttpStatus.OK);
+	}
+
+	@Override
+	@Transactional(readOnly=true)
+	public ResponseEntity<BalanceResponseRest> findByBalanceId(Integer Id) {
+
+		BalanceResponseRest response = new BalanceResponseRest();
+		List<Balance> balances = new ArrayList<Balance>();
+		
+	try {
+			cn = DriverManager.getConnection(connectionUrl);
+			// Llamada al procedimiento almacenado
+			CallableStatement cst = cn.prepareCall("{CALL SP_GET_SOURCEBYIDCUENTA_EMPRESA(?) }");
+			//Obtener Id
+			cst.setString(1, Id.toString());
+			// Ejecuta el procedimiento almacenado
+			rs = cst.executeQuery();
+			while(rs.next()) {
+			// Se obtienen la salida del procedimineto almacenado
+				Balance balance = new Balance();
+            	balance.setBalanceId(rs.getInt("BALANCE_ID"));
+            	balance.setCuentaempresaId(rs.getInt("ID_CUENTA_EMPRESA"));
+            	balance.setCuentaCodigo(rs.getInt("Cuenta"));
+            	balance.setCuentaDescripcion(rs.getString("DescripcionCuenta"));
+            	balance.setEmpresaId(rs.getInt("EMPRESA_ID"));
+            	balance.setNombreempresa(rs.getString("Acronico"));
+            	balance.setRubroId(rs.getInt("RUBRO_ID"));
+            	balance.setRubroCodigo(rs.getString("CodigoRubro"));
+            	balance.setRubroDescripcion(rs.getString("DescripcionRubro"));
+            	balances.add(balance);
+		}
+			response.getBalanceResponse().setBalance(balances);
+		} catch (SQLException e) {
+			e.getStackTrace();
+			return new ResponseEntity<BalanceResponseRest>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+		} finally{
+			try {
+				cn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}	
+		return new ResponseEntity<BalanceResponseRest>(response, HttpStatus.OK);
+	}
+
+}
