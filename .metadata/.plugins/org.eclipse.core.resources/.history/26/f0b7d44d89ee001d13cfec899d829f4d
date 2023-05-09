@@ -42,7 +42,9 @@ public class Balance implements Serializable{
     
     @Column(name = "SALDO")
     private int saldo;
+    @Basic(optional = false)
     
+    private String codRubro;
     
     public Balance() {
     }
@@ -51,7 +53,8 @@ public class Balance implements Serializable{
         this.balanceTempId = balanceTempId;
     }
 
-	public Balance(Integer balanceTempId, int periodo, String acronimo, int cuentaCodigo, String descripcion, int saldo) {
+	public Balance(Integer balanceTempId, int periodo, String acronimo, int cuentaCodigo, String descripcion, int saldo,
+			String codRubro) {
 		super();
 		this.balanceTempId = balanceTempId;
 		this.periodo = periodo;
@@ -59,6 +62,7 @@ public class Balance implements Serializable{
 		this.cuentaCodigo = cuentaCodigo;
 		this.descripcion = descripcion;
 		this.saldo = saldo;
+		this.codRubro = codRubro;
 	}
 	
 	
@@ -109,6 +113,14 @@ public class Balance implements Serializable{
 
 	public void setSaldo(int saldo) {
 		this.saldo = saldo;
+	}
+
+	public String getCodRubro() {
+		return codRubro;
+	}
+
+	public void setCodRubro(String codRubro) {
+		this.codRubro = codRubro;
 	}
 
 	@Override

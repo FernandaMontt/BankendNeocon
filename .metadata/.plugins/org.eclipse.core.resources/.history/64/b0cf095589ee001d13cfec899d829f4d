@@ -40,13 +40,14 @@ public class BalanceServiceImpl implements IBalanceService{
 					try {
 							cn = DriverManager.getConnection(connectionUrl);
 							// Llamada al procedimiento almacenado
-							CallableStatement cst = cn.prepareCall("{CALL SP_INSERT_BALANCE_CSV(?,?,?,?,?) }");
+							CallableStatement cst = cn.prepareCall("{CALL SP_INSERT_BALANCE_CSV(?,?,?,?,?,?) }");
 							//Obtener Id
 							cst.setInt(1, balance.getPeriodo());
 							cst.setString(2, balance.getAcronimo());
 							cst.setInt(3, balance.getCuentaCodigo());
 							cst.setString(4, balance.getDescripcion());
 							cst.setInt(5, balance.getSaldo());
+							cst.setString(6, balance.getCodRubro());
 							// Ejecuta el procedimiento almacenado
 							rs = cst.executeQuery();
 							while(rs.next()) {
