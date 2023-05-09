@@ -46,7 +46,7 @@ public class BalanceServiceImpl implements IBalanceService{
 							cst.setString(2, balance.getAcronimo());
 							cst.setInt(3, balance.getCuentaCodigo());
 							cst.setString(4, balance.getDescripcion());
-							cst.setInt(5, balance.getSaldo());
+							cst.setFloat(5, balance.getSaldo());
 							// Ejecuta el procedimiento almacenado
 							rs = cst.executeQuery();
 							while(rs.next()) {
@@ -57,7 +57,7 @@ public class BalanceServiceImpl implements IBalanceService{
 								balancess.setAcronimo(rs.getString("ACRONIMO"));
 								balancess.setCuentaCodigo(rs.getInt("CUENTA_CODIGO"));
 								balancess.setDescripcion(rs.getString("DESCRIPCION"));
-								balancess.setSaldo(rs.getInt("SALDO"));
+								balancess.setSaldo(rs.getFloat("SALDO"));
 								balances.add(balancess);
 							}
 							response.getBalanceResponse().setBalance(balances);
