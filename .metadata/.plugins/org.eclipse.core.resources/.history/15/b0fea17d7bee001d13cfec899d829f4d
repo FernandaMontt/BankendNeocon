@@ -1,6 +1,7 @@
 package com.forum.project.model;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -44,7 +45,7 @@ public class Balance implements Serializable{
     private int saldo;
     @Basic(optional = false)
     
-    private String codRubro;
+    private int codRubro;
     
     public Balance() {
     }
@@ -52,77 +53,11 @@ public class Balance implements Serializable{
     public Balance(Integer balanceTempId) {
         this.balanceTempId = balanceTempId;
     }
+    
+    
 
-	public Balance(Integer balanceTempId, int periodo, String acronimo, int cuentaCodigo, String descripcion, int saldo,
-			String codRubro) {
-		super();
-		this.balanceTempId = balanceTempId;
-		this.periodo = periodo;
-		this.acronimo = acronimo;
-		this.cuentaCodigo = cuentaCodigo;
-		this.descripcion = descripcion;
-		this.saldo = saldo;
-		this.codRubro = codRubro;
-	}
 	
-	
-
-	public Integer getBalanceTempId() {
-		return balanceTempId;
-	}
-
-	public void setBalanceTempId(Integer balanceTempId) {
-		this.balanceTempId = balanceTempId;
-	}
-
-	public int getPeriodo() {
-		return periodo;
-	}
-
-	public void setPeriodo(int periodo) {
-		this.periodo = periodo;
-	}
-
-	public String getAcronimo() {
-		return acronimo;
-	}
-
-	public void setAcronimo(String acronimo) {
-		this.acronimo = acronimo;
-	}
-
-	public int getCuentaCodigo() {
-		return cuentaCodigo;
-	}
-
-	public void setCuentaCodigo(int cuentaCodigo) {
-		this.cuentaCodigo = cuentaCodigo;
-	}
-
-	public String getDescripcion() {
-		return descripcion;
-	}
-
-	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
-	}
-
-	public int getSaldo() {
-		return saldo;
-	}
-
-	public void setSaldo(int saldo) {
-		this.saldo = saldo;
-	}
-
-	public String getCodRubro() {
-		return codRubro;
-	}
-
-	public void setCodRubro(String codRubro) {
-		this.codRubro = codRubro;
-	}
-
+    
 	@Override
     public int hashCode() {
         int hash = 0;

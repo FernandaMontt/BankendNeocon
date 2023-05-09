@@ -3,12 +3,11 @@ package com.forum.project.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.forum.project.model.Balance;
 import com.forum.project.response.BalanceResponseRest;
 import com.forum.project.services.BalanceServiceImpl;
 
@@ -24,9 +23,15 @@ public class BalanceController {
 	 * get all balance
 	 * @return
 	 */
-	@PostMapping("/balance")
-	public ResponseEntity<BalanceResponseRest> saveBalance(@RequestBody Balance balance){
-		ResponseEntity<BalanceResponseRest> response = service.saveBalance(balance);
+	@GetMapping("/balance")
+	public ResponseEntity<BalanceResponseRest> findAllBalance(){
+		ResponseEntity<BalanceResponseRest> response = service.findAll();
+		return response;
+	}
+	
+	@GetMapping("/balance/{id}")
+	public ResponseEntity<BalanceResponseRest> findByBalanceId(@PathVariable Integer id){
+		ResponseEntity<BalanceResponseRest> response = service.findByBalanceId(id);
 		return response;
 	}
 	
