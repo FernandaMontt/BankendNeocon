@@ -13,7 +13,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import cl.forum.neoconportal.model.InterGroupHeader;
-import cl.forum.neoconportal.response.BalanceResponseRest;
 import cl.forum.neoconportal.response.InterGroupResponseRest;
 
 @Service
