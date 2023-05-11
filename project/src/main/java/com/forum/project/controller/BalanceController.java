@@ -3,10 +3,13 @@ package com.forum.project.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.forum.project.model.Balance;
 import com.forum.project.response.BalanceResponseRest;
@@ -24,6 +27,20 @@ public class BalanceController {
 	 * get all balance
 	 * @return
 	 */
+	@GetMapping("/balance")
+	public ResponseEntity<BalanceResponseRest> findAllCuentaEmpresa(){
+		ResponseEntity<BalanceResponseRest> response = service.findAll();
+		return response;
+	}
+	
+	@PostMapping("/uploadbalance")
+	public ResponseEntity<BalanceResponseRest> uploadFile(@RequestParam("file") MultipartFile file,
+											 @RequestParam("periodo") Integer periodo,
+											 @RequestParam("acronimo") String acronimo) {
+	  ResponseEntity<BalanceResponseRest> response = service.uploadFile(file, periodo, acronimo);
+	  return response;
+	}
+	
 	@PostMapping("/balance")
 	public ResponseEntity<BalanceResponseRest> saveBalance(@RequestBody Balance balance){
 		ResponseEntity<BalanceResponseRest> response = service.saveBalance(balance);

@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.forum.project.model.Balance;
 import com.forum.project.response.BalanceResponseRest;
@@ -74,6 +75,109 @@ public class BalanceServiceImpl implements IBalanceService{
 						}	
 						return new ResponseEntity<BalanceResponseRest>(response, HttpStatus.OK);
 	}
+
+	@Override
+	public ResponseEntity<BalanceResponseRest> findAll() {
+		BalanceResponseRest response = new BalanceResponseRest();
+		List<Balance> balances = new ArrayList<Balance>();
+		
+	try {
+			cn = DriverManager.getConnection(connectionUrl);
+			// Llamada al procedimiento almacenado
+			CallableStatement cst = cn.prepareCall("{CALL SP_ALL_BALANCE_TEMP }");
+            // Ejecuta el procedimiento almacenado
+            rs = cst.executeQuery();
+            while(rs.next()) {
+            	// Se obtienen la salida del procedimineto almacenado
+            	Balance balancess = new Balance();
+				balancess.setPeriodo(rs.getInt("PERIODO"));
+				balancess.setAcronimo(rs.getString("ACRONIMO"));
+				balancess.setCuentaCodigo(rs.getInt("CUENTA_CODIGO"));
+				balancess.setDescripcion(rs.getString("DESCRIPCION"));
+				balancess.setSaldo(rs.getFloat("SALDO"));
+				balances.add(balancess);
+         }
+            response.getBalanceResponse().setBalance(balances);
+			//response.setMetadata("Respuesta ok", "00", "Respuesta exitosa");
+			
+		} catch(Exception e) {
+			
+			//response.setMetadata("Respuesta no ok", "-1", "Error al no consultar");
+			e.getStackTrace();
+			return new ResponseEntity<BalanceResponseRest>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+			
+		} finally{
+			try {
+				cn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return new ResponseEntity<BalanceResponseRest>(response, HttpStatus.OK);
+	}
+
+	@Override
+	public ResponseEntity<BalanceResponseRest> uploadFile(MultipartFile file, Integer periodo, String acronimo) {
+		
+		BalanceResponseRest response = new BalanceResponseRest();
+		List<Balance> balances = new ArrayList<Balance>();
+
+		try {
+	        // Leer y procesar el contenido del archivo
+	        String fileContent = new String(file.getBytes());
+	        String[] rows = fileContent.split("\n");
+	        //String[] headers = rows[0].split(",");
+	        cn = DriverManager.getConnection(connectionUrl);
+			// Llamada al procedimiento almacenado
+			CallableStatement cst = cn.prepareCall("{CALL SP_INSERT_BALANCE_CSV(?,?,?,?,?) }");
+
+	        for (int i = 1; i < rows.length; i++) {
+	        	String[] row = rows[i].split(";");
+	        	String valor = row[2];
+	        	valor = valor.replace(",", ".");
+				cst.setInt(1, periodo);
+				cst.setString(2, acronimo);
+				cst.setInt(3, Integer.parseInt(row[0]));
+				cst.setString(4, row[1]);
+				cst.setFloat(5, Float.parseFloat(valor));
+				rs = cst.executeQuery();	        
+	        }
+	        //empieza nuevo procedimiento que pone las fecha inicial y fecha fin
+	        CallableStatement cst2 = cn.prepareCall("{CALL SP_INSERT_BALANCE_FECHAS(?,?) }");
+	        cst2.setInt(1, periodo);
+			cst2.setString(2, acronimo);
+			rs = cst2.executeQuery();
+	        while(rs.next()) {
+            	// Se obtienen la salida del procedimineto almacenado
+				Balance balancess = new Balance();
+				balancess.setPeriodo(rs.getInt("PERIODO"));
+				balancess.setAcronimo(rs.getString("ACRONIMO"));
+				balancess.setCuentaCodigo(rs.getInt("CUENTA_CODIGO"));
+				balancess.setDescripcion(rs.getString("DESCRIPCION"));
+				balancess.setSaldo(rs.getFloat("SALDO"));
+				balances.add(balancess);
+			}
+
+	        response.getBalanceResponse().setBalance(balances);
+
+		} catch(Exception e) {
+			
+			//response.setMetadata("Respuesta no ok", "-1", "Error al no consultar");
+			e.getStackTrace();
+			return new ResponseEntity<BalanceResponseRest>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+			
+		} finally{
+			try {
+				cn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return new ResponseEntity<BalanceResponseRest>(response, HttpStatus.OK);
+	}
+
 	
 	
 	
