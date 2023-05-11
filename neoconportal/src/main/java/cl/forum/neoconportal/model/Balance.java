@@ -1,0 +1,145 @@
+package cl.forum.neoconportal.model;
+
+import java.io.Serializable;
+
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+import lombok.Data;
+
+@Data
+@Entity
+@Table(name="BALANCE_TEMP")
+public class Balance implements Serializable{
+	
+	private static final long serialVersionUID = 1L;
+	
+	@Id
+    @Basic(optional = false)
+
+    @Column(name = "BALANCETEMP_ID")
+    private Integer balanceTempId;
+    @Basic(optional = false)
+    
+    @Column(name = "PERIODO")
+    private int periodo;
+    @Basic(optional = false)
+    
+    @Column(name = "ACRONIMO")
+    private String acronimo;
+    @Basic(optional = false)
+    
+    @Column(name = "CUENTA_CODIGO")
+    private int cuentaCodigo;
+    @Basic(optional = false)
+    
+    @Column(name = "DESCRIPCION")
+    private String descripcion;
+    @Basic(optional = false)
+    
+    @Column(name = "SALDO")
+    private float saldo;
+    
+    
+    public Balance() {
+    }
+
+    public Balance(Integer balanceTempId) {
+        this.balanceTempId = balanceTempId;
+    }
+
+	public Balance(Integer balanceTempId, int periodo, String acronimo, int cuentaCodigo, String descripcion, float saldo) {
+		super();
+		this.balanceTempId = balanceTempId;
+		this.periodo = periodo;
+		this.acronimo = acronimo;
+		this.cuentaCodigo = cuentaCodigo;
+		this.descripcion = descripcion;
+		this.saldo = saldo;
+	}
+	
+	
+
+	public Integer getBalanceTempId() {
+		return balanceTempId;
+	}
+
+	public void setBalanceTempId(Integer balanceTempId) {
+		this.balanceTempId = balanceTempId;
+	}
+
+	public int getPeriodo() {
+		return periodo;
+	}
+
+	public void setPeriodo(int periodo) {
+		this.periodo = periodo;
+	}
+
+	public String getAcronimo() {
+		return acronimo;
+	}
+
+	public void setAcronimo(String acronimo) {
+		this.acronimo = acronimo;
+	}
+
+	public int getCuentaCodigo() {
+		return cuentaCodigo;
+	}
+
+	public void setCuentaCodigo(int cuentaCodigo) {
+		this.cuentaCodigo = cuentaCodigo;
+	}
+
+	public String getDescripcion() {
+		return descripcion;
+	}
+
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
+	}
+
+	public float getSaldo() {
+		return saldo;
+	}
+
+	public void setSaldo(float saldo) {
+		this.saldo = saldo;
+	}
+
+	@Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (balanceTempId != null ? balanceTempId.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Balance)) {
+            return false;
+        }
+        Balance other = (Balance) object;
+        if ((this.balanceTempId == null && other.balanceTempId != null) || (this.balanceTempId != null && !this.balanceTempId.equals(other.balanceTempId))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "entity.Balance[ balanceTempId=" + balanceTempId + " ]";
+    }
+
+    
+
+
+    
+    
+
+}
