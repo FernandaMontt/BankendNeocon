@@ -5,6 +5,7 @@ import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.Table;
 
 import lombok.Data;
@@ -16,12 +17,22 @@ public class InterGroupDetalle implements Serializable{
 
 	private static final long serialVersionUID = 1L;
     
+	@Id
+    @Basic(optional = false)
     @Column(name = "NUMERO_IG")
     private int numeroIg;
     @Basic(optional = false)
     
     @Column(name = "EMPRESA")
     private String empresa;
+    @Basic(optional = false)
+    
+    @Column(name = "CUENTA_CODIGO")
+    private int cuentaCodigo;
+    @Basic(optional = false)
+   
+    @Column(name = "CUENTA_DESCRIPCION")
+    private String cuentaDescripcion;
     @Basic(optional = false)
     
     private String descripcionIg;
@@ -33,13 +44,6 @@ public class InterGroupDetalle implements Serializable{
     private int rubro1;
     
     private int rubro2;
-    
-    @Column(name = "CUENTA_CODIGO")
-    private int cuentaCodigo;
-    @Basic(optional = false)
-   
-    @Column(name = "CUENTA_DESCRIPCION")
-    private String cuentaDescripcion;
     
     public InterGroupDetalle() {
     }
