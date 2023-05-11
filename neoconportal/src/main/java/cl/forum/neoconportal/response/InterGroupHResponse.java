@@ -3,7 +3,8 @@ package cl.forum.neoconportal.response;
 import java.util.List;
 
 import cl.forum.neoconportal.model.InterGroupHeader;
-
+import lombok.Data;
+@Data
 public class InterGroupHResponse {
 	
 	private List<InterGroupHeader> interGroupHeader;

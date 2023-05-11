@@ -1,5 +1,10 @@
 package cl.forum.neoconportal.response;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class InterGroupResponseRest {
 	
 	private InterGroupHResponse interGroupHResponse = new InterGroupHResponse();
