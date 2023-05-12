@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import cl.forum.neoconportal.model.CuentaEmpresa;
@@ -67,6 +68,12 @@ public class CuentaEmpresaController {
 	@GetMapping("/cuentaEmpresas/codigo/{codigo}")
 	public ResponseEntity<CuentaEmpresaResponseRest> findByCuentaEmpresaCodigo(@PathVariable String codigo){
 		ResponseEntity<CuentaEmpresaResponseRest> response = service.findByCuentaCodigo(codigo);
+		return response;
+	}
+	
+	@PostMapping("/cuentaEmpresas/allintergrupo")
+	public ResponseEntity<CuentaEmpresaResponseRest> searchInterCuentaEmpresa(@RequestParam("codigorubro") Integer codigorubro, @RequestParam("acronimo") String acronimo){
+		ResponseEntity<CuentaEmpresaResponseRest> response = service.searchInterCuentaEmpresa(codigorubro, acronimo);
 		return response;
 	}
 }

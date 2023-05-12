@@ -107,4 +107,37 @@ public class InterGroupDetalleServiceImpl implements IInterGroupDetalleService{
 						return new ResponseEntity<InterGroupDetalleResponseRest>(response, HttpStatus.OK);
 	}
 
+	@Override
+	@Transactional
+	public ResponseEntity<InterGroupDetalleResponseRest> deleteIntergrupodetalle(Integer numeroig, String acronimo,
+			int codigocuenta) {
+		// TODO Auto-generated method stub
+		InterGroupDetalleResponseRest response = new InterGroupDetalleResponseRest();
+		List<InterGroupDetalle> InterGroupDetalles = new ArrayList<InterGroupDetalle>();
+						
+					try {
+							cn = DriverManager.getConnection(connectionUrl);
+							// Llamada al procedimiento almacenado
+							CallableStatement cst = cn.prepareCall("{CALL SP_ELIMINAR_CUENTA_INTERGRUPO(?,?,?) }");
+							//Obtener Id
+							cst.setInt(1, numeroig);
+							cst.setString(6, acronimo);
+							cst.setInt(3, codigocuenta);
+							// Ejecuta el procedimiento almacenado
+							rs = cst.executeQuery();
+							
+					} catch (SQLException e) {
+						e.getStackTrace();
+						return new ResponseEntity<InterGroupDetalleResponseRest>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+					} finally{
+						try {
+							cn.close();
+						} catch (SQLException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}	
+					return new ResponseEntity<InterGroupDetalleResponseRest>(response, HttpStatus.OK);
+	}
+
 }

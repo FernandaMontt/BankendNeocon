@@ -12,9 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import cl.forum.neoconportal.model.InterGroupHeader;
-import cl.forum.neoconportal.model.Rubro;
 import cl.forum.neoconportal.response.InterGroupResponseRest;
-import cl.forum.neoconportal.response.RubroResponseRest;
 import cl.forum.neoconportal.services.InterGroupHServiceImpl;
 
 @CrossOrigin(origins = {"http://localhost:4200"})

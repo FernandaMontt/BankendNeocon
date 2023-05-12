@@ -14,9 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import cl.forum.neoconportal.model.InterGroupHeader;
-import cl.forum.neoconportal.model.Rubro;
 import cl.forum.neoconportal.response.InterGroupResponseRest;
-import cl.forum.neoconportal.response.RubroResponseRest;
 
 @Service
 public class InterGroupHServiceImpl implements IInterGroupHService{

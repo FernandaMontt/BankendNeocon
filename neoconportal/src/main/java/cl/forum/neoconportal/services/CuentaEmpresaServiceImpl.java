@@ -363,4 +363,49 @@ public class CuentaEmpresaServiceImpl implements ICuentaEmpresaService{
 		return new ResponseEntity<CuentaEmpresaResponseRest>(response, HttpStatus.OK);
 	}
 
+
+
+	@Override
+	@Transactional(readOnly=true)
+	public ResponseEntity<CuentaEmpresaResponseRest> searchInterCuentaEmpresa(Integer codigorubro, String acronimo) {
+		CuentaEmpresaResponseRest response = new CuentaEmpresaResponseRest();
+		List<CuentaEmpresa> cuentaEmpresas = new ArrayList<CuentaEmpresa>();
+		
+	try {
+			cn = DriverManager.getConnection(connectionUrl);
+			// Llamada al procedimiento almacenado
+			CallableStatement cst = cn.prepareCall("{CALL SP_GET_SOURCEBYRUBRO_EMPRESA_CUENTA_EMPRESA(?,?) }");
+			//Obtener Id
+			cst.setInt(1, codigorubro);
+			cst.setString(2, acronimo);
+			// Ejecuta el procedimiento almacenado
+			rs = cst.executeQuery();
+			while(rs.next()) {
+			// Se obtienen la salida del procedimineto almacenado
+				CuentaEmpresa cuentaEmpresa = new CuentaEmpresa();
+            	cuentaEmpresa.setCuentaEmpresaId(rs.getInt("ID_CUENTA_EMPRESA"));
+            	cuentaEmpresa.setCuentaCodigo(rs.getInt("CUENTA_CODIGO"));
+            	cuentaEmpresa.setCuentaDescripcion(rs.getString("CUENTA_DESCRIPCION"));
+            	cuentaEmpresas.add(cuentaEmpresa);
+		}
+			response.getCuentaEmpresaResponse().setCuentaEmpresa(cuentaEmpresas);
+			//response.setMetadata("Respuesta ok", "00", "Respuesta exitosa");
+			
+		} catch(Exception e) {
+			
+			//response.setMetadata("Respuesta no ok", "-1", "Error al no consultar");
+			e.getStackTrace();
+			return new ResponseEntity<CuentaEmpresaResponseRest>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+			
+		} finally{
+			try {
+				cn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return new ResponseEntity<CuentaEmpresaResponseRest>(response, HttpStatus.OK);
+	}
+
 }
