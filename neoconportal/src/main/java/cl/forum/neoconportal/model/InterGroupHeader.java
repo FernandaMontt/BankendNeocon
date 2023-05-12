@@ -12,7 +12,7 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name="INETERGRUPOHEADER")
+@Table(name="INTERGRUPOHEADER")
 public class InterGroupHeader  implements Serializable{
 
 	
@@ -56,6 +56,9 @@ public class InterGroupHeader  implements Serializable{
     @Column(name = "DESCRIPCIONRUBRO2")
     private String descripcionRubro2;
     
+    @Column(name = "ESTADO")
+    private String estado;
+    
     public InterGroupHeader() {
     }
 
@@ -64,7 +67,7 @@ public class InterGroupHeader  implements Serializable{
     }
 
 	public InterGroupHeader(Integer interGrupoId, int numeroIg, String descripcionIg, String empresa1, int rubro1,
-			String descripcionRubro1, String empresa2, int rubro2, String descripcionRubro2) {
+			String descripcionRubro1, String empresa2, int rubro2, String descripcionRubro2, String estado) {
 		super();
 		this.interGrupoId = interGrupoId;
 		this.numeroIg = numeroIg;
@@ -75,6 +78,7 @@ public class InterGroupHeader  implements Serializable{
 		this.empresa2 = empresa2;
 		this.rubro2 = rubro2;
 		this.descripcionRubro2 = descripcionRubro2;
+		this.estado = estado;
 	}
 
 	public Integer getInterGrupoId() {
@@ -149,6 +153,14 @@ public class InterGroupHeader  implements Serializable{
 		this.descripcionRubro2 = descripcionRubro2;
 	}
     
+	public String getEstado() {
+		return estado;
+	}
+
+	public void setEstado(String estado) {
+		this.estado = estado;
+	}
+
 	@Override
     public int hashCode() {
         int hash = 0;

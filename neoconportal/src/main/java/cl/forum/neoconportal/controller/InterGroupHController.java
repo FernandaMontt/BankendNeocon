@@ -4,10 +4,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import cl.forum.neoconportal.model.InterGroupHeader;
+import cl.forum.neoconportal.model.Rubro;
 import cl.forum.neoconportal.response.InterGroupResponseRest;
+import cl.forum.neoconportal.response.RubroResponseRest;
 import cl.forum.neoconportal.services.InterGroupHServiceImpl;
 
 @CrossOrigin(origins = {"http://localhost:4200"})
@@ -25,6 +30,12 @@ public class InterGroupHController {
 	@GetMapping("/intergrupoheader")
 	public ResponseEntity<InterGroupResponseRest> findAllInterGroupHeader(){
 		ResponseEntity<InterGroupResponseRest> response = service.findAll();
+		return response;
+	}
+	
+	@PostMapping("/intergrupoheader")
+	public ResponseEntity<InterGroupResponseRest> saveRubros(@RequestBody InterGroupHeader interGroupHeader){
+		ResponseEntity<InterGroupResponseRest> response = service.saveInterGruposH(interGroupHeader);
 		return response;
 	}
 

@@ -11,8 +11,11 @@ import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import cl.forum.neoconportal.model.CuentaEmpresa;
 import cl.forum.neoconportal.model.InterGroupDetalle;
+import cl.forum.neoconportal.response.CuentaEmpresaResponseRest;
 import cl.forum.neoconportal.response.InterGroupDetalleResponseRest;
 
 @Service
@@ -70,6 +73,38 @@ public class InterGroupDetalleServiceImpl implements IInterGroupDetalleService{
 				}
 			}	
 			return new ResponseEntity<InterGroupDetalleResponseRest>(response, HttpStatus.OK);
+	}
+
+	@Override
+	@Transactional
+	public ResponseEntity<InterGroupDetalleResponseRest> saveInterGruposD(InterGroupDetalle interGroupDetalle) {
+		// TODO Auto-generated method stub
+		InterGroupDetalleResponseRest response = new InterGroupDetalleResponseRest();
+		List<InterGroupDetalle> InterGroupDetalles = new ArrayList<InterGroupDetalle>();
+						
+					try {
+							cn = DriverManager.getConnection(connectionUrl);
+							// Llamada al procedimiento almacenado
+							CallableStatement cst = cn.prepareCall("{CALL SP_CREATE_INTERGRUPODETALLE(?,?,?) }");
+							//Obtener Id
+							cst.setInt(1, interGroupDetalle.getNumeroIg());
+							cst.setString(2, interGroupDetalle.getEmpresa());
+							cst.setInt(3, interGroupDetalle.getCuentaCodigo());
+							// Ejecuta el procedimiento almacenado
+							rs = cst.executeQuery();
+							
+						} catch (SQLException e) {
+							e.getStackTrace();
+							return new ResponseEntity<InterGroupDetalleResponseRest>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+						} finally{
+							try {
+								cn.close();
+							} catch (SQLException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+						}	
+						return new ResponseEntity<InterGroupDetalleResponseRest>(response, HttpStatus.OK);
 	}
 
 }
