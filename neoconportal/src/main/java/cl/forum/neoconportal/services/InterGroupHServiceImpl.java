@@ -159,5 +159,51 @@ public class InterGroupHServiceImpl implements IInterGroupHService{
 				return new ResponseEntity<InterGroupResponseRest>(response, HttpStatus.OK);
 	}
 
+	@Override
+	@Transactional
+	public ResponseEntity<InterGroupResponseRest> updateInterGruposH(InterGroupHeader interGroupHeader) {
+		// TODO Auto-generated method stub
+				InterGroupResponseRest response = new InterGroupResponseRest();
+				List<InterGroupHeader> interGroupHeaders = new ArrayList<InterGroupHeader>();
+						
+					try {
+							cn = DriverManager.getConnection(connectionUrl);
+							// Llamada al procedimiento almacenado
+							CallableStatement cst = cn.prepareCall("{CALL SP_UPDATE_INTERGRUPO(?,?,?,?,?,?) }");
+							//Obtener Id
+							cst.setInt(1, interGroupHeader.getNumeroIg());
+							cst.setString(2, interGroupHeader.getDescripcionIg());
+							cst.setString(3, interGroupHeader.getEmpresa1());
+							cst.setString(4, interGroupHeader.getEmpresa2());
+							cst.setInt(5, interGroupHeader.getRubro1());
+							cst.setInt(6, interGroupHeader.getRubro2());
+							// Ejecuta el procedimiento almacenado
+							rs = cst.executeQuery();
+							while(rs.next()) {
+								// Se obtienen la salida del procedimineto almacenado
+								InterGroupHeader interGroupHeaderss = new InterGroupHeader();
+				            	interGroupHeaderss.setInterGrupoId(rs.getInt("INTERGRUPO_ID"));
+				            	interGroupHeaderss.setNumeroIg(rs.getInt("NUMERO_IG"));
+				            	interGroupHeaderss.setDescripcionIg(rs.getString("DESCRIPCION_IG"));
+				            	interGroupHeaderss.setEmpresa1(rs.getString("EMPRESA1"));
+				            	interGroupHeaderss.setEmpresa2(rs.getString("EMPRESA2"));
+				            	interGroupHeaderss.setEstado(rs.getString("ESTADO"));
+				            	interGroupHeaders.add(interGroupHeaderss);
+							}
+							response.getInterGroupHResponse().setInterGroupHeader(interGroupHeaders);
+						} catch (SQLException e) {
+							e.getStackTrace();
+							return new ResponseEntity<InterGroupResponseRest>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+						} finally{
+							try {
+								cn.close();
+							} catch (SQLException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+						}	
+						return new ResponseEntity<InterGroupResponseRest>(response, HttpStatus.OK);
+	}
+
 
 }

@@ -10,4 +10,5 @@ public interface IInterGroupHService {
 	public ResponseEntity<InterGroupResponseRest> findAll();
 	public ResponseEntity<InterGroupResponseRest> saveInterGruposH(InterGroupHeader interGroupHeader);
 	public ResponseEntity<InterGroupResponseRest> updatestateIntergrupo(Integer Id);
+	public ResponseEntity<InterGroupResponseRest> updateInterGruposH(InterGroupHeader interGroupHeader);
 }
