@@ -46,7 +46,7 @@ public class InterGroupHController {
 		return response;
 	}
 	
-	@PutMapping("/intergrupoheader")
+	@PutMapping("/intergrupoheader/{id}")
 	public ResponseEntity<InterGroupResponseRest> updateInterGruposH(@RequestBody InterGroupHeader interGroupHeader){
 		ResponseEntity<InterGroupResponseRest> response = service.updateInterGruposH(interGroupHeader);
 		return response;
