@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import cl.forum.neoconportal.model.InterGroupDetalle;
+import cl.forum.neoconportal.response.CuentaEmpresaResponseRest;
 import cl.forum.neoconportal.response.InterGroupDetalleResponseRest;
 import cl.forum.neoconportal.services.IInterGroupDetalleService;
 
@@ -40,6 +41,24 @@ public class InterGroupDetalleController {
 	public ResponseEntity<InterGroupDetalleResponseRest> deleteIntergrupodetalle(@RequestParam("numeroig") Integer numeroig, @RequestParam("acronimo") String acronimo,
 			@RequestParam("codigocuenta") int codigocuenta){
 		ResponseEntity<InterGroupDetalleResponseRest> response = service.deleteIntergrupodetalle(numeroig, acronimo, codigocuenta);
+		return response;
+	}
+	
+	@GetMapping("/intergrupodetalle/id/{id}")
+	public ResponseEntity<InterGroupDetalleResponseRest> findById(@PathVariable Integer id){
+		ResponseEntity<InterGroupDetalleResponseRest> response = service.findById(id);
+		return response;
+	}
+	
+	@PostMapping("/intergrupodetalle/allintergrupo")
+	public ResponseEntity<InterGroupDetalleResponseRest> searchInterCuentaEmpresa(@RequestParam("codigorubro") Integer codigorubro, @RequestParam("acronimo") String acronimo){
+		ResponseEntity<InterGroupDetalleResponseRest> response = service.searchInterCuentaEmpresa(codigorubro, acronimo);
+		return response;
+	}
+	
+	@PostMapping("/intergrupodetalle2/allintergrupo")
+	public ResponseEntity<InterGroupDetalleResponseRest> searchInterCuentaEmpresa2(@RequestParam("codigorubro") Integer codigorubro, @RequestParam("acronimo") String acronimo){
+		ResponseEntity<InterGroupDetalleResponseRest> response = service.searchInterCuentaEmpresa2(codigorubro, acronimo);
 		return response;
 	}
 

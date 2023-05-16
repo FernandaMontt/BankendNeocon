@@ -17,8 +17,14 @@ public class InterGroupDetalle implements Serializable{
 
 	private static final long serialVersionUID = 1L;
     
+
 	@Id
     @Basic(optional = false)
+
+    @Column(name = "INTERGRUPO_ID")
+    private Integer interGrupoId;
+	@Basic(optional = false)
+	
     @Column(name = "NUMERO_IG")
     private int numeroIg;
     @Basic(optional = false)
@@ -52,9 +58,10 @@ public class InterGroupDetalle implements Serializable{
         this.numeroIg = numeroIg;
     }
 
-	public InterGroupDetalle(int numeroIg, String empresa, String descripcionIg, String empresa1, String empresa2,
+	public InterGroupDetalle(Integer interGrupoId, int numeroIg, String empresa, String descripcionIg, String empresa1, String empresa2,
 			int rubro1, int rubro2, int cuentaCodigo, String cuentaDescripcion) {
 		super();
+		this.interGrupoId = interGrupoId;
 		this.numeroIg = numeroIg;
 		this.empresa = empresa;
 		this.descripcionIg = descripcionIg;
@@ -64,6 +71,14 @@ public class InterGroupDetalle implements Serializable{
 		this.rubro2 = rubro2;
 		this.cuentaCodigo = cuentaCodigo;
 		this.cuentaDescripcion = cuentaDescripcion;
+	}
+	
+	public Integer getInterGrupoId() {
+		return interGrupoId;
+	}
+
+	public void setInterGrupoId(Integer interGrupoId) {
+		this.interGrupoId = interGrupoId;
 	}
 
 	public int getNumeroIg() {
@@ -141,7 +156,7 @@ public class InterGroupDetalle implements Serializable{
 
     @Override
     public String toString() {
-        return "entity.InterGroupDetalle[ numeroIg=" + numeroIg + " ]";
+        return "entity.InterGroupDetalle[ interGrupoId=" + interGrupoId + " ]";
     }
     
     
