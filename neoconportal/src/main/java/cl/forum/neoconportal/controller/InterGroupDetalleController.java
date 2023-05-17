@@ -37,7 +37,7 @@ public class InterGroupDetalleController {
 		return response;
 	}
 	
-	@DeleteMapping("/intergrupodetalle/{id}")
+	@PostMapping("/intergrupodetalle/{id}")
 	public ResponseEntity<InterGroupDetalleResponseRest> deleteIntergrupodetalle(@RequestParam("numeroig") Integer numeroig, @RequestParam("acronimo") String acronimo,
 			@RequestParam("codigocuenta") int codigocuenta){
 		ResponseEntity<InterGroupDetalleResponseRest> response = service.deleteIntergrupodetalle(numeroig, acronimo, codigocuenta);
