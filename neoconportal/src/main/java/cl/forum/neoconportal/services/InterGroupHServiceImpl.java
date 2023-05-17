@@ -49,7 +49,7 @@ public class InterGroupHServiceImpl implements IInterGroupHService{
 	            	interGroupHeaderss.setEmpresa1(rs.getString("EMPRESA1"));
 	            	interGroupHeaderss.setEmpresa2(rs.getString("EMPRESA2"));
 	            	interGroupHeaderss.setRubro1(rs.getInt("RUBRO1"));
-	            	interGroupHeaderss.setRubro1(rs.getInt("RUBRO2"));
+	            	interGroupHeaderss.setRubro2(rs.getInt("RUBRO2"));
 	            	interGroupHeaderss.setEstado(rs.getString("ESTADO"));
 	            	interGroupHeaders.add(interGroupHeaderss);
 	            }
@@ -86,6 +86,8 @@ public class InterGroupHServiceImpl implements IInterGroupHService{
 	            	interGroupHeaderss.setDescripcionIg(rs.getString("DESCRIPCION_IG"));
 	            	interGroupHeaderss.setEmpresa1(rs.getString("EMPRESA1"));
 	            	interGroupHeaderss.setEmpresa2(rs.getString("EMPRESA2"));
+	            	interGroupHeaderss.setRubro1(rs.getInt("RUBRO1"));
+	            	interGroupHeaderss.setRubro2(rs.getInt("RUBRO2"));
 	            	interGroupHeaderss.setEstado(rs.getString("ESTADO"));
 	            	interGroupHeaders.add(interGroupHeaderss);
 	            }
@@ -117,6 +119,8 @@ public class InterGroupHServiceImpl implements IInterGroupHService{
 	            	interGroupHeaderss.setDescripcionIg(rs.getString("DESCRIPCION_IG"));
 	            	interGroupHeaderss.setEmpresa1(rs.getString("EMPRESA1"));
 	            	interGroupHeaderss.setEmpresa2(rs.getString("EMPRESA2"));
+	            	interGroupHeaderss.setRubro1(rs.getInt("RUBRO1"));
+	            	interGroupHeaderss.setRubro2(rs.getInt("RUBRO2"));
 	            	interGroupHeaderss.setEstado(rs.getString("ESTADO"));
 	            	interGroupHeaders.add(interGroupHeaderss);
 	            }
@@ -153,6 +157,8 @@ public class InterGroupHServiceImpl implements IInterGroupHService{
 			            	interGroupHeaderss.setDescripcionIg(rs.getString("DESCRIPCION_IG"));
 			            	interGroupHeaderss.setEmpresa1(rs.getString("EMPRESA1"));
 			            	interGroupHeaderss.setEmpresa2(rs.getString("EMPRESA2"));
+			            	interGroupHeaderss.setRubro1(rs.getInt("RUBRO1"));
+			            	interGroupHeaderss.setRubro2(rs.getInt("RUBRO2"));
 			            	interGroupHeaderss.setEstado(rs.getString("ESTADO"));
 			            	interGroupHeaders.add(interGroupHeaderss);
 			            }
