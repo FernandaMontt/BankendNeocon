@@ -15,7 +15,9 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import cl.forum.neoconportal.model.Balance;
+import cl.forum.neoconportal.model.CuentaEmpresa;
 import cl.forum.neoconportal.response.BalanceResponseRest;
+import cl.forum.neoconportal.response.CuentaEmpresaResponseRest;
 
 @Service
 public class BalanceServiceImpl implements IBalanceService{
@@ -36,44 +38,33 @@ public class BalanceServiceImpl implements IBalanceService{
 	public ResponseEntity<BalanceResponseRest> saveBalance(Balance balance) {
 		// TODO Auto-generated method stub
 		BalanceResponseRest response = new BalanceResponseRest();
-				List<Balance> balances = new ArrayList<Balance>();
-						
-					try {
-							cn = DriverManager.getConnection(connectionUrl);
-							// Llamada al procedimiento almacenado
-							CallableStatement cst = cn.prepareCall("{CALL SP_INSERT_BALANCE_CSV(?,?,?,?,?) }");
-							//Obtener Id
-							cst.setInt(1, balance.getPeriodo());
-							cst.setString(2, balance.getAcronimo());
-							cst.setInt(3, balance.getCuentaCodigo());
-							cst.setString(4, balance.getDescripcion());
-							cst.setFloat(5, balance.getSaldo());
-							// Ejecuta el procedimiento almacenado
-							rs = cst.executeQuery();
-							while(rs.next()) {
-								// Se obtienen la salida del procedimineto almacenado
-								Balance balancess = new Balance();
-								balancess.setBalanceTempId(rs.getInt("BALANCETEMP_ID"));
-								balancess.setPeriodo(rs.getInt("PERIODO"));
-								balancess.setAcronimo(rs.getString("ACRONIMO"));
-								balancess.setCuentaCodigo(rs.getInt("CUENTA_CODIGO"));
-								balancess.setDescripcion(rs.getString("DESCRIPCION"));
-								balancess.setSaldo(rs.getFloat("SALDO"));
-								balances.add(balancess);
-							}
-							response.getBalanceResponse().setBalance(balances);
-						} catch (SQLException e) {
-							e.getStackTrace();
-							return new ResponseEntity<BalanceResponseRest>(response, HttpStatus.INTERNAL_SERVER_ERROR);
-						} finally{
-							try {
-								cn.close();
-							} catch (SQLException e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							}
-						}	
-						return new ResponseEntity<BalanceResponseRest>(response, HttpStatus.OK);
+		List<Balance> balances = new ArrayList<Balance>();
+		
+		try (Connection cn = DriverManager.getConnection(connectionUrl);
+	            CallableStatement cst = cn.prepareCall("{CALL SP_INSERT_BALANCE_CSV(?,?,?,?,?) }")) {
+				cst.setInt(1, balance.getPeriodo());
+				cst.setString(2, balance.getAcronimo());
+				cst.setInt(3, balance.getCuentaCodigo());
+				cst.setString(4, balance.getDescripcion());
+				cst.setFloat(5, balance.getSaldo());
+	        try (ResultSet rs = cst.executeQuery()) {
+	            while (rs.next()) {
+	            	Balance balancess = new Balance();
+					balancess.setBalanceTempId(rs.getInt("BALANCETEMP_ID"));
+					balancess.setPeriodo(rs.getInt("PERIODO"));
+					balancess.setAcronimo(rs.getString("ACRONIMO"));
+					balancess.setCuentaCodigo(rs.getInt("CUENTA_CODIGO"));
+					balancess.setDescripcion(rs.getString("DESCRIPCION"));
+					balancess.setSaldo(rs.getFloat("SALDO"));
+					balances.add(balancess);
+	            }
+	            response.getBalanceResponse().setBalance(balances);
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        return new ResponseEntity<BalanceResponseRest>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+	    }
+		return new ResponseEntity<BalanceResponseRest>(response, HttpStatus.OK);
 	}
 
 	@Override
@@ -81,39 +72,25 @@ public class BalanceServiceImpl implements IBalanceService{
 		BalanceResponseRest response = new BalanceResponseRest();
 		List<Balance> balances = new ArrayList<Balance>();
 		
-	try {
-			cn = DriverManager.getConnection(connectionUrl);
-			// Llamada al procedimiento almacenado
-			CallableStatement cst = cn.prepareCall("{CALL SP_ALL_BALANCE_TEMP }");
-            // Ejecuta el procedimiento almacenado
-            rs = cst.executeQuery();
-            while(rs.next()) {
-            	// Se obtienen la salida del procedimineto almacenado
-            	Balance balancess = new Balance();
-				balancess.setPeriodo(rs.getInt("PERIODO"));
-				balancess.setAcronimo(rs.getString("ACRONIMO"));
-				balancess.setCuentaCodigo(rs.getInt("CUENTA_CODIGO"));
-				balancess.setDescripcion(rs.getString("DESCRIPCION"));
-				balancess.setSaldo(rs.getFloat("SALDO"));
-				balances.add(balancess);
-         }
-            response.getBalanceResponse().setBalance(balances);
-			//response.setMetadata("Respuesta ok", "00", "Respuesta exitosa");
-			
-		} catch(Exception e) {
-			
-			//response.setMetadata("Respuesta no ok", "-1", "Error al no consultar");
-			e.getStackTrace();
-			return new ResponseEntity<BalanceResponseRest>(response, HttpStatus.INTERNAL_SERVER_ERROR);
-			
-		} finally{
-			try {
-				cn.close();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
+		try (Connection cn = DriverManager.getConnection(connectionUrl);
+	            CallableStatement cst = cn.prepareCall("{CALL SP_ALL_BALANCE_TEMP }")) {
+				
+	        try (ResultSet rs = cst.executeQuery()) {
+	            while (rs.next()) {
+	            	Balance balancess = new Balance();
+					balancess.setPeriodo(rs.getInt("PERIODO"));
+					balancess.setAcronimo(rs.getString("ACRONIMO"));
+					balancess.setCuentaCodigo(rs.getInt("CUENTA_CODIGO"));
+					balancess.setDescripcion(rs.getString("DESCRIPCION"));
+					balancess.setSaldo(rs.getFloat("SALDO"));
+					balances.add(balancess);
+	            }
+	            response.getBalanceResponse().setBalance(balances);
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        return new ResponseEntity<BalanceResponseRest>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+	    }
 		return new ResponseEntity<BalanceResponseRest>(response, HttpStatus.OK);
 	}
 

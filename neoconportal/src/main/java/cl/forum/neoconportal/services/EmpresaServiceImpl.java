@@ -14,7 +14,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import cl.forum.neoconportal.model.Empresa;
+import cl.forum.neoconportal.model.InterGroupHeader;
 import cl.forum.neoconportal.response.EmpresaResponseRest;
+import cl.forum.neoconportal.response.InterGroupResponseRest;
 
 @Service
 public class EmpresaServiceImpl implements IEmpresaService{
@@ -39,41 +41,27 @@ public class EmpresaServiceImpl implements IEmpresaService{
 		EmpresaResponseRest response = new EmpresaResponseRest();
 		List<Empresa> empresas = new ArrayList<Empresa>();
 		
-	try {
-			cn = DriverManager.getConnection(connectionUrl);
-			// Llamada al procedimiento almacenado
-			CallableStatement cst = cn.prepareCall("{CALL SP_ALL_EMPRESAS }");
-            // Ejecuta el procedimiento almacenado
-            rs = cst.executeQuery();
-            while(rs.next()) {
-            	// Se obtienen la salida del procedimineto almacenado
-            	Empresa empresa = new Empresa();
-            	empresa.setEmpresaId(rs.getInt("EMPRESA_ID"));
-            	empresa.setEmpresaNombre(rs.getString("EMPRESA_NOMBRE"));
-            	empresa.setEmpresaNif(rs.getInt("EMPRESA_NIF"));
-            	empresa.setAbreviatura(rs.getString("ABREVIATURA"));
-            	empresa.setAcronimo(rs.getString("ACRONIMO"));
-            	empresa.setEstado(rs.getString("ESTADO"));
-            	empresas.add(empresa);
-         }
-			response.getEmpresaResponse().setEmpresa(empresas);
-			//response.setMetadata("Respuesta ok", "00", "Respuesta exitosa");
-			
-		} catch(Exception e) {
-			
-			//response.setMetadata("Respuesta no ok", "-1", "Error al no consultar");
-			e.getStackTrace();
-			return new ResponseEntity<EmpresaResponseRest>(response, HttpStatus.INTERNAL_SERVER_ERROR);
-			
-		} finally{
-			try {
-				cn.close();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-		return new ResponseEntity<EmpresaResponseRest>(response, HttpStatus.OK);
+		try (Connection cn = DriverManager.getConnection(connectionUrl);
+	            CallableStatement cst = cn.prepareCall("{CALL SP_ALL_EMPRESAS }")) {
+
+	        try (ResultSet rs = cst.executeQuery()) {
+	            while (rs.next()) {
+	            	Empresa empresa = new Empresa();
+	            	empresa.setEmpresaId(rs.getInt("EMPRESA_ID"));
+	            	empresa.setEmpresaNombre(rs.getString("EMPRESA_NOMBRE"));
+	            	empresa.setEmpresaNif(rs.getInt("EMPRESA_NIF"));
+	            	empresa.setAbreviatura(rs.getString("ABREVIATURA"));
+	            	empresa.setAcronimo(rs.getString("ACRONIMO"));
+	            	empresa.setEstado(rs.getString("ESTADO"));
+	            	empresas.add(empresa);
+	            }
+	            response.getEmpresaResponse().setEmpresa(empresas);
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        return new ResponseEntity<EmpresaResponseRest>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+	    }
+	    return new ResponseEntity<EmpresaResponseRest>(response, HttpStatus.OK);
 	}
 
 
@@ -85,38 +73,28 @@ public class EmpresaServiceImpl implements IEmpresaService{
 		EmpresaResponseRest response = new EmpresaResponseRest();
 		List<Empresa> empresas = new ArrayList<Empresa>();
 		
-	try {
-			cn = DriverManager.getConnection(connectionUrl);
-			// Llamada al procedimiento almacenado
-			CallableStatement cst = cn.prepareCall("{CALL SP_GET_SOURCEBYID_EMPRESA(?) }");
-			//Obtener Id
-			cst.setString(1, Id.toString());
-			// Ejecuta el procedimiento almacenado
-			rs = cst.executeQuery();
-			while(rs.next()) {
-			// Se obtienen la salida del procedimineto almacenado
-				Empresa empresa = new Empresa();
-            	empresa.setEmpresaId(rs.getInt("EMPRESA_ID"));
-            	empresa.setEmpresaNombre(rs.getString("EMPRESA_NOMBRE"));
-            	empresa.setEmpresaNif(rs.getInt("EMPRESA_NIF"));
-            	empresa.setAbreviatura(rs.getString("ABREVIATURA"));
-            	empresa.setAcronimo(rs.getString("ACRONIMO"));
-            	empresa.setEstado(rs.getString("ESTADO"));
-            	empresas.add(empresa);
-		}
-			response.getEmpresaResponse().setEmpresa(empresas);
-		} catch (SQLException e) {
-			e.getStackTrace();
-			return new ResponseEntity<EmpresaResponseRest>(response, HttpStatus.INTERNAL_SERVER_ERROR);
-		} finally{
-			try {
-				cn.close();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}	
-		return new ResponseEntity<EmpresaResponseRest>(response, HttpStatus.OK);
+		try (Connection cn = DriverManager.getConnection(connectionUrl);
+	            CallableStatement cst = cn.prepareCall("{CALL SP_GET_SOURCEBYID_EMPRESA(?) }")) {
+				cst.setString(1, Id.toString());
+	        try (ResultSet rs = cst.executeQuery()) {
+	            while (rs.next()) {
+	            	Empresa empresa = new Empresa();
+	            	empresa.setEmpresaId(rs.getInt("EMPRESA_ID"));
+	            	empresa.setEmpresaNombre(rs.getString("EMPRESA_NOMBRE"));
+	            	empresa.setEmpresaNif(rs.getInt("EMPRESA_NIF"));
+	            	empresa.setAbreviatura(rs.getString("ABREVIATURA"));
+	            	empresa.setAcronimo(rs.getString("ACRONIMO"));
+	            	empresa.setEstado(rs.getString("ESTADO"));
+	            	empresas.add(empresa);
+	            }
+	            response.getEmpresaResponse().setEmpresa(empresas);
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        return new ResponseEntity<EmpresaResponseRest>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+	    }
+	    return new ResponseEntity<EmpresaResponseRest>(response, HttpStatus.OK);
+		
 	}
 
 }

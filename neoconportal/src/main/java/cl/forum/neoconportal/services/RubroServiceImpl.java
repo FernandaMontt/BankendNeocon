@@ -5,7 +5,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import cl.forum.neoconportal.model.InterGroupDetalle;
 import cl.forum.neoconportal.model.Rubro;
+import cl.forum.neoconportal.response.InterGroupDetalleResponseRest;
 import cl.forum.neoconportal.response.RubroResponseRest;
 
 import java.sql.ResultSet;
@@ -37,40 +39,26 @@ public class RubroServiceImpl implements IRubroService{
 		RubroResponseRest response = new RubroResponseRest();
 		List<Rubro> rubros = new ArrayList<Rubro>();
 		
-	try {
-			cn = DriverManager.getConnection(connectionUrl);
-			// Llamada al procedimiento almacenado
-			CallableStatement cst = cn.prepareCall("{CALL SP_ALL_RUBROS }");
-            // Ejecuta el procedimiento almacenado
-            rs = cst.executeQuery();
-            while(rs.next()) {
-            	// Se obtienen la salida del procedimineto almacenado
-                Rubro rubro = new Rubro();
-                rubro.setRubroId(rs.getInt("RUBRO_ID"));
-                rubro.setRubroCodigo(rs.getString("Rubro"));
-                rubro.setRubroDescripcion(rs.getString("Descripción"));
-                rubro.setRubroNaturaleza(rs.getString("Naturaleza"));
-                rubro.setRubroEstado(rs.getString("Estado"));
-                rubros.add(rubro);
-         }
-			response.getRubroResponse().setRubro(rubros);
-			//response.setMetadata("Respuesta ok", "00", "Respuesta exitosa");
-			
-		} catch(Exception e) {
-			
-			//response.setMetadata("Respuesta no ok", "-1", "Error al no consultar");
-			e.getStackTrace();
-			return new ResponseEntity<RubroResponseRest>(response, HttpStatus.INTERNAL_SERVER_ERROR);
-			
-		} finally{
-			try {
-				cn.close();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-		return new ResponseEntity<RubroResponseRest>(response, HttpStatus.OK);
+		try (Connection cn = DriverManager.getConnection(connectionUrl);
+	            CallableStatement cst = cn.prepareCall("{CALL SP_ALL_RUBROS }")) {
+
+	        try (ResultSet rs = cst.executeQuery()) {
+	            while (rs.next()) {
+	            	Rubro rubro = new Rubro();
+	                rubro.setRubroId(rs.getInt("RUBRO_ID"));
+	                rubro.setRubroCodigo(rs.getString("Rubro"));
+	                rubro.setRubroDescripcion(rs.getString("Descripción"));
+	                rubro.setRubroNaturaleza(rs.getString("Naturaleza"));
+	                rubro.setRubroEstado(rs.getString("Estado"));
+	                rubros.add(rubro);
+	            }
+	            response.getRubroResponse().setRubro(rubros);
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        return new ResponseEntity<RubroResponseRest>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+	    }
+	    return new ResponseEntity<RubroResponseRest>(response, HttpStatus.OK);
 		
 	}
 
@@ -81,37 +69,27 @@ public class RubroServiceImpl implements IRubroService{
 		RubroResponseRest response = new RubroResponseRest();
 		List<Rubro> rubros = new ArrayList<Rubro>();
 		
-	try {
-			cn = DriverManager.getConnection(connectionUrl);
-			// Llamada al procedimiento almacenado
-			CallableStatement cst = cn.prepareCall("{CALL SP_GET_SOURCEBYID_RUBROS(?) }");
-			//Obtener Id
-			cst.setString(1, Id.toString());
-			// Ejecuta el procedimiento almacenado
-			rs = cst.executeQuery();
-			while(rs.next()) {
-			// Se obtienen la salida del procedimineto almacenado
-			Rubro rubro = new Rubro();
-			rubro.setRubroId(rs.getInt("RUBRO_ID"));
-			rubro.setRubroCodigo(rs.getString("Rubro"));
-			rubro.setRubroDescripcion(rs.getString("Descripción"));
-			rubro.setRubroNaturaleza(rs.getString("Naturaleza"));
-			rubro.setRubroEstado(rs.getString("Estado"));
-			rubros.add(rubro);
-		}
-			response.getRubroResponse().setRubro(rubros);
-		} catch (SQLException e) {
-			e.getStackTrace();
-			return new ResponseEntity<RubroResponseRest>(response, HttpStatus.INTERNAL_SERVER_ERROR);
-		} finally{
-			try {
-				cn.close();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}	
-		return new ResponseEntity<RubroResponseRest>(response, HttpStatus.OK);
+		try (Connection cn = DriverManager.getConnection(connectionUrl);
+	            CallableStatement cst = cn.prepareCall("{CALL SP_GET_SOURCEBYID_RUBROS(?) }")) {
+				cst.setString(1, Id.toString());
+	        try (ResultSet rs = cst.executeQuery()) {
+	            while (rs.next()) {
+	            	Rubro rubro = new Rubro();
+	    			rubro.setRubroId(rs.getInt("RUBRO_ID"));
+	    			rubro.setRubroCodigo(rs.getString("Rubro"));
+	    			rubro.setRubroDescripcion(rs.getString("Descripción"));
+	    			rubro.setRubroNaturaleza(rs.getString("Naturaleza"));
+	    			rubro.setRubroEstado(rs.getString("Estado"));
+	    			rubros.add(rubro);
+	            }
+	            response.getRubroResponse().setRubro(rubros);
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        return new ResponseEntity<RubroResponseRest>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+	    }
+	    return new ResponseEntity<RubroResponseRest>(response, HttpStatus.OK);
+		
 	}
 
 	@Override
@@ -121,37 +99,27 @@ public class RubroServiceImpl implements IRubroService{
 		RubroResponseRest response = new RubroResponseRest();
 		List<Rubro> rubros = new ArrayList<Rubro>();
 		
-	try {
-			cn = DriverManager.getConnection(connectionUrl);
-			// Llamada al procedimiento almacenado
-			CallableStatement cst = cn.prepareCall("{CALL SP_CHANGESTATE_RUBROS(?) }");
-			//Obtener Id
-			cst.setString(1, Id.toString());
-			// Ejecuta el procedimiento almacenado
-			rs = cst.executeQuery();
-			while(rs.next()) {
-				// Se obtienen la salida del procedimineto almacenado
-				Rubro rubro = new Rubro();
-				rubro.setRubroId(rs.getInt("RUBRO_ID"));
-				rubro.setRubroCodigo(rs.getString("RUBRO_CODIGO"));
-				rubro.setRubroDescripcion(rs.getString("RUBRO_DESCRIPCION"));
-				rubro.setRubroNaturaleza(rs.getString("RUBRO_NATURALEZA"));
-				rubro.setRubroEstado(rs.getString("RUBRO_ESTADO"));
-				rubros.add(rubro);
-			}
-			response.getRubroResponse().setRubro(rubros);
-		} catch (SQLException e) {
-			e.getStackTrace();
-			return new ResponseEntity<RubroResponseRest>(response, HttpStatus.INTERNAL_SERVER_ERROR);
-		} finally{
-			try {
-				cn.close();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}	
-		return new ResponseEntity<RubroResponseRest>(response, HttpStatus.OK);
+		try (Connection cn = DriverManager.getConnection(connectionUrl);
+	            CallableStatement cst = cn.prepareCall("{CALL SP_CHANGESTATE_RUBROS(?) }")) {
+				cst.setString(1, Id.toString());
+	        try (ResultSet rs = cst.executeQuery()) {
+	            while (rs.next()) {
+	            	Rubro rubro = new Rubro();
+					rubro.setRubroId(rs.getInt("RUBRO_ID"));
+					rubro.setRubroCodigo(rs.getString("RUBRO_CODIGO"));
+					rubro.setRubroDescripcion(rs.getString("RUBRO_DESCRIPCION"));
+					rubro.setRubroNaturaleza(rs.getString("RUBRO_NATURALEZA"));
+					rubro.setRubroEstado(rs.getString("RUBRO_ESTADO"));
+	    			rubros.add(rubro);
+	            }
+	            response.getRubroResponse().setRubro(rubros);
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        return new ResponseEntity<RubroResponseRest>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+	    }
+	    return new ResponseEntity<RubroResponseRest>(response, HttpStatus.OK);
+		
 	}
 
 	@Override
@@ -160,37 +128,27 @@ public class RubroServiceImpl implements IRubroService{
 		RubroResponseRest response = new RubroResponseRest();
 		List<Rubro> rubros = new ArrayList<Rubro>();
 		
-	try {
-			cn = DriverManager.getConnection(connectionUrl);
-			// Llamada al procedimiento almacenado
-			CallableStatement cst = cn.prepareCall("{CALL SP_GET_SOURCEBYCODIGO_RUBROS(?) }");
-			//Obtener Id
-			cst.setString(1, Codigo.toString());
-			// Ejecuta el procedimiento almacenado
-			rs = cst.executeQuery();
-			while(rs.next()) {
-			// Se obtienen la salida del procedimineto almacenado
-			Rubro rubro = new Rubro();
-			rubro.setRubroId(rs.getInt("RUBRO_ID"));
-			rubro.setRubroCodigo(rs.getString("Rubro"));
-			rubro.setRubroDescripcion(rs.getString("Descripción"));
-			rubro.setRubroNaturaleza(rs.getString("Naturaleza"));
-			rubro.setRubroEstado(rs.getString("Estado"));
-			rubros.add(rubro);
-		}
-			response.getRubroResponse().setRubro(rubros);
-		} catch (SQLException e) {
-			e.getStackTrace();
-			return new ResponseEntity<RubroResponseRest>(response, HttpStatus.INTERNAL_SERVER_ERROR);
-		} finally{
-			try {
-				cn.close();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}	
-		return new ResponseEntity<RubroResponseRest>(response, HttpStatus.OK);
+		try (Connection cn = DriverManager.getConnection(connectionUrl);
+	            CallableStatement cst = cn.prepareCall("{CALL SP_GET_SOURCEBYCODIGO_RUBROS(?) }")) {
+				cst.setString(1, Codigo.toString());
+	        try (ResultSet rs = cst.executeQuery()) {
+	            while (rs.next()) {
+	            	Rubro rubro = new Rubro();
+	    			rubro.setRubroId(rs.getInt("RUBRO_ID"));
+	    			rubro.setRubroCodigo(rs.getString("Rubro"));
+	    			rubro.setRubroDescripcion(rs.getString("Descripción"));
+	    			rubro.setRubroNaturaleza(rs.getString("Naturaleza"));
+	    			rubro.setRubroEstado(rs.getString("Estado"));
+	    			rubros.add(rubro);
+	            }
+	            response.getRubroResponse().setRubro(rubros);
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        return new ResponseEntity<RubroResponseRest>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+	    }
+	    return new ResponseEntity<RubroResponseRest>(response, HttpStatus.OK);
+		
 	}
 
 	@Override
@@ -200,40 +158,30 @@ public class RubroServiceImpl implements IRubroService{
 		RubroResponseRest response = new RubroResponseRest();
 		List<Rubro> rubros = new ArrayList<Rubro>();
 		
-	try {
-			cn = DriverManager.getConnection(connectionUrl);
-			// Llamada al procedimiento almacenado
-			CallableStatement cst = cn.prepareCall("{CALL SP_CREATE_RUBROS(?,?,?,?) }");
-			//Obtener Id
-			cst.setString(1, rubro.getRubroCodigo());
-			cst.setString(2, rubro.getRubroDescripcion());
-			cst.setString(3, rubro.getRubroNaturaleza());
-			cst.setString(4, rubro.getRubroEstado());
-			// Ejecuta el procedimiento almacenado
-			rs = cst.executeQuery();
-			while(rs.next()) {
-				// Se obtienen la salida del procedimineto almacenado
-				Rubro rubross = new Rubro();
-				rubross.setRubroId(rs.getInt("RUBRO_ID"));
-				rubross.setRubroCodigo(rs.getString("RUBRO_CODIGO"));
-				rubross.setRubroDescripcion(rs.getString("RUBRO_DESCRIPCION"));
-				rubross.setRubroNaturaleza(rs.getString("RUBRO_NATURALEZA"));
-				rubross.setRubroEstado(rs.getString("RUBRO_ESTADO"));
-				rubros.add(rubross);
-			}
-			response.getRubroResponse().setRubro(rubros);
-		} catch (SQLException e) {
-			e.getStackTrace();
-			return new ResponseEntity<RubroResponseRest>(response, HttpStatus.INTERNAL_SERVER_ERROR);
-		} finally{
-			try {
-				cn.close();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}	
-		return new ResponseEntity<RubroResponseRest>(response, HttpStatus.OK);
+		try (Connection cn = DriverManager.getConnection(connectionUrl);
+	            CallableStatement cst = cn.prepareCall("{CALL SP_CREATE_RUBROS(?,?,?,?) }")) {
+				cst.setString(1, rubro.getRubroCodigo());
+				cst.setString(2, rubro.getRubroDescripcion());
+				cst.setString(3, rubro.getRubroNaturaleza());
+				cst.setString(4, rubro.getRubroEstado());
+	        try (ResultSet rs = cst.executeQuery()) {
+	            while (rs.next()) {
+	            	Rubro rubross = new Rubro();
+					rubross.setRubroId(rs.getInt("RUBRO_ID"));
+					rubross.setRubroCodigo(rs.getString("RUBRO_CODIGO"));
+					rubross.setRubroDescripcion(rs.getString("RUBRO_DESCRIPCION"));
+					rubross.setRubroNaturaleza(rs.getString("RUBRO_NATURALEZA"));
+					rubross.setRubroEstado(rs.getString("RUBRO_ESTADO"));
+					rubros.add(rubross);
+	            }
+	            response.getRubroResponse().setRubro(rubros);
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        return new ResponseEntity<RubroResponseRest>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+	    }
+	    return new ResponseEntity<RubroResponseRest>(response, HttpStatus.OK);
+		
 	}
 
 	@Override
@@ -243,41 +191,31 @@ public class RubroServiceImpl implements IRubroService{
 		RubroResponseRest response = new RubroResponseRest();
 		List<Rubro> rubros = new ArrayList<Rubro>();
 		
-	try {
-			cn = DriverManager.getConnection(connectionUrl);
-			// Llamada al procedimiento almacenado
-			CallableStatement cst = cn.prepareCall("{CALL SP_UPDATE_RUBROS(?,?,?,?,?) }");
-			//Obtener Id
-			cst.setString(1, rubro.getRubroId().toString());
-			cst.setString(2, rubro.getRubroCodigo());
-			cst.setString(3, rubro.getRubroDescripcion());
-			cst.setString(4, rubro.getRubroNaturaleza());
-			cst.setString(5, rubro.getRubroEstado());
-			// Ejecuta el procedimiento almacenado
-			rs = cst.executeQuery();
-			while(rs.next()) {
-				// Se obtienen la salida del procedimineto almacenado
-				Rubro rubross = new Rubro();
-				rubross.setRubroId(rs.getInt("RUBRO_ID"));
-				rubross.setRubroCodigo(rs.getString("RUBRO_CODIGO"));
-				rubross.setRubroDescripcion(rs.getString("RUBRO_DESCRIPCION"));
-				rubross.setRubroNaturaleza(rs.getString("RUBRO_NATURALEZA"));
-				rubross.setRubroEstado(rs.getString("RUBRO_ESTADO"));
-				rubros.add(rubross);
-			}
-			response.getRubroResponse().setRubro(rubros);
-		} catch (SQLException e) {
-			e.getStackTrace();
-			return new ResponseEntity<RubroResponseRest>(response, HttpStatus.INTERNAL_SERVER_ERROR);
-		} finally{
-			try {
-				cn.close();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}	
-		return new ResponseEntity<RubroResponseRest>(response, HttpStatus.OK);
+		try (Connection cn = DriverManager.getConnection(connectionUrl);
+	            CallableStatement cst = cn.prepareCall("{CALL SP_UPDATE_RUBROS(?,?,?,?,?) }")) {
+				cst.setString(1, rubro.getRubroId().toString());
+				cst.setString(2, rubro.getRubroCodigo());
+				cst.setString(3, rubro.getRubroDescripcion());
+				cst.setString(4, rubro.getRubroNaturaleza());
+				cst.setString(5, rubro.getRubroEstado());
+	        try (ResultSet rs = cst.executeQuery()) {
+	            while (rs.next()) {
+	            	Rubro rubross = new Rubro();
+					rubross.setRubroId(rs.getInt("RUBRO_ID"));
+					rubross.setRubroCodigo(rs.getString("RUBRO_CODIGO"));
+					rubross.setRubroDescripcion(rs.getString("RUBRO_DESCRIPCION"));
+					rubross.setRubroNaturaleza(rs.getString("RUBRO_NATURALEZA"));
+					rubross.setRubroEstado(rs.getString("RUBRO_ESTADO"));
+					rubros.add(rubross);
+	            }
+	            response.getRubroResponse().setRubro(rubros);
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        return new ResponseEntity<RubroResponseRest>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+	    }
+	    return new ResponseEntity<RubroResponseRest>(response, HttpStatus.OK);
+		
 	}
 
 	@Override
@@ -285,40 +223,27 @@ public class RubroServiceImpl implements IRubroService{
 		RubroResponseRest response = new RubroResponseRest();
 		List<Rubro> rubros = new ArrayList<Rubro>();
 		
-	try {
-			cn = DriverManager.getConnection(connectionUrl);
-			// Llamada al procedimiento almacenado
-			CallableStatement cst = cn.prepareCall("{CALL SP_ALL_RUBROSACTIVOS }");
-            // Ejecuta el procedimiento almacenado
-            rs = cst.executeQuery();
-            while(rs.next()) {
-            	// Se obtienen la salida del procedimineto almacenado
-                Rubro rubro = new Rubro();
-                rubro.setRubroId(rs.getInt("RUBRO_ID"));
-                rubro.setRubroCodigo(rs.getString("Rubro"));
-                rubro.setRubroDescripcion(rs.getString("Descripción"));
-                rubro.setRubroNaturaleza(rs.getString("Naturaleza"));
-                rubro.setRubroEstado(rs.getString("Estado"));
-                rubros.add(rubro);
-         }
-			response.getRubroResponse().setRubro(rubros);
-			//response.setMetadata("Respuesta ok", "00", "Respuesta exitosa");
-			
-		} catch(Exception e) {
-			
-			//response.setMetadata("Respuesta no ok", "-1", "Error al no consultar");
-			e.getStackTrace();
-			return new ResponseEntity<RubroResponseRest>(response, HttpStatus.INTERNAL_SERVER_ERROR);
-			
-		} finally{
-			try {
-				cn.close();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-		return new ResponseEntity<RubroResponseRest>(response, HttpStatus.OK);
+		try (Connection cn = DriverManager.getConnection(connectionUrl);
+	            CallableStatement cst = cn.prepareCall("{CALL SP_ALL_RUBROSACTIVOS }")) {
+				
+	        try (ResultSet rs = cst.executeQuery()) {
+	            while (rs.next()) {
+	            	Rubro rubro = new Rubro();
+	                rubro.setRubroId(rs.getInt("RUBRO_ID"));
+	                rubro.setRubroCodigo(rs.getString("Rubro"));
+	                rubro.setRubroDescripcion(rs.getString("Descripción"));
+	                rubro.setRubroNaturaleza(rs.getString("Naturaleza"));
+	                rubro.setRubroEstado(rs.getString("Estado"));
+	                rubros.add(rubro);
+	            }
+	            response.getRubroResponse().setRubro(rubros);
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        return new ResponseEntity<RubroResponseRest>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+	    }
+	    return new ResponseEntity<RubroResponseRest>(response, HttpStatus.OK);
+		
 	}
 
 }
