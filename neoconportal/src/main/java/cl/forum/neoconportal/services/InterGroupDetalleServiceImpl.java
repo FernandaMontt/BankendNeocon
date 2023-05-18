@@ -96,7 +96,7 @@ public class InterGroupDetalleServiceImpl implements IInterGroupDetalleService{
 		try (Connection cn = DriverManager.getConnection(connectionUrl);
 	            CallableStatement cst = cn.prepareCall("{CALL SP_ELIMINAR_CUENTA_INTERGRUPO(?,?,?) }")) {
 				cst.setInt(1, numeroig);
-				cst.setString(6, acronimo);
+				cst.setString(2, acronimo);
 				cst.setInt(3, codigocuenta);
 	        try (ResultSet rs = cst.executeQuery()) {
 	            
@@ -146,7 +146,7 @@ public class InterGroupDetalleServiceImpl implements IInterGroupDetalleService{
 		List<InterGroupDetalle> InterGroupDetalles = new ArrayList<InterGroupDetalle>();
 		
 		try (Connection cn = DriverManager.getConnection(connectionUrl);
-	            CallableStatement cst = cn.prepareCall("{CALL SP_GET_SOURCEBYRUBRO_EMPRESA_CUENTA_EMPRESAEMPRESA1(?,?) }")) {
+	            CallableStatement cst = cn.prepareCall("{CALL SP_GET_SOURCEBYRUBRO_EMPRESA_CUENTA_EMPRESAEMPRESA1(?,?,?) }")) {
 				cst.setInt(1, numeroig);
 				cst.setInt(2, codigorubro);
 				cst.setString(3, acronimo);
@@ -175,7 +175,7 @@ public class InterGroupDetalleServiceImpl implements IInterGroupDetalleService{
 		List<InterGroupDetalle> InterGroupDetalles = new ArrayList<InterGroupDetalle>();
 		
 		try (Connection cn = DriverManager.getConnection(connectionUrl);
-	            CallableStatement cst = cn.prepareCall("{CALL SP_GET_SOURCEBYRUBRO_EMPRESA_CUENTA_EMPRESAEMPRESA2(?,?) }")) {
+	            CallableStatement cst = cn.prepareCall("{CALL SP_GET_SOURCEBYRUBRO_EMPRESA_CUENTA_EMPRESAEMPRESA2(?,?,?) }")) {
 				cst.setInt(1, numeroig);
 				cst.setInt(2, codigorubro);
 				cst.setString(3, acronimo);
