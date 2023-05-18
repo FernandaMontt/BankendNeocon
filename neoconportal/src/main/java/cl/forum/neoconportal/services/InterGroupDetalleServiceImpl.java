@@ -69,7 +69,7 @@ public class InterGroupDetalleServiceImpl implements IInterGroupDetalleService{
 		List<InterGroupDetalle> InterGroupDetalles = new ArrayList<InterGroupDetalle>();
 		
 		try (Connection cn = DriverManager.getConnection(connectionUrl);
-	            CallableStatement cst = cn.prepareCall("{CALL SP_GET_SOURCEBYID_INTERGROUP(?) }")) {
+	            CallableStatement cst = cn.prepareCall("{CALL SP_CREATE_INTERGRUPODETALLE(?,?,?) }")) {
 				cst.setInt(1, interGroupDetalle.getNumeroIg());
 				cst.setString(2, interGroupDetalle.getEmpresa());
 				cst.setInt(3, interGroupDetalle.getCuentaCodigo());
