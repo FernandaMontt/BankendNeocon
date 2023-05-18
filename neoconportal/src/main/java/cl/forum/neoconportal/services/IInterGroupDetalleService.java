@@ -16,8 +16,10 @@ public interface IInterGroupDetalleService {
 			@RequestParam("codigocuenta") int codigocuenta);
 	public ResponseEntity<InterGroupDetalleResponseRest> findById(Integer IdInter);
 	public ResponseEntity<InterGroupDetalleResponseRest> searchInterCuentaEmpresa(
-			@RequestParam("codigorubro") Integer codigorubro, @RequestParam("acronimo") String acronimo);
+			@RequestParam("codigorubro") Integer codigorubro, @RequestParam("acronimo") String acronimo,
+			@RequestParam("numeroig") Integer numeroig);
 	public ResponseEntity<InterGroupDetalleResponseRest> searchInterCuentaEmpresa2(
-			@RequestParam("codigorubro") Integer codigorubro, @RequestParam("acronimo") String acronimo);
+			@RequestParam("codigorubro") Integer codigorubro, @RequestParam("acronimo") String acronimo,
+			@RequestParam("numeroig") Integer numeroig);
 
 }

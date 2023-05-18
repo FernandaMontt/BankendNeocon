@@ -141,14 +141,15 @@ public class InterGroupDetalleServiceImpl implements IInterGroupDetalleService{
 	@Override
 	@Transactional(readOnly=true)
 	public ResponseEntity<InterGroupDetalleResponseRest> searchInterCuentaEmpresa(Integer codigorubro,
-			String acronimo) {
+			String acronimo, Integer numeroig) {
 		InterGroupDetalleResponseRest response = new InterGroupDetalleResponseRest();
 		List<InterGroupDetalle> InterGroupDetalles = new ArrayList<InterGroupDetalle>();
 		
 		try (Connection cn = DriverManager.getConnection(connectionUrl);
 	            CallableStatement cst = cn.prepareCall("{CALL SP_GET_SOURCEBYRUBRO_EMPRESA_CUENTA_EMPRESAEMPRESA1(?,?) }")) {
-				cst.setInt(1, codigorubro);
-				cst.setString(2, acronimo);
+				cst.setInt(1, numeroig);
+				cst.setInt(2, codigorubro);
+				cst.setString(3, acronimo);
 	        try (ResultSet rs = cst.executeQuery()) {
 	            while (rs.next()) {
 	            	InterGroupDetalle interGroupDetalle = new InterGroupDetalle();
@@ -169,14 +170,15 @@ public class InterGroupDetalleServiceImpl implements IInterGroupDetalleService{
 
 	@Override
 	public ResponseEntity<InterGroupDetalleResponseRest> searchInterCuentaEmpresa2(Integer codigorubro,
-			String acronimo) {
+			String acronimo, Integer numeroig) {
 		InterGroupDetalleResponseRest response = new InterGroupDetalleResponseRest();
 		List<InterGroupDetalle> InterGroupDetalles = new ArrayList<InterGroupDetalle>();
 		
 		try (Connection cn = DriverManager.getConnection(connectionUrl);
 	            CallableStatement cst = cn.prepareCall("{CALL SP_GET_SOURCEBYRUBRO_EMPRESA_CUENTA_EMPRESAEMPRESA2(?,?) }")) {
-				cst.setInt(1, codigorubro);
-				cst.setString(2, acronimo);
+				cst.setInt(1, numeroig);
+				cst.setInt(2, codigorubro);
+				cst.setString(3, acronimo);
 	        try (ResultSet rs = cst.executeQuery()) {
 	            while (rs.next()) {
 	            	InterGroupDetalle interGroupDetalle = new InterGroupDetalle();

@@ -51,14 +51,16 @@ public class InterGroupDetalleController {
 	}
 	
 	@PostMapping("/intergrupodetalle/allintergrupo")
-	public ResponseEntity<InterGroupDetalleResponseRest> searchInterCuentaEmpresa(@RequestParam("codigorubro") Integer codigorubro, @RequestParam("acronimo") String acronimo){
-		ResponseEntity<InterGroupDetalleResponseRest> response = service.searchInterCuentaEmpresa(codigorubro, acronimo);
+	public ResponseEntity<InterGroupDetalleResponseRest> searchInterCuentaEmpresa(@RequestParam("codigorubro") Integer codigorubro, @RequestParam("acronimo") String acronimo, 
+			@RequestParam("numeroig") Integer numeroig){
+		ResponseEntity<InterGroupDetalleResponseRest> response = service.searchInterCuentaEmpresa(codigorubro, acronimo, numeroig);
 		return response;
 	}
 	
 	@PostMapping("/intergrupodetalle2/allintergrupo")
-	public ResponseEntity<InterGroupDetalleResponseRest> searchInterCuentaEmpresa2(@RequestParam("codigorubro") Integer codigorubro, @RequestParam("acronimo") String acronimo){
-		ResponseEntity<InterGroupDetalleResponseRest> response = service.searchInterCuentaEmpresa2(codigorubro, acronimo);
+	public ResponseEntity<InterGroupDetalleResponseRest> searchInterCuentaEmpresa2(@RequestParam("codigorubro") Integer codigorubro, @RequestParam("acronimo") String acronimo,
+			@RequestParam("numeroig") Integer numeroig){
+		ResponseEntity<InterGroupDetalleResponseRest> response = service.searchInterCuentaEmpresa2(codigorubro, acronimo, numeroig);
 		return response;
 	}
 
