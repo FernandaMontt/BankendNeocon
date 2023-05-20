@@ -56,7 +56,7 @@ public class NeoConBalanceDetalleServiceImpl implements INeoConBalanceDetalleSer
 	        	valor = valor.replace(",", ".");
 				cst.setInt(1, periodo);
 				cst.setString(2, acronimo);
-				cst.setFloat(3, Float.parseFloat(valor));
+				cst.setDouble(3, Double.parseDouble(valor));
 				cst.setInt(4, Integer.parseInt(row[0]));
 				cst.setString(5, row[1]);
 				rs = cst.executeQuery();	        

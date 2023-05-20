@@ -105,6 +105,7 @@ public class BalanceServiceImpl implements IBalanceService{
 	        // Leer y procesar el contenido del archivo
 	        String fileContent = new String(file.getBytes());
 	        String[] rows = fileContent.split("\n");
+	        int numtotal = 0;
 	        //String[] headers = rows[0].split(",");
 	        cn = DriverManager.getConnection(connectionUrl);
 			// Llamada al procedimiento almacenado
@@ -113,6 +114,7 @@ public class BalanceServiceImpl implements IBalanceService{
 	        for (int i = 1; i < rows.length; i++) {
 	        	String[] row = rows[i].split(";");
 	        	String valor = row[2];
+	        	numtotal = i;
 	        	valor = valor.replace(",", ".");
 				cst.setInt(1, periodo);
 				cst.setString(2, acronimo);
@@ -122,9 +124,10 @@ public class BalanceServiceImpl implements IBalanceService{
 				rs = cst.executeQuery();	        
 	        }
 	        //empieza nuevo procedimiento que pone las fecha inicial y fecha fin
-	        CallableStatement cst2 = cn.prepareCall("{CALL SP_INSERT_BALANCE_FECHAS(?,?) }");
+	        CallableStatement cst2 = cn.prepareCall("{CALL SP_INSERT_BALANCE_FECHAS(?,?,?) }");
 	        cst2.setInt(1, periodo);
 			cst2.setString(2, acronimo);
+			cst2.setInt(3, numtotal);
 			rs = cst2.executeQuery();
 	        while(rs.next()) {
             	// Se obtienen la salida del procedimineto almacenado
