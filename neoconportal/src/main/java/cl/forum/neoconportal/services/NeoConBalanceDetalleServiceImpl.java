@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import cl.forum.neoconportal.model.Balance;
 import cl.forum.neoconportal.model.NeoConBalanceDetalle;
 import cl.forum.neoconportal.response.NeoConBalanceDetalleResponseRest;
 
@@ -60,6 +61,17 @@ public class NeoConBalanceDetalleServiceImpl implements INeoConBalanceDetalleSer
 				cst.setString(5, row[1]);
 				rs = cst.executeQuery();	        
 	        }
+	        
+	      //empieza nuevo procedimiento que pone las fecha inicial y fecha fin
+	        CallableStatement cst2 = cn.prepareCall("{CALL SP_INSERT_NEOCONITEM(?,?) }");
+	        cst2.setInt(1, periodo);
+			cst2.setString(2, acronimo);
+			rs = cst2.executeQuery();
+	        
+	        while(rs.next()) {
+            	// Se obtienen la salida del procedimineto almacenado
+				
+			}
 	        
 		} catch(Exception e) {
 			

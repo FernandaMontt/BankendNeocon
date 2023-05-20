@@ -1,5 +1,6 @@
 package cl.forum.neoconportal.services;
 
+import java.math.BigDecimal;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -46,7 +47,7 @@ public class BalanceServiceImpl implements IBalanceService{
 				cst.setString(2, balance.getAcronimo());
 				cst.setInt(3, balance.getCuentaCodigo());
 				cst.setString(4, balance.getDescripcion());
-				cst.setFloat(5, balance.getSaldo());
+				cst.setDouble(5, balance.getSaldo());
 	        try (ResultSet rs = cst.executeQuery()) {
 	            while (rs.next()) {
 	            	Balance balancess = new Balance();
@@ -55,7 +56,7 @@ public class BalanceServiceImpl implements IBalanceService{
 					balancess.setAcronimo(rs.getString("ACRONIMO"));
 					balancess.setCuentaCodigo(rs.getInt("CUENTA_CODIGO"));
 					balancess.setDescripcion(rs.getString("DESCRIPCION"));
-					balancess.setSaldo(rs.getFloat("SALDO"));
+					balancess.setSaldo(rs.getDouble("SALDO"));
 					balances.add(balancess);
 	            }
 	            response.getBalanceResponse().setBalance(balances);
@@ -82,7 +83,7 @@ public class BalanceServiceImpl implements IBalanceService{
 					balancess.setAcronimo(rs.getString("ACRONIMO"));
 					balancess.setCuentaCodigo(rs.getInt("CUENTA_CODIGO"));
 					balancess.setDescripcion(rs.getString("DESCRIPCION"));
-					balancess.setSaldo(rs.getFloat("SALDO"));
+					balancess.setSaldo(rs.getDouble("SALDO"));
 					balances.add(balancess);
 	            }
 	            response.getBalanceResponse().setBalance(balances);
@@ -117,7 +118,7 @@ public class BalanceServiceImpl implements IBalanceService{
 				cst.setString(2, acronimo);
 				cst.setInt(3, Integer.parseInt(row[0]));
 				cst.setString(4, row[1]);
-				cst.setFloat(5, Float.parseFloat(valor));
+				cst.setDouble(5, Double.parseDouble(valor));
 				rs = cst.executeQuery();	        
 	        }
 	        //empieza nuevo procedimiento que pone las fecha inicial y fecha fin
@@ -132,7 +133,7 @@ public class BalanceServiceImpl implements IBalanceService{
 				balancess.setAcronimo(rs.getString("ACRONIMO"));
 				balancess.setCuentaCodigo(rs.getInt("CUENTA_CODIGO"));
 				balancess.setDescripcion(rs.getString("DESCRIPCION"));
-				balancess.setSaldo(rs.getFloat("SALDO"));
+				balancess.setSaldo(rs.getDouble("SALDO"));
 				balances.add(balancess);
 			}
 

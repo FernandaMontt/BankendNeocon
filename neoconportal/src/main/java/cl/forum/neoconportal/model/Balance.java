@@ -1,6 +1,7 @@
 package cl.forum.neoconportal.model;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -41,7 +42,7 @@ public class Balance implements Serializable{
     @Basic(optional = false)
     
     @Column(name = "SALDO")
-    private float saldo;
+    private double saldo;
     
     
     public Balance() {
@@ -51,7 +52,7 @@ public class Balance implements Serializable{
         this.balanceTempId = balanceTempId;
     }
 
-	public Balance(Integer balanceTempId, int periodo, String acronimo, int cuentaCodigo, String descripcion, float saldo) {
+	public Balance(Integer balanceTempId, int periodo, String acronimo, int cuentaCodigo, String descripcion, double saldo) {
 		super();
 		this.balanceTempId = balanceTempId;
 		this.periodo = periodo;
@@ -103,11 +104,11 @@ public class Balance implements Serializable{
 		this.descripcion = descripcion;
 	}
 
-	public float getSaldo() {
+	public double getSaldo() {
 		return saldo;
 	}
 
-	public void setSaldo(float saldo) {
+	public void setSaldo(double saldo) {
 		this.saldo = saldo;
 	}
 
