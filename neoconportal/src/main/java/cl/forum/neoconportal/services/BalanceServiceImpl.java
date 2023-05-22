@@ -108,8 +108,15 @@ public class BalanceServiceImpl implements IBalanceService{
 	        int numtotal = 0;
 	        //String[] headers = rows[0].split(",");
 	        cn = DriverManager.getConnection(connectionUrl);
+	        //Primero Fecha Inicial
+	        CallableStatement cst1 = cn.prepareCall("{CALL SP_INSERT_BALANCE_FECHASINICIAL(?,?,?,?) }");
+	        cst1.setInt(1, periodo);
+			cst1.setString(2, acronimo);
+			cst1.setInt(3, numtotal);
+			cst1.setString(4, file.getOriginalFilename());
+			rs = cst1.executeQuery();
 			// Llamada al procedimiento almacenado
-			CallableStatement cst = cn.prepareCall("{CALL SP_INSERT_BALANCE_CSV(?,?,?,?,?) }");
+			CallableStatement cst = cn.prepareCall("{CALL SP_INSERT_BALANCEDETALLE_CSV(?,?,?,?,?) }");
 
 	        for (int i = 1; i < rows.length; i++) {
 	        	String[] row = rows[i].split(";");
@@ -123,24 +130,29 @@ public class BalanceServiceImpl implements IBalanceService{
 				cst.setDouble(5, Double.parseDouble(valor));
 				rs = cst.executeQuery();	        
 	        }
+	        
+	        CallableStatement cst3 = cn.prepareCall("{CALL SP_VALIDAR_RUBRO_CUENTA(?,?,?,?,?) }");
+	        for (int j = 1; j < rows.length; j++ ) {
+	        	String[] row = rows[j].split(";");
+	        	String valor = row[2];
+	        	valor = valor.replace(",", ".");
+				cst3.setInt(1, periodo);
+				cst3.setString(2, acronimo);
+				cst3.setInt(3, Integer.parseInt(row[0]));
+				cst3.setString(4, row[1]);
+				cst3.setDouble(5, Double.parseDouble(valor));
+				rs = cst3.executeQuery();	
+	        }
 	        //empieza nuevo procedimiento que pone las fecha inicial y fecha fin
-	        CallableStatement cst2 = cn.prepareCall("{CALL SP_INSERT_BALANCE_FECHAS(?,?,?) }");
+	        CallableStatement cst2 = cn.prepareCall("{CALL SP_INSERT_BALANCE_FECHASFIN(?,?,?) }");
 	        cst2.setInt(1, periodo);
 			cst2.setString(2, acronimo);
 			cst2.setInt(3, numtotal);
 			rs = cst2.executeQuery();
 	        while(rs.next()) {
             	// Se obtienen la salida del procedimineto almacenado
-				Balance balancess = new Balance();
-				balancess.setPeriodo(rs.getInt("PERIODO"));
-				balancess.setAcronimo(rs.getString("ACRONIMO"));
-				balancess.setCuentaCodigo(rs.getInt("CUENTA_CODIGO"));
-				balancess.setDescripcion(rs.getString("DESCRIPCION"));
-				balancess.setSaldo(rs.getDouble("SALDO"));
-				balances.add(balancess);
+				
 			}
-
-	        response.getBalanceResponse().setBalance(balances);
 
 		} catch(Exception e) {
 			

@@ -13,7 +13,7 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name="BALANCE_TEMP")
+@Table(name="BALANCE_TEMP_DETALLE")
 public class Balance implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
@@ -25,13 +25,9 @@ public class Balance implements Serializable{
     private Integer balanceTempId;
     @Basic(optional = false)
     
-    @Column(name = "PERIODO")
     private int periodo;
-    @Basic(optional = false)
     
-    @Column(name = "ACRONIMO")
     private String acronimo;
-    @Basic(optional = false)
     
     @Column(name = "CUENTA_CODIGO")
     private int cuentaCodigo;
@@ -44,6 +40,9 @@ public class Balance implements Serializable{
     @Column(name = "SALDO")
     private double saldo;
     
+    @Column(name = "RUBRO")
+    private int rubro;
+    
     
     public Balance() {
     }
@@ -51,18 +50,15 @@ public class Balance implements Serializable{
     public Balance(Integer balanceTempId) {
         this.balanceTempId = balanceTempId;
     }
-
-	public Balance(Integer balanceTempId, int periodo, String acronimo, int cuentaCodigo, String descripcion, double saldo) {
+	
+	public Balance(Integer balanceTempId, int cuentaCodigo, String descripcion, double saldo, int rubro) {
 		super();
 		this.balanceTempId = balanceTempId;
-		this.periodo = periodo;
-		this.acronimo = acronimo;
 		this.cuentaCodigo = cuentaCodigo;
 		this.descripcion = descripcion;
 		this.saldo = saldo;
+		this.rubro = rubro;
 	}
-	
-	
 
 	public Integer getBalanceTempId() {
 		return balanceTempId;
@@ -110,6 +106,14 @@ public class Balance implements Serializable{
 
 	public void setSaldo(double saldo) {
 		this.saldo = saldo;
+	}
+
+	public int getRubro() {
+		return rubro;
+	}
+
+	public void setRubro(int rubro) {
+		this.rubro = rubro;
 	}
 
 	@Override
