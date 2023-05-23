@@ -41,5 +41,13 @@ public class BalanceController {
 	  return response;
 	}
 	
+	@PostMapping("/obtenerid")
+	public ResponseEntity<BalanceResponseRest> findBalanceId(
+											 @RequestParam("periodo") Integer periodo,
+											 @RequestParam("acronimo") String acronimo) {
+	  ResponseEntity<BalanceResponseRest> response = service.findBalanceId(periodo, acronimo);
+	  return response;
+	}
+	
 
 }

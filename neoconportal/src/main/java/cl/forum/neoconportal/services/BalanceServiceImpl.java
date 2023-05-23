@@ -150,6 +150,38 @@ public class BalanceServiceImpl implements IBalanceService{
 		return new ResponseEntity<BalanceResponseRest>(response, HttpStatus.OK);
 	}
 
+	@Override
+	public ResponseEntity<BalanceResponseRest> findBalanceId(Integer periodo, String acronimo) {
+		BalanceResponseRest response = new BalanceResponseRest();
+		List<Balance> balances = new ArrayList<Balance>();
+		
+		try (Connection cn = DriverManager.getConnection(connectionUrl);
+	            CallableStatement cst = cn.prepareCall("{CALL SP_GET_SOURCEBALANCE_BYID }")) {
+				cst.setInt(1, periodo);
+				cst.setString(2, acronimo);
+				rs = cst.executeQuery();
+	        try (ResultSet rs = cst.executeQuery()) {
+	            while (rs.next()) {
+	            	Balance balancess = new Balance();
+					balancess.setBalanceTempId(rs.getInt("BALANCETEMP_ID"));
+					balancess.setPeriodo(rs.getInt("PERIODO"));
+					balancess.setAcronimo(rs.getString("ACRONIMO"));
+					balancess.setFecha_incial(rs.getDate("FECHA_INICIAL"));
+					balancess.setFecha_fin(rs.getDate("FECHA_FIN"));
+					balancess.setNombreArchivo(rs.getString("NOMBREARCHIVO"));
+					balancess.setCantidadRegistros(rs.getInt("CANTIDADREGISTROS"));
+					balancess.setEstado(rs.getString("ESTADO"));
+					balances.add(balancess);
+	            }
+	            response.getBalanceResponse().setBalance(balances);
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        return new ResponseEntity<BalanceResponseRest>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+	    }
+		return new ResponseEntity<BalanceResponseRest>(response, HttpStatus.OK);
+	}
+
 	
 	
 	
