@@ -84,7 +84,7 @@ public class NeoConBalanceDetalleServiceImpl implements INeoConBalanceDetalleSer
 	        
 	        while(rs.next()) {
             	// Se obtienen la salida del procedimineto almacenado
-				
+	        	
 			}
 	        
 		} catch(Exception e) {

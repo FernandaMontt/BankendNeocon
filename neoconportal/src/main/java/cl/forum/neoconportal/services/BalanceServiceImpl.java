@@ -151,7 +151,9 @@ public class BalanceServiceImpl implements IBalanceService{
 			rs = cst2.executeQuery();
 	        while(rs.next()) {
             	// Se obtienen la salida del procedimineto almacenado
-				
+	        	Balance balancess = new Balance();
+				balancess.setBalanceTempId(rs.getInt("BALANCETEMP_ID"));
+				balances.add(balancess);
 			}
 
 		} catch(Exception e) {
