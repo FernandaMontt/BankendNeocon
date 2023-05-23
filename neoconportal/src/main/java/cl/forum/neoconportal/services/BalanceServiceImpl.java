@@ -156,7 +156,7 @@ public class BalanceServiceImpl implements IBalanceService{
 		List<Balance> balances = new ArrayList<Balance>();
 		
 		try (Connection cn = DriverManager.getConnection(connectionUrl);
-	            CallableStatement cst = cn.prepareCall("{CALL SP_GET_SOURCEBALANCE_BYID }")) {
+	            CallableStatement cst = cn.prepareCall("{CALL SP_GET_SOURCEBALANCE_BYID(?,?) }")) {
 				cst.setInt(1, periodo);
 				cst.setString(2, acronimo);
 				rs = cst.executeQuery();
