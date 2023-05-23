@@ -41,11 +41,5 @@ public class BalanceController {
 	  return response;
 	}
 	
-	@PostMapping("/balance")
-	public ResponseEntity<BalanceResponseRest> saveBalance(@RequestBody Balance balance){
-		ResponseEntity<BalanceResponseRest> response = service.saveBalance(balance);
-		return response;
-	}
-	
 
 }

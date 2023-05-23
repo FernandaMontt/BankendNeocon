@@ -34,39 +34,6 @@ public class BalanceServiceImpl implements IBalanceService{
                     + "loginTimeout=30;";
 	ResultSet rs;
 	
-	@Override
-	@Transactional
-	public ResponseEntity<BalanceResponseRest> saveBalance(Balance balance) {
-		// TODO Auto-generated method stub
-		BalanceResponseRest response = new BalanceResponseRest();
-		List<Balance> balances = new ArrayList<Balance>();
-		
-		try (Connection cn = DriverManager.getConnection(connectionUrl);
-	            CallableStatement cst = cn.prepareCall("{CALL SP_INSERT_BALANCE_CSV(?,?,?,?,?) }")) {
-				cst.setInt(1, balance.getPeriodo());
-				cst.setString(2, balance.getAcronimo());
-				cst.setInt(3, balance.getCuentaCodigo());
-				cst.setString(4, balance.getDescripcion());
-				cst.setDouble(5, balance.getSaldo());
-	        try (ResultSet rs = cst.executeQuery()) {
-	            while (rs.next()) {
-	            	Balance balancess = new Balance();
-					balancess.setBalanceTempId(rs.getInt("BALANCETEMP_ID"));
-					balancess.setPeriodo(rs.getInt("PERIODO"));
-					balancess.setAcronimo(rs.getString("ACRONIMO"));
-					balancess.setCuentaCodigo(rs.getInt("CUENTA_CODIGO"));
-					balancess.setDescripcion(rs.getString("DESCRIPCION"));
-					balancess.setSaldo(rs.getDouble("SALDO"));
-					balances.add(balancess);
-	            }
-	            response.getBalanceResponse().setBalance(balances);
-	        }
-	    } catch (SQLException e) {
-	        e.printStackTrace();
-	        return new ResponseEntity<BalanceResponseRest>(response, HttpStatus.INTERNAL_SERVER_ERROR);
-	    }
-		return new ResponseEntity<BalanceResponseRest>(response, HttpStatus.OK);
-	}
 
 	@Override
 	public ResponseEntity<BalanceResponseRest> findAll() {
@@ -79,11 +46,14 @@ public class BalanceServiceImpl implements IBalanceService{
 	        try (ResultSet rs = cst.executeQuery()) {
 	            while (rs.next()) {
 	            	Balance balancess = new Balance();
+					balancess.setBalanceTempId(rs.getInt("BALANCETEMP_ID"));
 					balancess.setPeriodo(rs.getInt("PERIODO"));
 					balancess.setAcronimo(rs.getString("ACRONIMO"));
-					balancess.setCuentaCodigo(rs.getInt("CUENTA_CODIGO"));
-					balancess.setDescripcion(rs.getString("DESCRIPCION"));
-					balancess.setSaldo(rs.getDouble("SALDO"));
+					balancess.setFecha_incial(rs.getDate("FECHA_INICIAL"));
+					balancess.setFecha_fin(rs.getDate("FECHA_FIN"));
+					balancess.setNombreArchivo(rs.getString("NOMBREARCHIVO"));
+					balancess.setCantidadRegistros(rs.getInt("CANTIDADREGISTROS"));
+					balancess.setEstado(rs.getString("ESTADO"));
 					balances.add(balancess);
 	            }
 	            response.getBalanceResponse().setBalance(balances);
@@ -153,6 +123,13 @@ public class BalanceServiceImpl implements IBalanceService{
             	// Se obtienen la salida del procedimineto almacenado
 	        	Balance balancess = new Balance();
 				balancess.setBalanceTempId(rs.getInt("BALANCETEMP_ID"));
+				balancess.setPeriodo(rs.getInt("PERIODO"));
+				balancess.setAcronimo(rs.getString("ACRONIMO"));
+				balancess.setFecha_incial(rs.getDate("FECHA_INICIAL"));
+				balancess.setFecha_fin(rs.getDate("FECHA_FIN"));
+				balancess.setNombreArchivo(rs.getString("NOMBREARCHIVO"));
+				balancess.setCantidadRegistros(rs.getInt("CANTIDADREGISTROS"));
+				balancess.setEstado(rs.getString("ESTADO"));
 				balances.add(balancess);
 			}
 

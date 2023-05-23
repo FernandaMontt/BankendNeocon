@@ -2,6 +2,7 @@ package cl.forum.neoconportal.model;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.sql.Date;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -13,7 +14,7 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name="BALANCE_TEMP_DETALLE")
+@Table(name="HEADERBALANCE_TEMP")
 public class Balance implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
@@ -25,23 +26,28 @@ public class Balance implements Serializable{
     private Integer balanceTempId;
     @Basic(optional = false)
     
+    @Column(name = "PERIODO")
     private int periodo;
     
+    @Column(name = "ACRONIMO")
     private String acronimo;
     
-    @Column(name = "CUENTA_CODIGO")
-    private int cuentaCodigo;
+    @Column(name = "FECHA_INICIAL")
+    private Date fecha_incial;
     @Basic(optional = false)
     
-    @Column(name = "DESCRIPCION")
-    private String descripcion;
+    @Column(name = "FECHA_FIN")
+    private Date fecha_fin;
     @Basic(optional = false)
     
-    @Column(name = "SALDO")
-    private double saldo;
+    @Column(name = "NOMBREARCHIVO")
+    private String nombreArchivo;
     
-    @Column(name = "RUBRO")
-    private int rubro;
+    @Column(name = "CANTIDADREGISTROS")
+    private int cantidadRegistros;
+    
+    @Column(name = "ESTADO")
+    private String estado;
     
     
     public Balance() {
@@ -51,14 +57,21 @@ public class Balance implements Serializable{
         this.balanceTempId = balanceTempId;
     }
 	
-	public Balance(Integer balanceTempId, int cuentaCodigo, String descripcion, double saldo, int rubro) {
+
+	public Balance(Integer balanceTempId, int periodo, String acronimo, Date fecha_incial, Date fecha_fin,
+			String nombreArchivo, int cantidadRegistros, String estado) {
 		super();
 		this.balanceTempId = balanceTempId;
-		this.cuentaCodigo = cuentaCodigo;
-		this.descripcion = descripcion;
-		this.saldo = saldo;
-		this.rubro = rubro;
+		this.periodo = periodo;
+		this.acronimo = acronimo;
+		this.fecha_incial = fecha_incial;
+		this.fecha_fin = fecha_fin;
+		this.nombreArchivo = nombreArchivo;
+		this.cantidadRegistros = cantidadRegistros;
+		this.estado = estado;
 	}
+
+	
 
 	public Integer getBalanceTempId() {
 		return balanceTempId;
@@ -84,36 +97,44 @@ public class Balance implements Serializable{
 		this.acronimo = acronimo;
 	}
 
-	public int getCuentaCodigo() {
-		return cuentaCodigo;
+	public Date getFecha_incial() {
+		return fecha_incial;
 	}
 
-	public void setCuentaCodigo(int cuentaCodigo) {
-		this.cuentaCodigo = cuentaCodigo;
+	public void setFecha_incial(Date fecha_incial) {
+		this.fecha_incial = fecha_incial;
 	}
 
-	public String getDescripcion() {
-		return descripcion;
+	public Date getFecha_fin() {
+		return fecha_fin;
 	}
 
-	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
+	public void setFecha_fin(Date fecha_fin) {
+		this.fecha_fin = fecha_fin;
 	}
 
-	public double getSaldo() {
-		return saldo;
+	public String getNombreArchivo() {
+		return nombreArchivo;
 	}
 
-	public void setSaldo(double saldo) {
-		this.saldo = saldo;
+	public void setNombreArchivo(String nombreArchivo) {
+		this.nombreArchivo = nombreArchivo;
 	}
 
-	public int getRubro() {
-		return rubro;
+	public int getCantidadRegistros() {
+		return cantidadRegistros;
 	}
 
-	public void setRubro(int rubro) {
-		this.rubro = rubro;
+	public void setCantidadRegistros(int cantidadRegistros) {
+		this.cantidadRegistros = cantidadRegistros;
+	}
+
+	public String getEstado() {
+		return estado;
+	}
+
+	public void setEstado(String estado) {
+		this.estado = estado;
 	}
 
 	@Override
