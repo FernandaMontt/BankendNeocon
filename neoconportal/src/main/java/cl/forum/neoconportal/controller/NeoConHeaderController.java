@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import cl.forum.neoconportal.response.BalanceResponseRest;
 import cl.forum.neoconportal.response.NeoConHeaderResponseRest;
 import cl.forum.neoconportal.services.NeoConHeaderServiceImpl;
 
@@ -24,6 +25,14 @@ public class NeoConHeaderController {
 											 @RequestParam("periodo") Integer periodo,
 											 @RequestParam("acronimo") String acronimo) {
 	  ResponseEntity<NeoConHeaderResponseRest> response = service.saveNeoConHeaders(periodo, acronimo);
+	  return response;
+	}
+	
+	@PostMapping("/obtenerneoconid")
+	public ResponseEntity<NeoConHeaderResponseRest> findNeoConBalanceId(
+											 @RequestParam("periodo") Integer periodo,
+											 @RequestParam("acronimo") String acronimo) {
+	  ResponseEntity<NeoConHeaderResponseRest> response = service.findNeoConBalanceId(periodo, acronimo);
 	  return response;
 	}
 	

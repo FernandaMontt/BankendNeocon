@@ -55,7 +55,7 @@ public class NeoConBalanceDetalle implements Serializable{
     @Basic(optional = false)
     
     @Column(name = "SALDO")
-    private int saldo;
+    private Double saldo;
     @Basic(optional = false)
     
     @Column(name = "SIGNODELSALDO")
@@ -81,6 +81,14 @@ public class NeoConBalanceDetalle implements Serializable{
     @Column(name = "HORA")
     private Time hora;
     
+    private String mensaje;
+    
+    @Column(name = "TESTCUENTA")
+    private int testCuenta;
+    
+    @Column(name = "TESTRUBRO")
+    private int testRubro;
+    
     public NeoConBalanceDetalle() {
     }
 
@@ -89,7 +97,7 @@ public class NeoConBalanceDetalle implements Serializable{
     }
 
 	public NeoConBalanceDetalle(Integer neoconItemId, Integer neoconId, int numero_ig, int rubro, int empresa_nif,
-			int saldo, String signodelSaldo, String empresa2_nif, String filler1, String filler2, String filler3,
+			Double saldo, String signodelSaldo, String empresa2_nif, String filler1, String filler2, String filler3,
 			Time hora) {
 		super();
 		this.neoconItemId = neoconItemId;
@@ -194,11 +202,11 @@ public class NeoConBalanceDetalle implements Serializable{
 		this.empresa_nif = empresa_nif;
 	}
 
-	public int getSaldo() {
+	public Double getSaldo() {
 		return saldo;
 	}
 
-	public void setSaldo(int saldo) {
+	public void setSaldo(Double saldo) {
 		this.saldo = saldo;
 	}
 
@@ -250,6 +258,30 @@ public class NeoConBalanceDetalle implements Serializable{
 		this.hora = hora;
 	}
 	
+	public String getMensaje() {
+		return mensaje;
+	}
+
+	public void setMensaje(String mensaje) {
+		this.mensaje = mensaje;
+	}
+
+	public int getTestCuenta() {
+		return testCuenta;
+	}
+
+	public void setTestCuenta(int testCuenta) {
+		this.testCuenta = testCuenta;
+	}
+
+	public int getTestRubro() {
+		return testRubro;
+	}
+
+	public void setTestRubro(int testRubro) {
+		this.testRubro = testRubro;
+	}
+
 	@Override
     public int hashCode() {
         int hash = 0;

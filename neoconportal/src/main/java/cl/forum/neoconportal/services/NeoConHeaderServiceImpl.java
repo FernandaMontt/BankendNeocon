@@ -63,4 +63,34 @@ public class NeoConHeaderServiceImpl implements INeoConHeaderService{
 			    return new ResponseEntity<NeoConHeaderResponseRest>(response, HttpStatus.OK);
 	}
 
+	@Override
+	public ResponseEntity<NeoConHeaderResponseRest> findNeoConBalanceId(Integer periodo, String acronimo) {
+		// TODO Auto-generated method stub
+		NeoConHeaderResponseRest response = new NeoConHeaderResponseRest();
+		List<NeoConHeader> neoConHeaders = new ArrayList<NeoConHeader>();
+		
+		try (Connection cn = DriverManager.getConnection(connectionUrl);
+	            CallableStatement cst = cn.prepareCall("{CALL SP_GET_SOURCENEOCONBALANCE_BYID(?,?) }")) {
+				cst.setInt(1, periodo);
+				cst.setString(2, acronimo);
+	        try (ResultSet rs = cst.executeQuery()) {
+	            while (rs.next()) {
+	            	NeoConHeader NeoConHeaderss = new NeoConHeader();
+	            	NeoConHeaderss.setNeoconId(rs.getInt("NEOCONID"));
+	            	NeoConHeaderss.setFechaProceso(rs.getDate("FECHAPROCESO"));
+	            	NeoConHeaderss.setVersion(rs.getInt("VERSION"));
+	            	NeoConHeaderss.setPeriodo(rs.getInt("PERIODO"));
+	            	NeoConHeaderss.setAcronimo(rs.getString("ACRONIMO"));
+	            	NeoConHeaderss.setHora(rs.getTime("HORA"));
+	            	neoConHeaders.add(NeoConHeaderss);
+	            }
+	            response.getNeoConHeaderResponse().setNeoConHeader(neoConHeaders);
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        return new ResponseEntity<NeoConHeaderResponseRest>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+	    }
+	    return new ResponseEntity<NeoConHeaderResponseRest>(response, HttpStatus.OK);
+	}
+
 }

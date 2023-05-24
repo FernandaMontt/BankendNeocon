@@ -16,7 +16,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import cl.forum.neoconportal.model.Balance;
+import cl.forum.neoconportal.model.BalanceDetalle;
 import cl.forum.neoconportal.model.NeoConBalanceDetalle;
+import cl.forum.neoconportal.response.BalanceDetalleResponseRest;
 import cl.forum.neoconportal.response.NeoConBalanceDetalleResponseRest;
 
 @Service
@@ -89,5 +91,71 @@ public class NeoConBalanceDetalleServiceImpl implements INeoConBalanceDetalleSer
 		}
 		return new ResponseEntity<NeoConBalanceDetalleResponseRest>(response, HttpStatus.OK);
 	}
+
+	@Override
+	public ResponseEntity<NeoConBalanceDetalleResponseRest> findNeoBalanceDetalleId(Integer id_neocon) {
+		NeoConBalanceDetalleResponseRest response = new NeoConBalanceDetalleResponseRest();
+		List<NeoConBalanceDetalle> neoConBalanceDetalles = new ArrayList<NeoConBalanceDetalle>();
+		
+		try (Connection cn = DriverManager.getConnection(connectionUrl);
+	            CallableStatement cst = cn.prepareCall("{CALL SP_GET_SOURCEBYID_VALIDACIONNATURALEZA(?) }")) {
+				cst.setString(1, id_neocon.toString());
+	        try (ResultSet rs = cst.executeQuery()) {
+	            while (rs.next()) {
+	            	NeoConBalanceDetalle neoConBalanceDetalle = new NeoConBalanceDetalle();
+	            	neoConBalanceDetalle.setPeriodo(rs.getInt("PERIODO"));
+	            	neoConBalanceDetalle.setAcronimo(rs.getString("ACRONIMO"));
+	            	neoConBalanceDetalle.setNombreEmpresa(rs.getString("NOMBREEMPRESA"));
+	            	neoConBalanceDetalle.setCuenta(rs.getInt("CUENTA"));
+	            	neoConBalanceDetalle.setSaldo(rs.getDouble("SALDO"));
+	            	neoConBalanceDetalle.setRubro(rs.getInt("RUBRO"));
+	            	neoConBalanceDetalle.setDescripcionRubro(rs.getString("DESCRIPCIONRUBRO"));
+	            	neoConBalanceDetalle.setTestCuenta(rs.getInt("TESTCUENTA"));
+	            	neoConBalanceDetalle.setTestRubro(rs.getInt("TESTRUBRO"));
+	            	neoConBalanceDetalle.setMensaje(rs.getString("MENSAJE"));
+	            	neoConBalanceDetalles.add(neoConBalanceDetalle);
+	            }
+	            response.getNeoConBalanceDetalleResponse().setNeoConBalanceDetalle(neoConBalanceDetalles);
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        return new ResponseEntity<NeoConBalanceDetalleResponseRest>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+	    }
+	    return new ResponseEntity<NeoConBalanceDetalleResponseRest>(response, HttpStatus.OK);
+	}
+
+	@Override
+	public ResponseEntity<NeoConBalanceDetalleResponseRest> findNeoBalanceDetalleRubroId(Integer id_neocon) {
+		NeoConBalanceDetalleResponseRest response = new NeoConBalanceDetalleResponseRest();
+		List<NeoConBalanceDetalle> neoConBalanceDetalles = new ArrayList<NeoConBalanceDetalle>();
+		
+		try (Connection cn = DriverManager.getConnection(connectionUrl);
+	            CallableStatement cst = cn.prepareCall("{CALL SP_GET_SOURCEBYID_VALIDACIONINTERGRUPO(?) }")) {
+				cst.setString(1, id_neocon.toString());
+	        try (ResultSet rs = cst.executeQuery()) {
+	            while (rs.next()) {
+	            	NeoConBalanceDetalle neoConBalanceDetalle = new NeoConBalanceDetalle();
+	            	neoConBalanceDetalle.setPeriodo(rs.getInt("PERIODO"));
+	            	neoConBalanceDetalle.setAcronimo(rs.getString("ACRONIMO"));
+	            	neoConBalanceDetalle.setNombreEmpresa(rs.getString("NOMBREEMPRESA"));
+	            	neoConBalanceDetalle.setCuenta(rs.getInt("CUENTA"));
+	            	neoConBalanceDetalle.setSaldo(rs.getDouble("SALDO"));
+	            	neoConBalanceDetalle.setRubro(rs.getInt("RUBRO"));
+	            	neoConBalanceDetalle.setDescripcionRubro(rs.getString("DESCRIPCIONRUBRO"));
+	            	neoConBalanceDetalle.setTestCuenta(rs.getInt("TESTCUENTA"));
+	            	neoConBalanceDetalle.setTestRubro(rs.getInt("TESTRUBRO"));
+	            	neoConBalanceDetalle.setMensaje(rs.getString("MENSAJE"));
+	            	neoConBalanceDetalles.add(neoConBalanceDetalle);
+	            }
+	            response.getNeoConBalanceDetalleResponse().setNeoConBalanceDetalle(neoConBalanceDetalles);
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        return new ResponseEntity<NeoConBalanceDetalleResponseRest>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+	    }
+	    return new ResponseEntity<NeoConBalanceDetalleResponseRest>(response, HttpStatus.OK);
+	}
+	
+	
 
 }
