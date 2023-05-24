@@ -62,20 +62,6 @@ public class NeoConBalanceDetalleServiceImpl implements INeoConBalanceDetalleSer
 				rs = cst.executeQuery();	        
 	        }
 	        
-	        
-	        CallableStatement cst1 = cn.prepareCall("{CALL SP_VALDICAR_NATURALEZA_IG(?,?,?,?,?) }");
-	        for (int j = 1; j < rows.length; j++ ) {
-	        	String[] row = rows[j].split(";");
-	        	String valor = row[2];
-	        	valor = valor.replace(",", ".");
-				cst1.setInt(1, periodo);
-				cst1.setString(2, acronimo);
-				cst1.setDouble(3, Double.parseDouble(valor));
-				cst1.setInt(4, Integer.parseInt(row[0]));
-				cst1.setString(5, row[1]);
-				rs = cst1.executeQuery();	
-	        }
-	        
 	      //empieza nuevo procedimiento que pone las fecha inicial y fecha fin
 	        CallableStatement cst2 = cn.prepareCall("{CALL SP_INSERT_NEOCONITEM(?,?) }");
 	        cst2.setInt(1, periodo);
