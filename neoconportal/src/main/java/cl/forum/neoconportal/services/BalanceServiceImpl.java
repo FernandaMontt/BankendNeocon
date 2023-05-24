@@ -101,18 +101,11 @@ public class BalanceServiceImpl implements IBalanceService{
 				rs = cst.executeQuery();	        
 	        }
 	        
-	        CallableStatement cst3 = cn.prepareCall("{CALL SP_VALIDAR_RUBRO_CUENTA(?,?,?,?,?) }");
-	        for (int j = 1; j < rows.length; j++ ) {
-	        	String[] row = rows[j].split(";");
-	        	String valor = row[2];
-	        	valor = valor.replace(",", ".");
-				cst3.setInt(1, periodo);
-				cst3.setString(2, acronimo);
-				cst3.setInt(3, Integer.parseInt(row[0]));
-				cst3.setString(4, row[1]);
-				cst3.setDouble(5, Double.parseDouble(valor));
-				rs = cst3.executeQuery();	
-	        }
+	        //Validar Balance
+	        CallableStatement cst3 = cn.prepareCall("{CALL SP_VALIDAR_RUBRO_CUENTA(?,?) }");
+	        cst3.setInt(1, periodo);
+	        cst3.setString(2, acronimo);
+			rs = cst3.executeQuery();
 	        //empieza nuevo procedimiento que pone las fecha inicial y fecha fin
 	        CallableStatement cst2 = cn.prepareCall("{CALL SP_INSERT_BALANCE_FECHASFIN(?,?,?) }");
 	        cst2.setInt(1, periodo);
