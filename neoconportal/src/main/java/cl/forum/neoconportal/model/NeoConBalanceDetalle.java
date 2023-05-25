@@ -64,7 +64,7 @@ public class NeoConBalanceDetalle implements Serializable{
     private String signodelSaldo;
     @Basic(optional = false)
     
-    private int naturalezaRubro;
+    private String naturalezaRubro;
     
     private String signoRubro;
 
@@ -296,11 +296,11 @@ public class NeoConBalanceDetalle implements Serializable{
 		this.saldo2 = saldo2;
 	}
 	
-	public int getNaturalezaRubro() {
+	public String getNaturalezaRubro() {
 		return naturalezaRubro;
 	}
 
-	public void setNaturalezaRubro(int naturalezaRubro) {
+	public void setNaturalezaRubro(String naturalezaRubro) {
 		this.naturalezaRubro = naturalezaRubro;
 	}
 

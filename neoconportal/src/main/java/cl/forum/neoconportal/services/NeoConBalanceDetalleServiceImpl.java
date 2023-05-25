@@ -193,13 +193,13 @@ public class NeoConBalanceDetalleServiceImpl implements INeoConBalanceDetalleSer
 	}
 
 	@Override
-	public ResponseEntity<NeoConBalanceDetalleResponseRest> DescargaCodGInterfaz(Integer id_neocon) {
+	public ResponseEntity<NeoConBalanceDetalleResponseRest> DescargaCodGInterfaz(@RequestParam("periodo") Integer periodo) {
 		NeoConBalanceDetalleResponseRest response = new NeoConBalanceDetalleResponseRest();
 		List<NeoConBalanceDetalle> neoConBalanceDetalles = new ArrayList<NeoConBalanceDetalle>();
 		
 		try (Connection cn = DriverManager.getConnection(connectionUrl);
 	            CallableStatement cst = cn.prepareCall("{CALL SP_GET_DESCARGA_GINTERFAZ(?) }")) {
-				cst.setString(1, id_neocon.toString());
+				cst.setInt(1, periodo);
 	        try (ResultSet rs = cst.executeQuery()) {
 	            while (rs.next()) {
 	            	NeoConBalanceDetalle neoConBalanceDetalle = new NeoConBalanceDetalle();
@@ -209,7 +209,7 @@ public class NeoConBalanceDetalleServiceImpl implements INeoConBalanceDetalleSer
 	            	neoConBalanceDetalle.setEmpresa_nif(rs.getInt("EMPRESA_NIF"));
 	            	neoConBalanceDetalle.setSaldo2(rs.getDouble("SALDO2"));
 	            	neoConBalanceDetalle.setSignodelSaldo(rs.getString("SIGNODELSALDO"));
-	            	neoConBalanceDetalle.setNaturalezaRubro(rs.getInt("NATURALEZARUBRO"));
+	            	neoConBalanceDetalle.setNaturalezaRubro(rs.getString("NATURALEZARUBRO"));
 	            	neoConBalanceDetalle.setSignoRubro(rs.getString("SIGNODELRUBRO"));
 	            	neoConBalanceDetalle.setEmpresa2_nif(rs.getString("EMPRESA2_NIF"));
 	            	neoConBalanceDetalle.setFiller1(rs.getString("FILLER1"));

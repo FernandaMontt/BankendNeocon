@@ -50,9 +50,9 @@ public class NeoConBalanceDetalleController {
 	  return response;
 	}
 	
-	@GetMapping("/descarganeoconbalance/{id}")
-	public ResponseEntity<NeoConBalanceDetalleResponseRest> DescargaCodGInterfaz(@PathVariable Integer id){
-		ResponseEntity<NeoConBalanceDetalleResponseRest> response = service.DescargaCodGInterfaz(id);
+	@PostMapping("/descarganeoconbalance")
+	public ResponseEntity<NeoConBalanceDetalleResponseRest> DescargaCodGInterfaz(@RequestParam("periodo") Integer periodo){
+		ResponseEntity<NeoConBalanceDetalleResponseRest> response = service.DescargaCodGInterfaz(periodo);
 		return response;
 	}
 
