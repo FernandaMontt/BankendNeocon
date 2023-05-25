@@ -161,6 +161,36 @@ public class NeoConBalanceDetalleServiceImpl implements INeoConBalanceDetalleSer
 	    }
 	    return new ResponseEntity<NeoConBalanceDetalleResponseRest>(response, HttpStatus.OK);
 	}
+
+	@Override
+	public ResponseEntity<NeoConBalanceDetalleResponseRest> ReporteProestec(Integer periodo) {
+		// TODO Auto-generated method stub
+		NeoConBalanceDetalleResponseRest response = new NeoConBalanceDetalleResponseRest();
+		List<NeoConBalanceDetalle> neoConBalanceDetalles = new ArrayList<NeoConBalanceDetalle>();
+		
+		try (Connection cn = DriverManager.getConnection(connectionUrl);
+	            CallableStatement cst = cn.prepareCall("{CALL SP_GET_DESCARGA_PROESPECT(?) }")) {
+				cst.setString(1, periodo.toString());
+	        try (ResultSet rs = cst.executeQuery()) {
+	            while (rs.next()) {
+	            	NeoConBalanceDetalle neoConBalanceDetalle = new NeoConBalanceDetalle();
+	            	neoConBalanceDetalle.setEmpresa_nif(rs.getInt("COD_EMPRESA"));
+	            	neoConBalanceDetalle.setNombreEmpresa(rs.getString("EMPRESA"));
+	            	neoConBalanceDetalle.setCuenta(rs.getInt("CUENTA"));
+	            	neoConBalanceDetalle.setCuentaDescripcion(rs.getString("NOMBRE"));
+	            	neoConBalanceDetalle.setRubro(rs.getInt("RUBRO"));
+	            	neoConBalanceDetalle.setDescripcionRubro(rs.getString("NOMBRE_CUENTA_ESPAÑA"));
+	            	neoConBalanceDetalle.setSaldo(rs.getDouble("SALDO_BALANCE"));
+	            	neoConBalanceDetalles.add(neoConBalanceDetalle);
+	            }
+	            response.getNeoConBalanceDetalleResponse().setNeoConBalanceDetalle(neoConBalanceDetalles);
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        return new ResponseEntity<NeoConBalanceDetalleResponseRest>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+	    }
+	    return new ResponseEntity<NeoConBalanceDetalleResponseRest>(response, HttpStatus.OK);
+	}
 	
 	
 

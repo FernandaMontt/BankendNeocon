@@ -43,5 +43,11 @@ public class NeoConBalanceDetalleController {
 		ResponseEntity<NeoConBalanceDetalleResponseRest> response = service.findNeoBalanceDetalleRubroId(id);
 		return response;
 	}
+	
+	@PostMapping("/reporteproestpec")
+	public ResponseEntity<NeoConBalanceDetalleResponseRest> resporteProestpec(@RequestParam("periodo") Integer periodo) {
+	  ResponseEntity<NeoConBalanceDetalleResponseRest> response = service.ReporteProestec(periodo);
+	  return response;
+	}
 
 }

@@ -13,4 +13,5 @@ public interface INeoConBalanceDetalleService {
 			@RequestParam("periodo") Integer periodo,@RequestParam("acronimo") String acronimo);
 	public ResponseEntity<NeoConBalanceDetalleResponseRest> findNeoBalanceDetalleId(Integer id_neocon);
 	public ResponseEntity<NeoConBalanceDetalleResponseRest> findNeoBalanceDetalleRubroId(Integer id_neocon);
+	public ResponseEntity<NeoConBalanceDetalleResponseRest> ReporteProestec(@RequestParam("periodo") Integer periodo);
 }
