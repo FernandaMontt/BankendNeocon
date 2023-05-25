@@ -191,6 +191,40 @@ public class NeoConBalanceDetalleServiceImpl implements INeoConBalanceDetalleSer
 	    }
 	    return new ResponseEntity<NeoConBalanceDetalleResponseRest>(response, HttpStatus.OK);
 	}
+
+	@Override
+	public ResponseEntity<NeoConBalanceDetalleResponseRest> DescargaCodGInterfaz(Integer id_neocon) {
+		NeoConBalanceDetalleResponseRest response = new NeoConBalanceDetalleResponseRest();
+		List<NeoConBalanceDetalle> neoConBalanceDetalles = new ArrayList<NeoConBalanceDetalle>();
+		
+		try (Connection cn = DriverManager.getConnection(connectionUrl);
+	            CallableStatement cst = cn.prepareCall("{CALL SP_GET_DESCARGA_GINTERFAZ(?) }")) {
+				cst.setString(1, id_neocon.toString());
+	        try (ResultSet rs = cst.executeQuery()) {
+	            while (rs.next()) {
+	            	NeoConBalanceDetalle neoConBalanceDetalle = new NeoConBalanceDetalle();
+	            	neoConBalanceDetalle.setPeriodo(rs.getInt("PERIODO"));
+	            	neoConBalanceDetalle.setNumero_ig(rs.getInt("NUMERO_IG"));
+	            	neoConBalanceDetalle.setRubro(rs.getInt("RUBRO"));
+	            	neoConBalanceDetalle.setEmpresa_nif(rs.getInt("EMPRESA_NIF"));
+	            	neoConBalanceDetalle.setSaldo2(rs.getDouble("SALDO2"));
+	            	neoConBalanceDetalle.setSignodelSaldo(rs.getString("SIGNODELSALDO"));
+	            	neoConBalanceDetalle.setNaturalezaRubro(rs.getInt("NATURALEZARUBRO"));
+	            	neoConBalanceDetalle.setSignoRubro(rs.getString("SIGNODELRUBRO"));
+	            	neoConBalanceDetalle.setEmpresa2_nif(rs.getString("EMPRESA2_NIF"));
+	            	neoConBalanceDetalle.setFiller1(rs.getString("FILLER1"));
+	            	neoConBalanceDetalle.setFiller2(rs.getString("FILLER2"));
+	            	neoConBalanceDetalle.setFiller3(rs.getString("FILLER3"));
+	            	neoConBalanceDetalles.add(neoConBalanceDetalle);
+	            }
+	            response.getNeoConBalanceDetalleResponse().setNeoConBalanceDetalle(neoConBalanceDetalles);
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        return new ResponseEntity<NeoConBalanceDetalleResponseRest>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+	    }
+	    return new ResponseEntity<NeoConBalanceDetalleResponseRest>(response, HttpStatus.OK);
+	}
 	
 	
 

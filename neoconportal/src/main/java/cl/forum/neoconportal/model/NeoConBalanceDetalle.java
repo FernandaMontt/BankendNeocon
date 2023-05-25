@@ -58,11 +58,17 @@ public class NeoConBalanceDetalle implements Serializable{
     private Double saldo;
     @Basic(optional = false)
     
+    private Double saldo2;
+    
     @Column(name = "SIGNODELSALDO")
     private String signodelSaldo;
     @Basic(optional = false)
     
-    @Column(name = "EMPRESA2_NIF")
+    private int naturalezaRubro;
+    
+    private String signoRubro;
+
+	@Column(name = "EMPRESA2_NIF")
     private String empresa2_nif;
     @Basic(optional = false)
     
@@ -281,6 +287,32 @@ public class NeoConBalanceDetalle implements Serializable{
 	public void setTestRubro(int testRubro) {
 		this.testRubro = testRubro;
 	}
+
+	public Double getSaldo2() {
+		return saldo2;
+	}
+
+	public void setSaldo2(Double saldo2) {
+		this.saldo2 = saldo2;
+	}
+	
+	public int getNaturalezaRubro() {
+		return naturalezaRubro;
+	}
+
+	public void setNaturalezaRubro(int naturalezaRubro) {
+		this.naturalezaRubro = naturalezaRubro;
+	}
+
+	public String getSignoRubro() {
+		return signoRubro;
+	}
+
+	public void setSignoRubro(String signoRubro) {
+		this.signoRubro = signoRubro;
+	}
+
+	
 
 	@Override
     public int hashCode() {

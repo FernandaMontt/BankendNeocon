@@ -49,5 +49,11 @@ public class NeoConBalanceDetalleController {
 	  ResponseEntity<NeoConBalanceDetalleResponseRest> response = service.ReporteProestec(periodo);
 	  return response;
 	}
+	
+	@GetMapping("/descarganeoconbalance/{id}")
+	public ResponseEntity<NeoConBalanceDetalleResponseRest> DescargaCodGInterfaz(@PathVariable Integer id){
+		ResponseEntity<NeoConBalanceDetalleResponseRest> response = service.DescargaCodGInterfaz(id);
+		return response;
+	}
 
 }
