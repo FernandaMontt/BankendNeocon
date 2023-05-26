@@ -197,4 +197,33 @@ public class InterGroupDetalleServiceImpl implements IInterGroupDetalleService{
 		
 	}
 
+	@Override
+	public ResponseEntity<InterGroupDetalleResponseRest> reporteintegrupo() {
+		InterGroupDetalleResponseRest response = new InterGroupDetalleResponseRest();
+		List<InterGroupDetalle> InterGroupDetalles = new ArrayList<InterGroupDetalle>();
+		
+		try (Connection cn = DriverManager.getConnection(connectionUrl);
+	            CallableStatement cst = cn.prepareCall("{CALL SP_GET_DESCARGA_REPORTEINTERGRUPO }")) {
+	        try (ResultSet rs = cst.executeQuery()) {
+	            while (rs.next()) {
+	            	InterGroupDetalle interGroupDetalle = new InterGroupDetalle();
+					interGroupDetalle.setNumeroIg(rs.getInt("NUMERO_IG"));
+	            	interGroupDetalle.setDescripcionIg(rs.getString("DESCRIPCION_IG"));
+					interGroupDetalle.setEmpresaNif1(rs.getInt("EMPRESA_ORIGEN"));
+					interGroupDetalle.setRubro(rs.getInt("RUBRO_CODIGO"));
+					interGroupDetalle.setDescripcionRubro(rs.getString("RUBRO_DESCRIPCION"));
+					interGroupDetalle.setCuentaCodigo(rs.getInt("CUENTA_CODIGO"));
+					interGroupDetalle.setCuentaDescripcion(rs.getString("CUENTA_DESCRIPCION"));
+					interGroupDetalle.setEmpresaNif2(rs.getInt("EMPRESA_DESTINO"));
+					InterGroupDetalles.add(interGroupDetalle);
+	            }
+	            response.getInterGroupDetalleResponse().setInterGroupDetalle(InterGroupDetalles);
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        return new ResponseEntity<InterGroupDetalleResponseRest>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+	    }
+	    return new ResponseEntity<InterGroupDetalleResponseRest>(response, HttpStatus.OK);
+	}
+
 }

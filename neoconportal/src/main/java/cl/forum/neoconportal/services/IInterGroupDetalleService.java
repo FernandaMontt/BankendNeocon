@@ -21,5 +21,6 @@ public interface IInterGroupDetalleService {
 	public ResponseEntity<InterGroupDetalleResponseRest> searchInterCuentaEmpresa2(
 			@RequestParam("codigorubro") Integer codigorubro, @RequestParam("acronimo") String acronimo,
 			@RequestParam("numeroig") Integer numeroig);
+	public ResponseEntity<InterGroupDetalleResponseRest> reporteintegrupo();
 
 }

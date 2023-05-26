@@ -63,5 +63,11 @@ public class InterGroupDetalleController {
 		ResponseEntity<InterGroupDetalleResponseRest> response = service.searchInterCuentaEmpresa2(codigorubro, acronimo, numeroig);
 		return response;
 	}
+	
+	@GetMapping("/intergruporeporte")
+	public ResponseEntity<InterGroupDetalleResponseRest> reporteintegrupo(){
+		ResponseEntity<InterGroupDetalleResponseRest> response = service.reporteintegrupo();
+		return response;
+	}
 
 }

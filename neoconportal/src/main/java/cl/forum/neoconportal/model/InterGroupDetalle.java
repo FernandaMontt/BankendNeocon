@@ -51,6 +51,14 @@ public class InterGroupDetalle implements Serializable{
     
     private int rubro2;
     
+    private int empresaNif1;
+    
+    private int empresaNif2;
+    
+    private int rubro;
+    
+    private String descripcionRubro;
+    
     public InterGroupDetalle() {
     }
 
@@ -152,9 +160,40 @@ public class InterGroupDetalle implements Serializable{
 	public void setCuentaDescripcion(String cuentaDescripcion) {
 		this.cuentaDescripcion = cuentaDescripcion;
 	}
-	
 
-    @Override
+    public int getEmpresaNif1() {
+		return empresaNif1;
+	}
+
+	public void setEmpresaNif1(int empresaNif1) {
+		this.empresaNif1 = empresaNif1;
+	}
+
+	public int getEmpresaNif2() {
+		return empresaNif2;
+	}
+
+	public void setEmpresaNif2(int empresaNif2) {
+		this.empresaNif2 = empresaNif2;
+	}
+
+	public int getRubro() {
+		return rubro;
+	}
+
+	public void setRubro(int rubro) {
+		this.rubro = rubro;
+	}
+
+	public String getDescripcionRubro() {
+		return descripcionRubro;
+	}
+
+	public void setDescripcionRubro(String descripcionRubro) {
+		this.descripcionRubro = descripcionRubro;
+	}
+
+	@Override
     public String toString() {
         return "entity.InterGroupDetalle[ interGrupoId=" + interGrupoId + " ]";
     }
