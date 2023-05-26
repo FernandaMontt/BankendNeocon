@@ -12,8 +12,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import cl.forum.neoconportal.model.CuentaEmpresa;
+import cl.forum.neoconportal.response.BalanceResponseRest;
 import cl.forum.neoconportal.response.CuentaEmpresaResponseRest;
 import cl.forum.neoconportal.services.ICuentaEmpresaService;
 
@@ -81,5 +83,11 @@ public class CuentaEmpresaController {
 	public ResponseEntity<CuentaEmpresaResponseRest> searchInterCuentaEmpresa(@RequestParam("acronimo") String acronimo){
 		ResponseEntity<CuentaEmpresaResponseRest> response = service.reportePlanCuentasHomologo(acronimo);
 		return response;
+	}
+	
+	@PostMapping("/uploadcuentas")
+	public ResponseEntity<CuentaEmpresaResponseRest> uploadFile(@RequestParam("file") MultipartFile file,@RequestParam("acronimo") String acronimo) {
+	  ResponseEntity<CuentaEmpresaResponseRest> response = service.cargarFile(file, acronimo);
+	  return response;
 	}
 }
