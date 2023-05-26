@@ -27,6 +27,10 @@ public class CuentaEmpresa implements Serializable{
     private int empresaId;
     @Basic(optional = false)
     
+    private int cod_empresa;
+    
+    private String acronimo;
+    
     private String nombreempresa;
 
     @Column(name = "RUBRO_ID")
@@ -149,7 +153,23 @@ public class CuentaEmpresa implements Serializable{
         this.estado = estado;
     }
 
-    @Override
+    public int getCod_empresa() {
+		return cod_empresa;
+	}
+
+	public void setCod_empresa(int cod_empresa) {
+		this.cod_empresa = cod_empresa;
+	}
+
+	public String getAcronimo() {
+		return acronimo;
+	}
+
+	public void setAcronimo(String acronimo) {
+		this.acronimo = acronimo;
+	}
+
+	@Override
     public int hashCode() {
         int hash = 0;
         hash += (cuentaEmpresaId != null ? cuentaEmpresaId.hashCode() : 0);

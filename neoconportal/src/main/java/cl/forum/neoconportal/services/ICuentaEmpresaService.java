@@ -17,5 +17,6 @@ public interface ICuentaEmpresaService {
 	public ResponseEntity<CuentaEmpresaResponseRest> findByCuentaCodigo(String Codigo);
 	public ResponseEntity<CuentaEmpresaResponseRest> searchInterCuentaEmpresa(
 			@RequestParam("codigorubro") Integer codigorubro, @RequestParam("acronimo") String acronimo);
+	public ResponseEntity<CuentaEmpresaResponseRest> reportePlanCuentasHomologo(@RequestParam("acronimo") String acronimo);
 
 }

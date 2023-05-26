@@ -314,4 +314,34 @@ public class CuentaEmpresaServiceImpl implements ICuentaEmpresaService{
 	    return new ResponseEntity<CuentaEmpresaResponseRest>(response, HttpStatus.OK);
 	}
 
+
+
+	@Override
+	public ResponseEntity<CuentaEmpresaResponseRest> reportePlanCuentasHomologo(String acronimo) {
+		CuentaEmpresaResponseRest response = new CuentaEmpresaResponseRest();
+		List<CuentaEmpresa> cuentaEmpresas = new ArrayList<CuentaEmpresa>();
+		
+		try (Connection cn = DriverManager.getConnection(connectionUrl);
+	            CallableStatement cst = cn.prepareCall("{CALL SP_GET_DESCARGA_PLANCUENTASHOMOLOGADO(?) }")) {
+				cst.setString(1, acronimo);
+	        try (ResultSet rs = cst.executeQuery()) {
+	            while (rs.next()) {
+	            	CuentaEmpresa cuentaEmpresa = new CuentaEmpresa();
+	            	cuentaEmpresa.setCod_empresa(rs.getInt("COD_EMPRESA"));
+	            	cuentaEmpresa.setAcronimo(rs.getString("ACRONIMO"));
+	            	cuentaEmpresa.setCuentaCodigo(rs.getInt("CUENTA"));
+	            	cuentaEmpresa.setCuentaDescripcion(rs.getString("NOMBRE"));
+	            	cuentaEmpresa.setRubroCodigo(rs.getString("CODIGO_RUBRO"));
+	            	cuentaEmpresa.setRubroDescripcion(rs.getString("NOMBRE_RUBRO"));
+	            	cuentaEmpresas.add(cuentaEmpresa);
+	            }
+	            response.getCuentaEmpresaResponse().setCuentaEmpresa(cuentaEmpresas);
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        return new ResponseEntity<CuentaEmpresaResponseRest>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+	    }
+	    return new ResponseEntity<CuentaEmpresaResponseRest>(response, HttpStatus.OK);
+	}
+
 }

@@ -76,4 +76,10 @@ public class CuentaEmpresaController {
 		ResponseEntity<CuentaEmpresaResponseRest> response = service.searchInterCuentaEmpresa(codigorubro, acronimo);
 		return response;
 	}
+	
+	@PostMapping("/cuentaempresa/plancuentas")
+	public ResponseEntity<CuentaEmpresaResponseRest> searchInterCuentaEmpresa(@RequestParam("acronimo") String acronimo){
+		ResponseEntity<CuentaEmpresaResponseRest> response = service.reportePlanCuentasHomologo(acronimo);
+		return response;
+	}
 }
