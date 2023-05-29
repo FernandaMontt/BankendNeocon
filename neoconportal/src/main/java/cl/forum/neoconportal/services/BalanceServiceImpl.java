@@ -205,11 +205,12 @@ public class BalanceServiceImpl implements IBalanceService{
 	        	numtotal = i;
 	        	valor = valor.replace(",", ".");
 	        	valor2 = valor2.replace(",", ".");
+	        	Double saldo = (Double.parseDouble(valor)-Double.parseDouble(valor2));
 				cst.setInt(1, periodo);
 				cst.setString(2, acronimo);
 				cst.setInt(3, Integer.parseInt(row[10]));
 				cst.setString(4, row[11]);
-				cst.setDouble(5, Double.parseDouble(valor)-Double.parseDouble(valor2));
+				cst.setDouble(5, saldo);
 				rs = cst.executeQuery();	        
 	        }
 	        
