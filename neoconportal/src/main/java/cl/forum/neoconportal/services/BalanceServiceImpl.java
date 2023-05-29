@@ -36,7 +36,7 @@ public class BalanceServiceImpl implements IBalanceService{
 	
 
 	@Override
-	public ResponseEntity<BalanceResponseRest> findAll() {
+	public ResponseEntity<BalanceResponseRest> findAllBalances() {
 		BalanceResponseRest response = new BalanceResponseRest();
 		List<Balance> balances = new ArrayList<Balance>();
 		

@@ -33,7 +33,7 @@ public class CuentaEmpresaController {
 	 */
 	@GetMapping("/cuentaEmpresas")
 	public ResponseEntity<CuentaEmpresaResponseRest> findAllCuentaEmpresa(){
-		ResponseEntity<CuentaEmpresaResponseRest> response = service.findAll();
+		ResponseEntity<CuentaEmpresaResponseRest> response = service.findAllCuentas();
 		return response;
 	}
 	

@@ -34,7 +34,7 @@ public class RubroServiceImpl implements IRubroService{
 	ResultSet rs;
 
 	@Override
-	public ResponseEntity<RubroResponseRest> findAll() {
+	public ResponseEntity<RubroResponseRest> findAllRubro() {
 		
 		RubroResponseRest response = new RubroResponseRest();
 		List<Rubro> rubros = new ArrayList<Rubro>();

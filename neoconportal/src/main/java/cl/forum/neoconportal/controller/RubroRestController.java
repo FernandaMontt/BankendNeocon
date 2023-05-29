@@ -31,7 +31,7 @@ public class RubroRestController {
 	
 	@GetMapping("/rubros")
 	public ResponseEntity<RubroResponseRest> findAllRubros(){
-		ResponseEntity<RubroResponseRest> response = service.findAll();
+		ResponseEntity<RubroResponseRest> response = service.findAllRubro();
 		return response;
 	}
 	

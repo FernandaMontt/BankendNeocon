@@ -28,8 +28,8 @@ public class BalanceController {
 	 * @return
 	 */
 	@GetMapping("/balance")
-	public ResponseEntity<BalanceResponseRest> findAllCuentaEmpresa(){
-		ResponseEntity<BalanceResponseRest> response = service.findAll();
+	public ResponseEntity<BalanceResponseRest> findAllBalances(){
+		ResponseEntity<BalanceResponseRest> response = service.findAllBalances();
 		return response;
 	}
 	

@@ -38,7 +38,7 @@ public class CuentaEmpresaServiceImpl implements ICuentaEmpresaService{
 	
 	
 	@Override
-	public ResponseEntity<CuentaEmpresaResponseRest> findAll() {
+	public ResponseEntity<CuentaEmpresaResponseRest> findAllCuentas() {
 
 			CuentaEmpresaResponseRest response = new CuentaEmpresaResponseRest();
 			List<CuentaEmpresa> cuentaEmpresas = new ArrayList<CuentaEmpresa>();

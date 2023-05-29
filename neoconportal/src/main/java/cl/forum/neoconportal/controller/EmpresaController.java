@@ -25,7 +25,7 @@ public class EmpresaController {
 	 */
 	@GetMapping("/empresas")
 	public ResponseEntity<EmpresaResponseRest> findAlLEmpresa(){
-		ResponseEntity<EmpresaResponseRest> response = service.findAll();
+		ResponseEntity<EmpresaResponseRest> response = service.findAllEmpresa();
 		return response;
 	}
 	

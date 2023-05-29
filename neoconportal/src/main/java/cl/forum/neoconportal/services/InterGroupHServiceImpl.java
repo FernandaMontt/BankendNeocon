@@ -33,7 +33,7 @@ public class InterGroupHServiceImpl implements IInterGroupHService{
 	ResultSet rs;
 	
 	@Override
-	public ResponseEntity<InterGroupResponseRest> findAll() {
+	public ResponseEntity<InterGroupResponseRest> findAllIntergrupo() {
 		InterGroupResponseRest response = new InterGroupResponseRest();
 		List<InterGroupHeader> interGroupHeaders = new ArrayList<InterGroupHeader>();
 		

@@ -36,7 +36,7 @@ public class EmpresaServiceImpl implements IEmpresaService{
 	
 	
 	@Override
-	public ResponseEntity<EmpresaResponseRest> findAll() {
+	public ResponseEntity<EmpresaResponseRest> findAllEmpresa() {
 
 		EmpresaResponseRest response = new EmpresaResponseRest();
 		List<Empresa> empresas = new ArrayList<Empresa>();

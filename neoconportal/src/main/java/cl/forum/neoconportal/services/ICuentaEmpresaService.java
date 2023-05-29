@@ -10,7 +10,7 @@ import cl.forum.neoconportal.response.CuentaEmpresaResponseRest;
 
 public interface ICuentaEmpresaService {
 	
-	public ResponseEntity<CuentaEmpresaResponseRest> findAll();
+	public ResponseEntity<CuentaEmpresaResponseRest> findAllCuentas();
 	public ResponseEntity<CuentaEmpresaResponseRest> findByCuentasEmpresaId(Integer Id);
 	public ResponseEntity<CuentaEmpresaResponseRest> findByCuentasEmpresaEmpresaId(Integer IdEmpresa);
 	public ResponseEntity<CuentaEmpresaResponseRest> updatestateCuentaEmpresa(Integer Id);

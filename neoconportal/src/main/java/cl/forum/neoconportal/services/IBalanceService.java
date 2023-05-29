@@ -9,7 +9,7 @@ import cl.forum.neoconportal.response.BalanceResponseRest;
 
 public interface IBalanceService {
 	
-	public ResponseEntity<BalanceResponseRest> findAll();
+	public ResponseEntity<BalanceResponseRest> findAllBalances();
 	public ResponseEntity<BalanceResponseRest> uploadFile(@RequestParam("file") MultipartFile file,
 			@RequestParam("periodo") Integer periodo,@RequestParam("acronimo") String acronimo);
 	public ResponseEntity<BalanceResponseRest> findBalanceId(@RequestParam("periodo") Integer periodo,@RequestParam("acronimo") String acronimo);

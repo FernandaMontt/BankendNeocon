@@ -30,7 +30,7 @@ public class InterGroupHController {
 	 */
 	@GetMapping("/intergrupoheader")
 	public ResponseEntity<InterGroupResponseRest> findAllInterGroupHeader(){
-		ResponseEntity<InterGroupResponseRest> response = service.findAll();
+		ResponseEntity<InterGroupResponseRest> response = service.findAllIntergrupo();
 		return response;
 	}
 	
