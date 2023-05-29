@@ -200,15 +200,15 @@ public class BalanceServiceImpl implements IBalanceService{
 
 	        for (int i = 1; i < rows.length; i++) {
 	        	String[] row = rows[i].split(",");
-	        	String valor = row[2];
-	        	String valor2 = row[3];
+	        	String valor = row[12];
+	        	String valor2 = row[13];
 	        	numtotal = i;
 	        	valor = valor.replace(",", ".");
 	        	valor2 = valor2.replace(",", ".");
 				cst.setInt(1, periodo);
 				cst.setString(2, acronimo);
-				cst.setInt(3, Integer.parseInt(row[0]));
-				cst.setString(4, row[1]);
+				cst.setInt(3, Integer.parseInt(row[10]));
+				cst.setString(4, row[11]);
 				cst.setDouble(5, Double.parseDouble(valor)-Double.parseDouble(valor2));
 				rs = cst.executeQuery();	        
 	        }
