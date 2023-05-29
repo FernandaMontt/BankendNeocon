@@ -207,12 +207,14 @@ public class BalanceServiceImpl implements IBalanceService{
 	            valor2 = valor2.replace(",", "").trim();
 	            valor = valor.replace(".", "");
 	            valor2 = valor2.replace(".", "");
-	        	double saldo = (Double.parseDouble(valor)-Double.parseDouble(valor2));
+	            BigDecimal saldo = new BigDecimal(valor).subtract(new BigDecimal(valor2));
+	            // Convertir el saldo a double sin ceros innecesarios
+	            Double saldoDouble = saldo.stripTrailingZeros().doubleValue();
 				cst.setInt(1, periodo);
 				cst.setString(2, acronimo);
 				cst.setInt(3, Integer.parseInt(row[10]));
 				cst.setString(4, row[11]);
-				cst.setDouble(5, saldo);
+				cst.setDouble(5, saldoDouble);
 				rs = cst.executeQuery();	        
 	        }
 	        
