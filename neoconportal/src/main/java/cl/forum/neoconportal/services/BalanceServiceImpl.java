@@ -205,7 +205,16 @@ public class BalanceServiceImpl implements IBalanceService{
 	        	numtotal = i;
 	        	valor = valor.replace(",", ".");
 	        	valor2 = valor2.replace(",", ".");
-	        	Double saldo = (Double.parseDouble(valor)-Double.parseDouble(valor2));
+	            valor = valor.replace(",", "").trim();
+	            valor2 = valor2.replace(",", "").trim();
+	         // Verificar si hay más de un punto decimal y eliminarlos excepto el último
+	            if (valor.indexOf('.') != valor.lastIndexOf('.')) {
+	                valor = valor.substring(0, valor.lastIndexOf('.')).replace(".", "") + valor.substring(valor.lastIndexOf('.'));
+	            }
+	            if (valor2.indexOf('.') != valor2.lastIndexOf('.')) {
+	                valor2 = valor2.substring(0, valor2.lastIndexOf('.')).replace(".", "") + valor2.substring(valor2.lastIndexOf('.'));
+	            }
+	        	double saldo = (Double.parseDouble(valor)-Double.parseDouble(valor2));
 				cst.setInt(1, periodo);
 				cst.setString(2, acronimo);
 				cst.setInt(3, Integer.parseInt(row[10]));
