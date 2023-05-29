@@ -49,5 +49,13 @@ public class BalanceController {
 	  return response;
 	}
 	
+	@PostMapping("/uploadbalance2")
+	public ResponseEntity<BalanceResponseRest> uploadFileBalance2(@RequestParam("file") MultipartFile file,
+											 @RequestParam("periodo") Integer periodo,
+											 @RequestParam("acronimo") String acronimo) {
+	  ResponseEntity<BalanceResponseRest> response = service.uploadFileBalance2(file, periodo, acronimo);
+	  return response;
+	}
+	
 
 }

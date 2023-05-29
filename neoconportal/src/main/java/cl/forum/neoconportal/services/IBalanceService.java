@@ -13,4 +13,6 @@ public interface IBalanceService {
 	public ResponseEntity<BalanceResponseRest> uploadFile(@RequestParam("file") MultipartFile file,
 			@RequestParam("periodo") Integer periodo,@RequestParam("acronimo") String acronimo);
 	public ResponseEntity<BalanceResponseRest> findBalanceId(@RequestParam("periodo") Integer periodo,@RequestParam("acronimo") String acronimo);
+	public ResponseEntity<BalanceResponseRest> uploadFileBalance2(@RequestParam("file") MultipartFile file,
+			@RequestParam("periodo") Integer periodo,@RequestParam("acronimo") String acronimo);
 }

@@ -175,6 +175,86 @@ public class BalanceServiceImpl implements IBalanceService{
 		return new ResponseEntity<BalanceResponseRest>(response, HttpStatus.OK);
 	}
 
+	@Override
+	public ResponseEntity<BalanceResponseRest> uploadFileBalance2(MultipartFile file, Integer periodo,
+			String acronimo) {
+		BalanceResponseRest response = new BalanceResponseRest();
+		List<Balance> balances = new ArrayList<Balance>();
+
+		try {
+	        // Leer y procesar el contenido del archivo
+	        String fileContent = new String(file.getBytes());
+	        String[] rows = fileContent.split("\n");
+	        int numtotal = 0;
+	        //String[] headers = rows[0].split(",");
+	        cn = DriverManager.getConnection(connectionUrl);
+	        //Primero Fecha Inicial
+	        CallableStatement cst1 = cn.prepareCall("{CALL SP_INSERT_BALANCE_FECHASINICIAL(?,?,?,?) }");
+	        cst1.setInt(1, periodo);
+			cst1.setString(2, acronimo);
+			cst1.setInt(3, numtotal);
+			cst1.setString(4, file.getOriginalFilename());
+			rs = cst1.executeQuery();
+			// Llamada al procedimiento almacenado
+			CallableStatement cst = cn.prepareCall("{CALL SP_INSERT_BALANCEDETALLE_CSV(?,?,?,?,?) }");
+
+	        for (int i = 1; i < rows.length; i++) {
+	        	String[] row = rows[i].split(",");
+	        	String valor = row[2];
+	        	String valor2 = row[3];
+	        	numtotal = i;
+	        	valor = valor.replace(",", ".");
+	        	valor2 = valor2.replace(",", ".");
+				cst.setInt(1, periodo);
+				cst.setString(2, acronimo);
+				cst.setInt(3, Integer.parseInt(row[0]));
+				cst.setString(4, row[1]);
+				cst.setDouble(5, Double.parseDouble(valor)-Double.parseDouble(valor2));
+				rs = cst.executeQuery();	        
+	        }
+	        
+	        //Validar Balance
+	        CallableStatement cst3 = cn.prepareCall("{CALL SP_VALIDAR_RUBRO_CUENTA(?,?) }");
+	        cst3.setInt(1, periodo);
+	        cst3.setString(2, acronimo);
+			rs = cst3.executeQuery();
+	        //empieza nuevo procedimiento que pone las fecha inicial y fecha fin
+	        CallableStatement cst2 = cn.prepareCall("{CALL SP_INSERT_BALANCE_FECHASFIN(?,?,?) }");
+	        cst2.setInt(1, periodo);
+			cst2.setString(2, acronimo);
+			cst2.setInt(3, numtotal);
+			rs = cst2.executeQuery();
+	        while(rs.next()) {
+            	// Se obtienen la salida del procedimineto almacenado
+	        	Balance balancess = new Balance();
+				balancess.setBalanceTempId(rs.getInt("BALANCETEMP_ID"));
+				balancess.setPeriodo(rs.getInt("PERIODO"));
+				balancess.setAcronimo(rs.getString("ACRONIMO"));
+				balancess.setFecha_incial(rs.getDate("FECHA_INICIAL"));
+				balancess.setFecha_fin(rs.getDate("FECHA_FIN"));
+				balancess.setNombreArchivo(rs.getString("NOMBREARCHIVO"));
+				balancess.setCantidadRegistros(rs.getInt("CANTIDADREGISTROS"));
+				balancess.setEstado(rs.getString("ESTADO"));
+				balances.add(balancess);
+			}
+
+		} catch(Exception e) {
+			
+			//response.setMetadata("Respuesta no ok", "-1", "Error al no consultar");
+			e.getStackTrace();
+			return new ResponseEntity<BalanceResponseRest>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+			
+		} finally{
+			try {
+				cn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return new ResponseEntity<BalanceResponseRest>(response, HttpStatus.OK);
+	}
+
 	
 	
 	

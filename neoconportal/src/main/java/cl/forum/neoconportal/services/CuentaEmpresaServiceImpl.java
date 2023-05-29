@@ -366,14 +366,14 @@ public class CuentaEmpresaServiceImpl implements ICuentaEmpresaService{
 			CallableStatement cst = cn.prepareCall("{CALL SP_CREATE_CUENTA_EMPRESA_CSV(?,?,?,?) }");
 
 	        for (int i = 1; i < rows.length; i++) {
-	        	String[] row = rows[i].split(";");
+	        	String[] row = rows[i].split(",");
 	        	String valor = row[2];
 	        	numtotal = i;
 	        	valor = valor.replace(",", ".");
 				cst.setString(1, acronimo);
 				cst.setInt(2, Integer.parseInt(row[0]));
 				cst.setString(3, row[1]);
-				cst.setDouble(4, Double.parseDouble(valor));
+				cst.setInt(4, Integer.parseInt(row[2]));
 				rs = cst.executeQuery();	        
 	        }
 	        
