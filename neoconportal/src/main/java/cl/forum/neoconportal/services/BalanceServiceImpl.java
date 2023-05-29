@@ -203,17 +203,10 @@ public class BalanceServiceImpl implements IBalanceService{
 	        	String valor = row[12];
 	        	String valor2 = row[13];
 	        	numtotal = i;
-	        	valor = valor.replace(",", ".");
-	        	valor2 = valor2.replace(",", ".");
 	            valor = valor.replace(",", "").trim();
 	            valor2 = valor2.replace(",", "").trim();
-	         // Verificar si hay más de un punto decimal y eliminarlos excepto el último
-	            if (valor.indexOf('.') != valor.lastIndexOf('.')) {
-	                valor = valor.substring(0, valor.lastIndexOf('.')).replace(".", "") + valor.substring(valor.lastIndexOf('.'));
-	            }
-	            if (valor2.indexOf('.') != valor2.lastIndexOf('.')) {
-	                valor2 = valor2.substring(0, valor2.lastIndexOf('.')).replace(".", "") + valor2.substring(valor2.lastIndexOf('.'));
-	            }
+	            valor = valor.replace(".", "");
+	            valor2 = valor2.replace(".", "");
 	        	double saldo = (Double.parseDouble(valor)-Double.parseDouble(valor2));
 				cst.setInt(1, periodo);
 				cst.setString(2, acronimo);
