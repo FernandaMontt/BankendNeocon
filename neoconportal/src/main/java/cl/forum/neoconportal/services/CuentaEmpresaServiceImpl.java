@@ -369,11 +369,11 @@ public class CuentaEmpresaServiceImpl implements ICuentaEmpresaService{
 	        	String[] row = rows[i].split(",");
 	        	String valor = row[2];
 	        	numtotal = i;
-	        	valor = valor.replace(",", ".");
+	        	valor = valor.replaceAll("\r", "");
 				cst.setString(1, acronimo);
 				cst.setInt(2, Integer.parseInt(row[0]));
 				cst.setString(3, row[1]);
-				cst.setInt(4, Integer.parseInt(row[2]));
+				cst.setInt(4, Integer.parseInt(valor));
 				rs = cst.executeQuery();	        
 	        }
 	        
