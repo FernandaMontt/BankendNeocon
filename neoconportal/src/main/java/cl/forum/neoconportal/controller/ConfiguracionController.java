@@ -169,6 +169,12 @@ public class ConfiguracionController {
 	  return response;
 	}
 	
+	@PostMapping("/uploadcuentasv2")
+	public ResponseEntity<CuentaEmpresaResponseRest> uploadFilev2(@RequestParam("file") MultipartFile file,@RequestParam("acronimo") String acronimo) {
+	  ResponseEntity<CuentaEmpresaResponseRest> response = cuentaEmpresaService.cargarFilev2(file, acronimo);
+	  return response;
+	}
+	
 	/*Intergrupo*/
 	
 	@GetMapping("/intergrupoheader")

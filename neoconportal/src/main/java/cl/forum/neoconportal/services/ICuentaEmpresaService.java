@@ -22,4 +22,6 @@ public interface ICuentaEmpresaService {
 	public ResponseEntity<CuentaEmpresaResponseRest> reportePlanCuentasHomologo(@RequestParam("acronimo") String acronimo);
 	public ResponseEntity<CuentaEmpresaResponseRest> cargarFile(@RequestParam("file") MultipartFile file,
 			@RequestParam("acronimo") String acronimo);
+	public ResponseEntity<CuentaEmpresaResponseRest> cargarFilev2(@RequestParam("file") MultipartFile file,
+			@RequestParam("acronimo") String acronimo);
 }

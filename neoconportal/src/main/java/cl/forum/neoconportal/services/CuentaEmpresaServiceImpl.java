@@ -413,6 +413,74 @@ public class CuentaEmpresaServiceImpl implements ICuentaEmpresaService{
 		return new ResponseEntity<CuentaEmpresaResponseRest>(response, HttpStatus.OK);
 	}
 	
+	@Override
+	public ResponseEntity<CuentaEmpresaResponseRest> cargarFilev2(MultipartFile file, String acronimo) {
+
+		CuentaEmpresaResponseRest response = new CuentaEmpresaResponseRest();
+		List<Balance> balances = new ArrayList<Balance>();
+
+		try {
+	        // Leer y procesar el contenido del archivo
+	        String fileContent = new String(file.getBytes());
+	        fileContent = replaceCommasInsideQuotes(fileContent);
+	        fileContent = fileContent.replaceAll("\r", ""); // Eliminar los caracteres \r
+	        String[] rows = fileContent.split("\n");
+	        int numtotal = 0;
+	        //String[] headers = rows[0].split(",");
+	        cn = DriverManager.getConnection(connectionUrl);
+			// Llamada al procedimiento almacenado
+			CallableStatement cst = cn.prepareCall("{CALL SP_CREATE_CUENTA_EMPRESA_CSV_V2(?,?,?,?,?) }");
+
+	        for (int i = 1; i < rows.length; i++) {
+	        	String[] row = rows[i].split(",");
+	        	String valor = "";
+	        	if(row[4] == "" || row[4] == "0") {
+	        		valor = "0";
+	        	}else {
+	        		valor = row[4];
+	        	}
+	        	numtotal = i;
+	        	valor = valor.replaceAll("\r", "");
+				cst.setString(1, acronimo);
+				cst.setInt(2, Integer.parseInt(row[2]));
+				cst.setString(3, row[3]);
+				cst.setInt(4, Integer.parseInt(valor));
+				cst.setString(5, row[5]+"/"+row[6]);
+				rs = cst.executeQuery();	        
+	        }
+	        
+	        
+	        while(rs.next()) {
+            	// Se obtienen la salida del procedimineto almacenado
+	        	Balance balancess = new Balance();
+				balancess.setBalanceTempId(rs.getInt("BALANCETEMP_ID"));
+				balancess.setPeriodo(rs.getInt("PERIODO"));
+				balancess.setAcronimo(rs.getString("ACRONIMO"));
+				balancess.setFecha_incial(rs.getDate("FECHA_INICIAL"));
+				balancess.setFecha_fin(rs.getDate("FECHA_FIN"));
+				balancess.setNombreArchivo(rs.getString("NOMBREARCHIVO"));
+				balancess.setCantidadRegistros(rs.getInt("CANTIDADREGISTROS"));
+				balancess.setEstado(rs.getString("ESTADO"));
+				balances.add(balancess);
+			}
+
+		} catch(Exception e) {
+			
+			//response.setMetadata("Respuesta no ok", "-1", "Error al no consultar");
+			e.getStackTrace();
+			return new ResponseEntity<CuentaEmpresaResponseRest>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+			
+		} finally{
+			try {
+				cn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return new ResponseEntity<CuentaEmpresaResponseRest>(response, HttpStatus.OK);
+	}
+	
 	private String replaceCommasInsideQuotes(String input) {
 		StringBuilder result = new StringBuilder();
 	    Matcher matcher = Pattern.compile("\"([^\"]*)\"").matcher(input);
