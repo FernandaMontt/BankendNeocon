@@ -8,6 +8,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -184,6 +186,8 @@ public class BalanceServiceImpl implements IBalanceService{
 		try {
 	        // Leer y procesar el contenido del archivo
 	        String fileContent = new String(file.getBytes());
+	        fileContent = replaceCommasInsideQuotes(fileContent);
+	        fileContent = fileContent.replaceAll("\r", ""); // Eliminar los caracteres \r
 	        String[] rows = fileContent.split("\n");
 	        int numtotal = 0;
 	        //String[] headers = rows[0].split(",");
@@ -203,6 +207,10 @@ public class BalanceServiceImpl implements IBalanceService{
 	        	String valor = row[12];
 	        	String valor2 = row[13];
 	        	numtotal = i;
+	        	valor = valor.replace("(", "").trim();
+	            valor2 = valor2.replace("(", "").trim();
+	            valor = valor.replace(")", "").trim();
+	            valor2 = valor2.replace(")", "").trim();
 	            valor = valor.replace(",", "").trim();
 	            valor2 = valor2.replace(",", "").trim();
 	            valor = valor.replace(".", "");
@@ -258,6 +266,35 @@ public class BalanceServiceImpl implements IBalanceService{
 			}
 		}
 		return new ResponseEntity<BalanceResponseRest>(response, HttpStatus.OK);
+	}
+	
+	private String replaceCommasInsideQuotes(String input) {
+		StringBuilder result = new StringBuilder();
+	    Matcher matcher = Pattern.compile("\"([^\"]*)\"").matcher(input);
+	    int lastIndex = 0;
+
+	    while (matcher.find()) {
+	        result.append(input, lastIndex, matcher.start()); // Agregar el texto antes de la coincidencia
+	        String match = matcher.group(1); // Obtener el texto dentro de las comillas
+	        match = match.replace(",", " ").replace("\"", " "); // Eliminar comas y comillas dentro del texto
+	        // Verificar si el texto contiene paréntesis y si el contenido es numérico
+	        if (match.contains("(") && match.contains(")")) {
+	        	int startIndex = match.indexOf("(");
+	            int endIndex = match.indexOf(")");
+	            String content = match.substring(startIndex + 1, endIndex).trim();
+	            if (content.matches("-?\\d+(\\.\\d+)?")) {
+	                match = content; // Conservar solo el valor numérico dentro de los paréntesis
+	            }
+	        }
+	        result.append(match); // Agregar el texto modificado
+	        lastIndex = matcher.end();
+	    }
+
+	    if (lastIndex < input.length()) {
+	        result.append(input.substring(lastIndex)); // Agregar el texto restante después de la última coincidencia
+	    }
+
+	    return result.toString();
 	}
 
 	
