@@ -436,16 +436,27 @@ public class CuentaEmpresaServiceImpl implements ICuentaEmpresaService{
 	        	String[] row = rows[i].split(",");
 	        	String valor = "";
 	        	String tipocuenta = "";
-	        	if(row[4] == "" || row[4] == "0" || row[4].isEmpty()) {
-	        		valor = "0";
-	        	}else {
-	        		valor = row[4];
-	        	}
-	        	if(row[2].isEmpty() && row[3].isEmpty()) {
+	        	
+	        	if(row.length == 2) {
 	        		tipocuenta = "Activo";
+	        		valor = "0";
 	        	}
 	        	else {
+	        		tipocuenta = row[2];
+	        	}
+	        	if(row.length == 3) {
+	        		tipocuenta = row[2];
+	        		valor = "0";
+	        	}
+	        	else {
+	        		tipocuenta = row[3];
+	        	}
+	        	if(row.length == 4) {
 	        		tipocuenta = row[2]+"-"+row[3];
+	        		valor = "0";	
+	        	}else if(row.length == 5) {
+	        		tipocuenta = row[2]+"-"+row[3];
+	        		valor = row[4];
 	        	}
 	        	numtotal = i;
 	        	valor = valor.replaceAll("\r", "");
