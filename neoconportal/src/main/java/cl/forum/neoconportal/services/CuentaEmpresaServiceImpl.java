@@ -443,10 +443,10 @@ public class CuentaEmpresaServiceImpl implements ICuentaEmpresaService{
 	        	numtotal = i;
 	        	valor = valor.replaceAll("\r", "");
 				cst.setString(1, acronimo);
-				cst.setInt(2, Integer.parseInt(row[2]));
-				cst.setString(3, row[3]);
+				cst.setInt(2, Integer.parseInt(row[0]));
+				cst.setString(3, row[1]);
 				cst.setInt(4, Integer.parseInt(valor));
-				cst.setString(5, row[5]+"/"+row[6]);
+				cst.setString(5, row[2]+"-"+row[3]);
 				rs = cst.executeQuery();	        
 	        }
 	        
