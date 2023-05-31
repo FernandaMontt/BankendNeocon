@@ -395,6 +395,7 @@ public class CuentaEmpresaServiceImpl implements ICuentaEmpresaService{
 				balancess.setEstado(rs.getString("ESTADO"));
 				balances.add(balancess);
 			}
+	        
 
 		} catch(Exception e) {
 			
@@ -417,7 +418,7 @@ public class CuentaEmpresaServiceImpl implements ICuentaEmpresaService{
 	public ResponseEntity<CuentaEmpresaResponseRest> cargarFilev2(MultipartFile file, String acronimo) {
 
 		CuentaEmpresaResponseRest response = new CuentaEmpresaResponseRest();
-		List<Balance> balances = new ArrayList<Balance>();
+		List<CuentaEmpresa> cuentas = new ArrayList<CuentaEmpresa>();
 
 		try {
 	        // Leer y procesar el contenido del archivo
@@ -452,17 +453,17 @@ public class CuentaEmpresaServiceImpl implements ICuentaEmpresaService{
 	        
 	        while(rs.next()) {
             	// Se obtienen la salida del procedimineto almacenado
-	        	Balance balancess = new Balance();
-				balancess.setBalanceTempId(rs.getInt("BALANCETEMP_ID"));
-				balancess.setPeriodo(rs.getInt("PERIODO"));
-				balancess.setAcronimo(rs.getString("ACRONIMO"));
-				balancess.setFecha_incial(rs.getDate("FECHA_INICIAL"));
-				balancess.setFecha_fin(rs.getDate("FECHA_FIN"));
-				balancess.setNombreArchivo(rs.getString("NOMBREARCHIVO"));
-				balancess.setCantidadRegistros(rs.getInt("CANTIDADREGISTROS"));
-				balancess.setEstado(rs.getString("ESTADO"));
-				balances.add(balancess);
+	        	CuentaEmpresa cuentass = new CuentaEmpresa();
+	        	cuentass.setCuentaEmpresaId(rs.getInt("CUENTA_EMPRESA_ID"));
+	        	cuentass.setEmpresaId(rs.getInt("EMPRESA_ID"));
+	        	cuentass.setRubroId(rs.getInt("RUBRO_ID"));
+	        	cuentass.setCuentaCodigo(rs.getInt("CUENTA_CODIGO"));
+	        	cuentass.setCuentaDescripcion(rs.getString("CUENTA_DESCRIPCION"));
+	        	cuentass.setCuentaTipo(rs.getString("CUENTA_TIPO"));
+				cuentass.setEstado(rs.getString("ESTADO"));
+				cuentas.add(cuentass);
 			}
+	        response.getCuentaEmpresaResponse().setCuentaEmpresa(cuentas);
 
 		} catch(Exception e) {
 			
