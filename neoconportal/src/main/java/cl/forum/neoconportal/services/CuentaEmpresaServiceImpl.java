@@ -441,7 +441,7 @@ public class CuentaEmpresaServiceImpl implements ICuentaEmpresaService{
 	        	}else {
 	        		valor = row[4];
 	        	}
-	        	if(row[2].isEmpty() || row[3].isEmpty()) {
+	        	if(row[2].isEmpty() && row[3].isEmpty()) {
 	        		tipocuenta = "Activo";
 	        	}
 	        	else {
