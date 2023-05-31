@@ -91,7 +91,8 @@ public class BalanceServiceImpl implements IBalanceService{
 			CallableStatement cst = cn.prepareCall("{CALL SP_INSERT_BALANCEDETALLE_CSV(?,?,?,?,?) }");
 
 	        for (int i = 1; i < rows.length; i++) {
-	        	String[] row = rows[i].split(";");
+	        	//String[] row = rows[i].split(";");
+	        	String[] row = rows[i].split(",");
 	        	String valor = row[2];
 	        	numtotal = i;
 	        	valor = valor.replace(",", ".");
