@@ -436,6 +436,8 @@ public class CuentaEmpresaServiceImpl implements ICuentaEmpresaService{
 	        	String[] row = rows[i].split(",");
 	        	String valor = "";
 	        	String tipocuenta = "";
+	        	String cuenta = row[0];
+	        	cuenta = cuenta.replace(".", "");
 	        	//Validaciones
 	        	if(row.length == 2) {
 	        		tipocuenta = "Activo";
@@ -467,7 +469,7 @@ public class CuentaEmpresaServiceImpl implements ICuentaEmpresaService{
 	        	numtotal = i;
 	        	valor = valor.replaceAll("\r", "");
 				cst.setString(1, acronimo);
-				cst.setInt(2, Integer.parseInt(row[0]));
+				cst.setInt(2, Integer.parseInt(cuenta));
 				cst.setString(3, row[1]);
 				cst.setInt(4, Integer.parseInt(valor));
 				cst.setString(5, tipocuenta);
