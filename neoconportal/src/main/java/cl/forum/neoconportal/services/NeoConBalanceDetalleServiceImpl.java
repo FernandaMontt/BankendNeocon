@@ -7,6 +7,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -45,7 +47,9 @@ public class NeoConBalanceDetalleServiceImpl implements INeoConBalanceDetalleSer
 
 		try {
 	        // Leer y procesar el contenido del archivo
-	        String fileContent = new String(file.getBytes());
+			String fileContent = new String(file.getBytes());
+	        fileContent = replaceCommasInsideQuotes(fileContent);
+	        fileContent = fileContent.replaceAll("\r", ""); // Eliminar los caracteres \r
 	        String[] rows = fileContent.split("\n");
 	        //String[] headers = rows[0].split(",");
 	        cn = DriverManager.getConnection(connectionUrl);
@@ -53,9 +57,12 @@ public class NeoConBalanceDetalleServiceImpl implements INeoConBalanceDetalleSer
 			CallableStatement cst = cn.prepareCall("{CALL SP_INSERT_NEOCONBALANCEDETALLE(?,?,?,?,?) }");
 
 	        for (int i = 1; i < rows.length; i++) {
-	        	String[] row = rows[i].split(";");
+	        	String[] row = rows[i].split(",");
 	        	String valor = row[2];
 	        	valor = valor.replace(",", ".");
+	        	valor = valor.replace("(", "").trim();
+	        	valor = valor.replace(")", "").trim();
+	        	valor = valor.replace(".", "");
 				cst.setInt(1, periodo);
 				cst.setString(2, acronimo);
 				cst.setDouble(3, Double.parseDouble(valor));
@@ -224,6 +231,35 @@ public class NeoConBalanceDetalleServiceImpl implements INeoConBalanceDetalleSer
 	        return new ResponseEntity<NeoConBalanceDetalleResponseRest>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 	    }
 	    return new ResponseEntity<NeoConBalanceDetalleResponseRest>(response, HttpStatus.OK);
+	}
+	
+	private String replaceCommasInsideQuotes(String input) {
+		StringBuilder result = new StringBuilder();
+	    Matcher matcher = Pattern.compile("\"([^\"]*)\"").matcher(input);
+	    int lastIndex = 0;
+
+	    while (matcher.find()) {
+	        result.append(input, lastIndex, matcher.start()); // Agregar el texto antes de la coincidencia
+	        String match = matcher.group(1); // Obtener el texto dentro de las comillas
+	        match = match.replace(",", " ").replace("\"", " "); // Eliminar comas y comillas dentro del texto
+	        // Verificar si el texto contiene paréntesis y si el contenido es numérico
+	        if (match.contains("(") && match.contains(")")) {
+	        	int startIndex = match.indexOf("(");
+	            int endIndex = match.indexOf(")");
+	            String content = match.substring(startIndex + 1, endIndex).trim();
+	            if (content.matches("-?\\d+(\\.\\d+)?")) {
+	                match = content; // Conservar solo el valor numérico dentro de los paréntesis
+	            }
+	        }
+	        result.append(match); // Agregar el texto modificado
+	        lastIndex = matcher.end();
+	    }
+
+	    if (lastIndex < input.length()) {
+	        result.append(input.substring(lastIndex)); // Agregar el texto restante después de la última coincidencia
+	    }
+
+	    return result.toString();
 	}
 	
 	
