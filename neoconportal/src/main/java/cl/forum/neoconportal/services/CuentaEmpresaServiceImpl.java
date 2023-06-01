@@ -436,7 +436,7 @@ public class CuentaEmpresaServiceImpl implements ICuentaEmpresaService{
 	        	String[] row = rows[i].split(",");
 	        	String valor = "";
 	        	String tipocuenta = "";
-	        	
+	        	//Validaciones
 	        	if(row.length == 2) {
 	        		tipocuenta = "Activo";
 	        		valor = "0";
@@ -454,7 +454,7 @@ public class CuentaEmpresaServiceImpl implements ICuentaEmpresaService{
 	        	if(row.length == 4) {
 	        		tipocuenta = row[2]+"-"+row[3];
 	        		valor = "0";	
-	        	}else if(row.length == 5) {
+	        	}if(row.length == 5) {
 	        		tipocuenta = row[2]+"-"+row[3];
 	        		valor = row[4];
 	        	}
