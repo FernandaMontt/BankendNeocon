@@ -453,9 +453,15 @@ public class CuentaEmpresaServiceImpl implements ICuentaEmpresaService{
 	        	}
 	        	if(row.length == 4) {
 	        		tipocuenta = row[2]+"-"+row[3];
+	        		if(tipocuenta == " - ") {
+	        			tipocuenta = "Activo";
+	        		}
 	        		valor = "0";	
 	        	}if(row.length == 5) {
 	        		tipocuenta = row[2]+"-"+row[3];
+	        		if(tipocuenta == " - ") {
+	        			tipocuenta = "Activo";
+	        		}
 	        		valor = row[4];
 	        	}
 	        	numtotal = i;
