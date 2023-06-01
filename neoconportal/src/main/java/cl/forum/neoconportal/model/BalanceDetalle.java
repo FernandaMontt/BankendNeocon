@@ -27,7 +27,7 @@ public class BalanceDetalle implements Serializable{
     @Basic(optional = false)
     
     @Column(name = "CUENTA_CODIGO")
-    private int cuentaCodigo;
+    private Double cuentaCodigo;
     
     @Column(name = "DESCRIPCION")
     private String descripcion;
@@ -55,7 +55,7 @@ public class BalanceDetalle implements Serializable{
         this.balanceTempId = balanceTempId;
     }
 
-	public BalanceDetalle(Integer balanceTempId, int cuentaCodigo, String descripcion, Double saldo, int rubro,
+	public BalanceDetalle(Integer balanceTempId, Double cuentaCodigo, String descripcion, Double saldo, int rubro,
 			int testCuenta, int testRubro, String mensaje) {
 		super();
 		this.balanceTempId = balanceTempId;
@@ -76,11 +76,11 @@ public class BalanceDetalle implements Serializable{
 		this.balanceTempId = balanceTempId;
 	}
 
-	public int getCuentaCodigo() {
+	public Double getCuentaCodigo() {
 		return cuentaCodigo;
 	}
 
-	public void setCuentaCodigo(int cuentaCodigo) {
+	public void setCuentaCodigo(Double cuentaCodigo) {
 		this.cuentaCodigo = cuentaCodigo;
 	}
 

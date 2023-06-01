@@ -59,6 +59,8 @@ public class NeoConBalanceDetalleServiceImpl implements INeoConBalanceDetalleSer
 	        for (int i = 1; i < rows.length; i++) {
 	        	String[] row = rows[i].split(",");
 	        	String valor = row[2];
+	        	String cuenta = row[0];
+	        	cuenta = cuenta.replace(".", "");
 	        	valor = valor.replace(",", ".");
 	        	valor = valor.replace("(", "").trim();
 	        	valor = valor.replace(")", "").trim();
@@ -66,7 +68,7 @@ public class NeoConBalanceDetalleServiceImpl implements INeoConBalanceDetalleSer
 				cst.setInt(1, periodo);
 				cst.setString(2, acronimo);
 				cst.setDouble(3, Double.parseDouble(valor));
-				cst.setInt(4, Integer.parseInt(row[0]));
+				cst.setDouble(4, Double.parseDouble(cuenta));
 				cst.setString(5, row[1]);
 				rs = cst.executeQuery();	        
 	        }
@@ -119,7 +121,7 @@ public class NeoConBalanceDetalleServiceImpl implements INeoConBalanceDetalleSer
 	            	neoConBalanceDetalle.setPeriodo(rs.getInt("PERIODO"));
 	            	neoConBalanceDetalle.setAcronimo(rs.getString("ACRONIMO"));
 	            	neoConBalanceDetalle.setNombreEmpresa(rs.getString("NOMBREEMPRESA"));
-	            	neoConBalanceDetalle.setCuenta(rs.getInt("CUENTA"));
+	            	neoConBalanceDetalle.setCuenta(rs.getDouble("CUENTA"));
 	            	neoConBalanceDetalle.setSaldo(rs.getDouble("SALDO"));
 	            	neoConBalanceDetalle.setRubro(rs.getInt("RUBRO"));
 	            	neoConBalanceDetalle.setDescripcionRubro(rs.getString("DESCRIPCIONRUBRO"));
@@ -151,7 +153,7 @@ public class NeoConBalanceDetalleServiceImpl implements INeoConBalanceDetalleSer
 	            	neoConBalanceDetalle.setPeriodo(rs.getInt("PERIODO"));
 	            	neoConBalanceDetalle.setAcronimo(rs.getString("ACRONIMO"));
 	            	neoConBalanceDetalle.setNombreEmpresa(rs.getString("NOMBREEMPRESA"));
-	            	neoConBalanceDetalle.setCuenta(rs.getInt("CUENTA"));
+	            	neoConBalanceDetalle.setCuenta(rs.getDouble("CUENTA"));
 	            	neoConBalanceDetalle.setSaldo(rs.getDouble("SALDO"));
 	            	neoConBalanceDetalle.setRubro(rs.getInt("RUBRO"));
 	            	neoConBalanceDetalle.setDescripcionRubro(rs.getString("DESCRIPCIONRUBRO"));
@@ -183,7 +185,7 @@ public class NeoConBalanceDetalleServiceImpl implements INeoConBalanceDetalleSer
 	            	NeoConBalanceDetalle neoConBalanceDetalle = new NeoConBalanceDetalle();
 	            	neoConBalanceDetalle.setEmpresa_nif(rs.getInt("COD_EMPRESA"));
 	            	neoConBalanceDetalle.setNombreEmpresa(rs.getString("EMPRESA"));
-	            	neoConBalanceDetalle.setCuenta(rs.getInt("CUENTA"));
+	            	neoConBalanceDetalle.setCuenta(rs.getDouble("CUENTA"));
 	            	neoConBalanceDetalle.setCuentaDescripcion(rs.getString("NOMBRE"));
 	            	neoConBalanceDetalle.setRubro(rs.getInt("RUBRO"));
 	            	neoConBalanceDetalle.setDescripcionRubro(rs.getString("NOMBRE_CUENTA_ESPAÑA"));

@@ -48,7 +48,7 @@ public class InterGroupDetalleServiceImpl implements IInterGroupDetalleService{
 	                interGroupDetalle.setEmpresa2(rs.getString("EMPRESA2"));
 	                interGroupDetalle.setRubro1(rs.getInt("RUBRO1"));
 	                interGroupDetalle.setRubro2(rs.getInt("RUBRO2"));
-	                interGroupDetalle.setCuentaCodigo(rs.getInt("CUENTA_CODIGO"));
+	                interGroupDetalle.setCuentaCodigo(rs.getDouble("CUENTA_CODIGO"));
 	                interGroupDetalle.setCuentaDescripcion(rs.getString("CUENTA_DESCRIPCION"));
 	                InterGroupDetalles.add(interGroupDetalle);
 	            }
@@ -72,7 +72,7 @@ public class InterGroupDetalleServiceImpl implements IInterGroupDetalleService{
 	            CallableStatement cst = cn.prepareCall("{CALL SP_CREATE_INTERGRUPODETALLE(?,?,?) }")) {
 				cst.setInt(1, interGroupDetalle.getNumeroIg());
 				cst.setString(2, interGroupDetalle.getEmpresa());
-				cst.setInt(3, interGroupDetalle.getCuentaCodigo());
+				cst.setDouble(3, interGroupDetalle.getCuentaCodigo());
 	        try (ResultSet rs = cst.executeQuery()) {
 	            
 	            
@@ -154,7 +154,7 @@ public class InterGroupDetalleServiceImpl implements IInterGroupDetalleService{
 	            while (rs.next()) {
 	            	InterGroupDetalle interGroupDetalle = new InterGroupDetalle();
 					interGroupDetalle.setInterGrupoId(rs.getInt("INTERGRUPO_ID"));
-	            	interGroupDetalle.setCuentaCodigo(rs.getInt("CUENTA_CODIGO"));
+	            	interGroupDetalle.setCuentaCodigo(rs.getDouble("CUENTA_CODIGO"));
 					interGroupDetalle.setCuentaDescripcion(rs.getString("CUENTA_DESCRIPCION"));
 					InterGroupDetalles.add(interGroupDetalle);
 	            }
@@ -183,7 +183,7 @@ public class InterGroupDetalleServiceImpl implements IInterGroupDetalleService{
 	            while (rs.next()) {
 	            	InterGroupDetalle interGroupDetalle = new InterGroupDetalle();
 					interGroupDetalle.setInterGrupoId(rs.getInt("INTERGRUPO_ID"));
-	            	interGroupDetalle.setCuentaCodigo(rs.getInt("CUENTA_CODIGO"));
+	            	interGroupDetalle.setCuentaCodigo(rs.getDouble("CUENTA_CODIGO"));
 					interGroupDetalle.setCuentaDescripcion(rs.getString("CUENTA_DESCRIPCION"));
 					InterGroupDetalles.add(interGroupDetalle);
 	            }
@@ -212,7 +212,7 @@ public class InterGroupDetalleServiceImpl implements IInterGroupDetalleService{
 					interGroupDetalle.setEmpresaNif1(rs.getInt("EMPRESA_ORIGEN"));
 					interGroupDetalle.setRubro(rs.getInt("RUBRO_CODIGO"));
 					interGroupDetalle.setDescripcionRubro(rs.getString("RUBRO_DESCRIPCION"));
-					interGroupDetalle.setCuentaCodigo(rs.getInt("CUENTA_CODIGO"));
+					interGroupDetalle.setCuentaCodigo(rs.getDouble("CUENTA_CODIGO"));
 					interGroupDetalle.setCuentaDescripcion(rs.getString("CUENTA_DESCRIPCION"));
 					interGroupDetalle.setEmpresaNif2(rs.getInt("EMPRESA_DESTINO"));
 					InterGroupDetalles.add(interGroupDetalle);

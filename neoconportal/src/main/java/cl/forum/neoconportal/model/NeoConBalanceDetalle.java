@@ -35,7 +35,7 @@ public class NeoConBalanceDetalle implements Serializable{
     
     private String nombreEmpresa;
     
-    private int cuenta;
+    private Double cuenta;
     
     private String cuentaDescripcion;
     
@@ -160,11 +160,11 @@ public class NeoConBalanceDetalle implements Serializable{
 		this.nombreEmpresa = nombreEmpresa;
 	}
 
-	public int getCuenta() {
+	public Double getCuenta() {
 		return cuenta;
 	}
 
-	public void setCuenta(int cuenta) {
+	public void setCuenta(Double cuenta) {
 		this.cuenta = cuenta;
 	}
 

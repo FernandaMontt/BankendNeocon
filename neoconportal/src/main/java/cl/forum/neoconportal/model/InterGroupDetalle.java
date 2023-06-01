@@ -34,7 +34,7 @@ public class InterGroupDetalle implements Serializable{
     @Basic(optional = false)
     
     @Column(name = "CUENTA_CODIGO")
-    private int cuentaCodigo;
+    private Double cuentaCodigo;
     @Basic(optional = false)
    
     @Column(name = "CUENTA_DESCRIPCION")
@@ -67,7 +67,7 @@ public class InterGroupDetalle implements Serializable{
     }
 
 	public InterGroupDetalle(Integer interGrupoId, int numeroIg, String empresa, String descripcionIg, String empresa1, String empresa2,
-			int rubro1, int rubro2, int cuentaCodigo, String cuentaDescripcion) {
+			int rubro1, int rubro2, Double cuentaCodigo, String cuentaDescripcion) {
 		super();
 		this.interGrupoId = interGrupoId;
 		this.numeroIg = numeroIg;
@@ -145,11 +145,11 @@ public class InterGroupDetalle implements Serializable{
 		this.rubro2 = rubro2;
 	}
 
-	public int getCuentaCodigo() {
+	public Double getCuentaCodigo() {
 		return cuentaCodigo;
 	}
 
-	public void setCuentaCodigo(int cuentaCodigo) {
+	public void setCuentaCodigo(Double cuentaCodigo) {
 		this.cuentaCodigo = cuentaCodigo;
 	}
 

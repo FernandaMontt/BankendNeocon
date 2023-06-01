@@ -41,7 +41,7 @@ public class BalanceDetalleServiceImpl implements IBalanceDetalleService{
 	        try (ResultSet rs = cst.executeQuery()) {
 	            while (rs.next()) {
 	            	BalanceDetalle balanceDetalle = new BalanceDetalle();
-	            	balanceDetalle.setCuentaCodigo(rs.getInt("CUENTA_CODIGO"));
+	            	balanceDetalle.setCuentaCodigo(rs.getDouble("CUENTA_CODIGO"));
 	            	balanceDetalle.setTestCuenta(rs.getInt("TESTCUENTA"));
 	            	balanceDetalle.setMensaje(rs.getString("MENSAJE"));
 	            	balanceDetalles.add(balanceDetalle);

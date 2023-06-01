@@ -96,6 +96,8 @@ public class BalanceServiceImpl implements IBalanceService{
 	        	//String[] row = rows[i].split(";");
 	        	String[] row = rows[i].split(",");
 	        	String valor = row[2];
+	        	String cuenta = row[0];
+	        	cuenta = cuenta.replace(".", "");
 	        	numtotal = i;
 	        	valor = valor.replace(",", ".");
 	        	valor = valor.replace("(", "").trim();
@@ -103,7 +105,7 @@ public class BalanceServiceImpl implements IBalanceService{
 	        	valor = valor.replace(".", "");
 				cst.setInt(1, periodo);
 				cst.setString(2, acronimo);
-				cst.setInt(3, Integer.parseInt(row[0]));
+				cst.setDouble(3, Double.parseDouble(cuenta));
 				cst.setString(4, row[1]);
 				cst.setDouble(5, Double.parseDouble(valor));
 				rs = cst.executeQuery();	        
@@ -212,6 +214,8 @@ public class BalanceServiceImpl implements IBalanceService{
 	        	String[] row = rows[i].split(",");
 	        	String valor = row[12];
 	        	String valor2 = row[13];
+	        	String cuenta = row[10];
+	        	cuenta = cuenta.replace(".", "");
 	        	numtotal = i;
 	        	valor = valor.replace("(", "").trim();
 	            valor2 = valor2.replace("(", "").trim();
@@ -226,7 +230,7 @@ public class BalanceServiceImpl implements IBalanceService{
 	            Double saldoDouble = saldo.stripTrailingZeros().doubleValue();
 				cst.setInt(1, periodo);
 				cst.setString(2, acronimo);
-				cst.setInt(3, Integer.parseInt(row[10]));
+				cst.setDouble(3, Double.parseDouble(cuenta));
 				cst.setString(4, row[11]);
 				cst.setDouble(5, saldoDouble);
 				rs = cst.executeQuery();	        
