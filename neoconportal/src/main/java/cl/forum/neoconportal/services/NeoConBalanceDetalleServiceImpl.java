@@ -202,13 +202,14 @@ public class NeoConBalanceDetalleServiceImpl implements INeoConBalanceDetalleSer
 	}
 
 	@Override
-	public ResponseEntity<NeoConBalanceDetalleResponseRest> DescargaCodGInterfaz(@RequestParam("periodo") Integer periodo) {
+	public ResponseEntity<NeoConBalanceDetalleResponseRest> DescargaCodGInterfaz(@RequestParam("periodo") Integer periodo, @RequestParam("acronimo") String acronimo) {
 		NeoConBalanceDetalleResponseRest response = new NeoConBalanceDetalleResponseRest();
 		List<NeoConBalanceDetalle> neoConBalanceDetalles = new ArrayList<NeoConBalanceDetalle>();
 		
 		try (Connection cn = DriverManager.getConnection(connectionUrl);
-	            CallableStatement cst = cn.prepareCall("{CALL SP_GET_DESCARGA_GINTERFAZ(?) }")) {
+	            CallableStatement cst = cn.prepareCall("{CALL SP_GET_DESCARGA_GINTERFAZ(?,?) }")) {
 				cst.setInt(1, periodo);
+				cst.setString(2, acronimo);
 	        try (ResultSet rs = cst.executeQuery()) {
 	            while (rs.next()) {
 	            	NeoConBalanceDetalle neoConBalanceDetalle = new NeoConBalanceDetalle();

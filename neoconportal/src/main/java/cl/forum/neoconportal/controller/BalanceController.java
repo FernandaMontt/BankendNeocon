@@ -129,8 +129,8 @@ public class BalanceController {
 	}
 	
 	@PostMapping("/descarganeoconbalance")
-	public ResponseEntity<NeoConBalanceDetalleResponseRest> DescargaCodGInterfaz(@RequestParam("periodo") Integer periodo){
-		ResponseEntity<NeoConBalanceDetalleResponseRest> response = serviceNeoconDetalle.DescargaCodGInterfaz(periodo);
+	public ResponseEntity<NeoConBalanceDetalleResponseRest> DescargaCodGInterfaz(@RequestParam("periodo") Integer periodo, @RequestParam("acronimo") String acronimo){
+		ResponseEntity<NeoConBalanceDetalleResponseRest> response = serviceNeoconDetalle.DescargaCodGInterfaz(periodo, acronimo);
 		return response;
 	}
 	
