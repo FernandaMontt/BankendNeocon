@@ -76,6 +76,8 @@ public class BalanceServiceImpl implements IBalanceService{
 		try {
 	        // Leer y procesar el contenido del archivo
 	        String fileContent = new String(file.getBytes());
+	        fileContent = replaceCommasInsideQuotes(fileContent);
+	        fileContent = fileContent.replaceAll("\r", ""); // Eliminar los caracteres \r
 	        String[] rows = fileContent.split("\n");
 	        int numtotal = 0;
 	        //String[] headers = rows[0].split(",");
@@ -96,6 +98,9 @@ public class BalanceServiceImpl implements IBalanceService{
 	        	String valor = row[2];
 	        	numtotal = i;
 	        	valor = valor.replace(",", ".");
+	        	valor = valor.replace("(", "").trim();
+	        	valor = valor.replace(")", "").trim();
+	        	valor = valor.replace(".", "");
 				cst.setInt(1, periodo);
 				cst.setString(2, acronimo);
 				cst.setInt(3, Integer.parseInt(row[0]));
