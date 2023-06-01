@@ -51,7 +51,7 @@ public class CuentaEmpresaServiceImpl implements ICuentaEmpresaService{
 		        try (ResultSet rs = cst.executeQuery()) {
 		            while (rs.next()) {
 		            	CuentaEmpresa cuentaEmpresa = new CuentaEmpresa();
-		            	cuentaEmpresa.setCuentaEmpresaId(rs.getInt("ID_CUENTA_EMPRESA"));
+		            	cuentaEmpresa.setCuentaEmpresaId(rs.getInt("CUENTA_EMPRESA_ID"));
 		            	cuentaEmpresa.setEmpresaId(rs.getInt("EMPRESA_ID"));
 		            	cuentaEmpresa.setNombreempresa(rs.getString("Empresa"));
 		            	cuentaEmpresa.setRubroId(rs.getInt("RUBRO_ID"));
@@ -88,7 +88,7 @@ public class CuentaEmpresaServiceImpl implements ICuentaEmpresaService{
 	        try (ResultSet rs = cst.executeQuery()) {
 	            while (rs.next()) {
 	            	CuentaEmpresa cuentaEmpresa = new CuentaEmpresa();
-	            	cuentaEmpresa.setCuentaEmpresaId(rs.getInt("ID_CUENTA_EMPRESA"));
+	            	cuentaEmpresa.setCuentaEmpresaId(rs.getInt("CUENTA_EMPRESA_ID"));
 	            	cuentaEmpresa.setEmpresaId(rs.getInt("EMPRESA_ID"));
 	            	cuentaEmpresa.setNombreempresa(rs.getString("Empresa"));
 	            	cuentaEmpresa.setRubroId(rs.getInt("RUBRO_ID"));
@@ -123,7 +123,7 @@ public class CuentaEmpresaServiceImpl implements ICuentaEmpresaService{
 	        try (ResultSet rs = cst.executeQuery()) {
 	            while (rs.next()) {
 	            	CuentaEmpresa cuentaEmpresa = new CuentaEmpresa();
-	            	cuentaEmpresa.setCuentaEmpresaId(rs.getInt("ID_CUENTA_EMPRESA"));
+	            	cuentaEmpresa.setCuentaEmpresaId(rs.getInt("CUENTA_EMPRESA_ID"));
 	            	cuentaEmpresa.setEmpresaId(rs.getInt("EMPRESA_ID"));
 	            	cuentaEmpresa.setNombreempresa(rs.getString("Empresa"));
 	            	cuentaEmpresa.setRubroId(rs.getInt("RUBRO_ID"));
@@ -160,7 +160,7 @@ public class CuentaEmpresaServiceImpl implements ICuentaEmpresaService{
 	        try (ResultSet rs = cst.executeQuery()) {
 	            while (rs.next()) {
 	            	CuentaEmpresa cuentaEmpresa = new CuentaEmpresa();
-	            	cuentaEmpresa.setCuentaEmpresaId(rs.getInt("ID_CUENTA_EMPRESA"));
+	            	cuentaEmpresa.setCuentaEmpresaId(rs.getInt("CUENTA_EMPRESA_ID"));
 	            	cuentaEmpresa.setEmpresaId(rs.getInt("EMPRESA_ID"));
 	            	cuentaEmpresa.setRubroId(rs.getInt("RUBRO_ID"));
 	            	cuentaEmpresa.setCuentaCodigo(rs.getDouble("CUENTA_CODIGO"));
@@ -197,7 +197,7 @@ public class CuentaEmpresaServiceImpl implements ICuentaEmpresaService{
 	        try (ResultSet rs = cst.executeQuery()) {
 	            while (rs.next()) {
 	            	CuentaEmpresa cuentaEmpresass = new CuentaEmpresa();
-					cuentaEmpresass.setCuentaEmpresaId(rs.getInt("ID_CUENTA_EMPRESA"));
+					cuentaEmpresass.setCuentaEmpresaId(rs.getInt("CUENTA_EMPRESA_ID"));
 					cuentaEmpresass.setEmpresaId(rs.getInt("EMPRESA_ID"));
 					cuentaEmpresass.setRubroId(rs.getInt("RUBRO_ID"));
 					cuentaEmpresass.setCuentaCodigo(rs.getDouble("CUENTA_CODIGO"));
@@ -236,7 +236,7 @@ public class CuentaEmpresaServiceImpl implements ICuentaEmpresaService{
 	        try (ResultSet rs = cst.executeQuery()) {
 	            while (rs.next()) {
 	            	CuentaEmpresa cuentaEmpresass = new CuentaEmpresa();
-					cuentaEmpresass.setCuentaEmpresaId(rs.getInt("ID_CUENTA_EMPRESA"));
+					cuentaEmpresass.setCuentaEmpresaId(rs.getInt("CUENTA_EMPRESA_ID"));
 					cuentaEmpresass.setEmpresaId(rs.getInt("EMPRESA_ID"));
 					cuentaEmpresass.setRubroId(rs.getInt("RUBRO_ID"));
 					cuentaEmpresass.setCuentaCodigo(rs.getDouble("CUENTA_CODIGO"));
@@ -268,7 +268,7 @@ public class CuentaEmpresaServiceImpl implements ICuentaEmpresaService{
 	        try (ResultSet rs = cst.executeQuery()) {
 	            while (rs.next()) {
 	            	CuentaEmpresa cuentaEmpresa = new CuentaEmpresa();
-	            	cuentaEmpresa.setCuentaEmpresaId(rs.getInt("ID_CUENTA_EMPRESA"));
+	            	cuentaEmpresa.setCuentaEmpresaId(rs.getInt("CUENTA_EMPRESA_ID"));
 	            	cuentaEmpresa.setEmpresaId(rs.getInt("EMPRESA_ID"));
 	            	cuentaEmpresa.setNombreempresa(rs.getString("Empresa"));
 	            	cuentaEmpresa.setRubroId(rs.getInt("RUBRO_ID"));
@@ -305,7 +305,7 @@ public class CuentaEmpresaServiceImpl implements ICuentaEmpresaService{
 	        try (ResultSet rs = cst.executeQuery()) {
 	            while (rs.next()) {
 	            	CuentaEmpresa cuentaEmpresa = new CuentaEmpresa();
-	            	cuentaEmpresa.setCuentaEmpresaId(rs.getInt("ID_CUENTA_EMPRESA"));
+	            	cuentaEmpresa.setCuentaEmpresaId(rs.getInt("CUENTA_EMPRESA_ID"));
 	            	cuentaEmpresa.setCuentaCodigo(rs.getDouble("CUENTA_CODIGO"));
 	            	cuentaEmpresa.setCuentaDescripcion(rs.getString("CUENTA_DESCRIPCION"));
 	            	cuentaEmpresas.add(cuentaEmpresa);
@@ -455,13 +455,13 @@ public class CuentaEmpresaServiceImpl implements ICuentaEmpresaService{
 	        	}
 	        	if(row.length == 4) {
 	        		tipocuenta = row[2]+"-"+row[3];
-	        		if(tipocuenta == "-") {
+	        		if(row[2].isEmpty() && row[3].isEmpty()) {
 	        			tipocuenta = "Activo";
 	        		}
 	        		valor = "0";	
 	        	}if(row.length == 5) {
 	        		tipocuenta = row[2]+"-"+row[3];
-	        		if(tipocuenta == "-") {
+	        		if(row[2].isEmpty() && row[3].isEmpty()) {
 	        			tipocuenta = "Activo";
 	        		}
 	        		valor = row[4];
