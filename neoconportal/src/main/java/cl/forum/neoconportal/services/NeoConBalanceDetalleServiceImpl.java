@@ -208,6 +208,9 @@ public class NeoConBalanceDetalleServiceImpl implements INeoConBalanceDetalleSer
 		
 		try (Connection cn = DriverManager.getConnection(connectionUrl);
 	            CallableStatement cst = cn.prepareCall("{CALL SP_GET_DESCARGA_GINTERFAZ(?,?) }")) {
+				if(acronimo == "Todas") {
+					acronimo = "0";
+				}
 				cst.setInt(1, periodo);
 				cst.setString(2, acronimo);
 	        try (ResultSet rs = cst.executeQuery()) {
