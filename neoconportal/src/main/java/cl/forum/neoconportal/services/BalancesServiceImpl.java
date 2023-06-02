@@ -14,16 +14,15 @@ import java.util.regex.Pattern;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import cl.forum.neoconportal.model.Balance;
-import cl.forum.neoconportal.model.CuentaEmpresa;
+import cl.forum.neoconportal.model.BalanceDetalle;
+import cl.forum.neoconportal.response.BalanceDetalleResponseRest;
 import cl.forum.neoconportal.response.BalanceResponseRest;
-import cl.forum.neoconportal.response.CuentaEmpresaResponseRest;
 
 @Service
-public class BalanceServiceImpl implements IBalanceService{
+public class BalancesServiceImpl implements IBalancesService{
 
 	Connection cn;
 	String connectionUrl =
@@ -36,7 +35,6 @@ public class BalanceServiceImpl implements IBalanceService{
                     + "loginTimeout=30;";
 	ResultSet rs;
 	
-
 	@Override
 	public ResponseEntity<BalanceResponseRest> findAllBalances() {
 		BalanceResponseRest response = new BalanceResponseRest();
@@ -306,9 +304,54 @@ public class BalanceServiceImpl implements IBalanceService{
 
 	    return result.toString();
 	}
+	
+	@Override
+	public ResponseEntity<BalanceDetalleResponseRest> findBalanceDetalleId(Integer id_balance) {
+		BalanceDetalleResponseRest response = new BalanceDetalleResponseRest();
+		List<BalanceDetalle> balanceDetalles = new ArrayList<BalanceDetalle>();
+		
+		try (Connection cn = DriverManager.getConnection(connectionUrl);
+	            CallableStatement cst = cn.prepareCall("{CALL SP_GET_SOURCEBYID_VALIDACIONCUENTA(?) }")) {
+				cst.setString(1, id_balance.toString());
+	        try (ResultSet rs = cst.executeQuery()) {
+	            while (rs.next()) {
+	            	BalanceDetalle balanceDetalle = new BalanceDetalle();
+	            	balanceDetalle.setCuentaCodigo(rs.getDouble("CUENTA_CODIGO"));
+	            	balanceDetalle.setTestCuenta(rs.getInt("TESTCUENTA"));
+	            	balanceDetalle.setMensaje(rs.getString("MENSAJE"));
+	            	balanceDetalles.add(balanceDetalle);
+	            }
+	            response.getBalanceDetalleResponse().setBalanceDetalle(balanceDetalles);
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        return new ResponseEntity<BalanceDetalleResponseRest>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+	    }
+	    return new ResponseEntity<BalanceDetalleResponseRest>(response, HttpStatus.OK);
+	}
 
-	
-	
-	
-
+	@Override
+	public ResponseEntity<BalanceDetalleResponseRest> findBalanceDetalleRubroId(Integer id_balance) {
+		BalanceDetalleResponseRest response = new BalanceDetalleResponseRest();
+		List<BalanceDetalle> balanceDetalles = new ArrayList<BalanceDetalle>();
+		
+		try (Connection cn = DriverManager.getConnection(connectionUrl);
+	            CallableStatement cst = cn.prepareCall("{CALL SP_GET_SOURCEBYID_VALIDACIONRUBRO(?) }")) {
+				cst.setString(1, id_balance.toString());
+	        try (ResultSet rs = cst.executeQuery()) {
+	            while (rs.next()) {
+	            	BalanceDetalle balanceDetalle = new BalanceDetalle();
+	            	balanceDetalle.setRubro(rs.getInt("RUBRO"));
+	            	balanceDetalle.setTestRubro(rs.getInt("TESTRUBRO"));
+	            	balanceDetalle.setMensaje(rs.getString("MENSAJE"));
+	            	balanceDetalles.add(balanceDetalle);
+	            }
+	            response.getBalanceDetalleResponse().setBalanceDetalle(balanceDetalles);
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        return new ResponseEntity<BalanceDetalleResponseRest>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+	    }
+	    return new ResponseEntity<BalanceDetalleResponseRest>(response, HttpStatus.OK);
+	}
 }

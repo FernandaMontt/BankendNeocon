@@ -17,14 +17,13 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import cl.forum.neoconportal.model.Balance;
-import cl.forum.neoconportal.model.BalanceDetalle;
 import cl.forum.neoconportal.model.NeoConBalanceDetalle;
-import cl.forum.neoconportal.response.BalanceDetalleResponseRest;
+import cl.forum.neoconportal.model.NeoConHeader;
 import cl.forum.neoconportal.response.NeoConBalanceDetalleResponseRest;
+import cl.forum.neoconportal.response.NeoConHeaderResponseRest;
 
 @Service
-public class NeoConBalanceDetalleServiceImpl implements INeoConBalanceDetalleService{
+public class NeoConBalanceServiceImpl implements INeoConBalanceService{
 	
 	Connection cn;
 	String connectionUrl =
@@ -36,7 +35,72 @@ public class NeoConBalanceDetalleServiceImpl implements INeoConBalanceDetalleSer
                     + "trustServerCertificate=true;"
                     + "loginTimeout=30;";
 	ResultSet rs;
+	
+	@Override
+	@Transactional
+	public ResponseEntity<NeoConHeaderResponseRest> saveNeoConHeaders(@RequestParam("periodo") Integer periodo,
+			 @RequestParam("acronimo") String acronimo) {
+		// TODO Auto-generated method stub
+				NeoConHeaderResponseRest response = new NeoConHeaderResponseRest();
+				List<NeoConHeader> neoConHeaders = new ArrayList<NeoConHeader>();
+				
+				try (Connection cn = DriverManager.getConnection(connectionUrl);
+			            CallableStatement cst = cn.prepareCall("{CALL SP_INSERT_NEOCONHEADER(?,?) }")) {
+						cst.setInt(1, periodo);
+						cst.setString(2, acronimo);
+			        try (ResultSet rs = cst.executeQuery()) {
+			            while (rs.next()) {
+			            	NeoConHeader NeoConHeaderss = new NeoConHeader();
+			            	NeoConHeaderss.setNeoconId(rs.getInt("NEOCONID"));
+			            	NeoConHeaderss.setFechaProceso(rs.getDate("FECHAPROCESO"));
+			            	NeoConHeaderss.setVersion(rs.getInt("VERSION"));
+			            	NeoConHeaderss.setPeriodo(rs.getInt("PERIODO"));
+			            	NeoConHeaderss.setAcronimo(rs.getString("ACRONIMO"));
+			            	NeoConHeaderss.setHora(rs.getTime("HORA"));
+			            	neoConHeaders.add(NeoConHeaderss);
+			            }
+			            response.getNeoConHeaderResponse().setNeoConHeader(neoConHeaders);
+			        }
+			    } catch (SQLException e) {
+			        e.printStackTrace();
+			        return new ResponseEntity<NeoConHeaderResponseRest>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+			    }
+			    return new ResponseEntity<NeoConHeaderResponseRest>(response, HttpStatus.OK);
+	}
 
+	@Override
+	public ResponseEntity<NeoConHeaderResponseRest> findNeoConBalanceId(Integer periodo, String acronimo) {
+		// TODO Auto-generated method stub
+		NeoConHeaderResponseRest response = new NeoConHeaderResponseRest();
+		List<NeoConHeader> neoConHeaders = new ArrayList<NeoConHeader>();
+		
+		try (Connection cn = DriverManager.getConnection(connectionUrl);
+	            CallableStatement cst = cn.prepareCall("{CALL SP_GET_SOURCENEOCONBALANCE_BYID(?,?) }")) {
+				if(acronimo == "Todas") {
+					acronimo = "0";
+				}
+				cst.setInt(1, periodo);
+				cst.setString(2, acronimo);
+	        try (ResultSet rs = cst.executeQuery()) {
+	            while (rs.next()) {
+	            	NeoConHeader NeoConHeaderss = new NeoConHeader();
+	            	NeoConHeaderss.setNeoconId(rs.getInt("NEOCONID"));
+	            	NeoConHeaderss.setFechaProceso(rs.getDate("FECHAPROCESO"));
+	            	NeoConHeaderss.setVersion(rs.getInt("VERSION"));
+	            	NeoConHeaderss.setPeriodo(rs.getInt("PERIODO"));
+	            	NeoConHeaderss.setAcronimo(rs.getString("ACRONIMO"));
+	            	NeoConHeaderss.setHora(rs.getTime("HORA"));
+	            	neoConHeaders.add(NeoConHeaderss);
+	            }
+	            response.getNeoConHeaderResponse().setNeoConHeader(neoConHeaders);
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        return new ResponseEntity<NeoConHeaderResponseRest>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+	    }
+	    return new ResponseEntity<NeoConHeaderResponseRest>(response, HttpStatus.OK);
+	}
+	
 	@Override
 	@Transactional
 	public ResponseEntity<NeoConBalanceDetalleResponseRest> saveNeoConBalanceDetalles(@RequestParam("file") MultipartFile file,
@@ -267,7 +331,5 @@ public class NeoConBalanceDetalleServiceImpl implements INeoConBalanceDetalleSer
 
 	    return result.toString();
 	}
-	
-	
 
 }

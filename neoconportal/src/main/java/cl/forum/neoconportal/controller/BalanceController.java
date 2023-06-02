@@ -6,21 +6,17 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import cl.forum.neoconportal.model.Balance;
 import cl.forum.neoconportal.response.BalanceDetalleResponseRest;
 import cl.forum.neoconportal.response.BalanceResponseRest;
 import cl.forum.neoconportal.response.NeoConBalanceDetalleResponseRest;
 import cl.forum.neoconportal.response.NeoConHeaderResponseRest;
-import cl.forum.neoconportal.services.BalanceDetalleServiceImpl;
-import cl.forum.neoconportal.services.BalanceServiceImpl;
-import cl.forum.neoconportal.services.NeoConBalanceDetalleServiceImpl;
-import cl.forum.neoconportal.services.NeoConHeaderServiceImpl;
+import cl.forum.neoconportal.services.BalancesServiceImpl;
+import cl.forum.neoconportal.services.NeoConBalanceServiceImpl;
 
 @CrossOrigin(origins = {"http://localhost:4200"})
 @RestController
@@ -28,16 +24,10 @@ import cl.forum.neoconportal.services.NeoConHeaderServiceImpl;
 public class BalanceController {
 	
 	@Autowired
-	private BalanceServiceImpl serviceBalance;
+	private BalancesServiceImpl serviceBalance;
 	
 	@Autowired
-	private BalanceDetalleServiceImpl serviceBalanceDetalle;
-	
-	@Autowired
-	private NeoConHeaderServiceImpl serviceNeoconHeader;
-	
-	@Autowired
-	private NeoConBalanceDetalleServiceImpl serviceNeoconDetalle;
+	private NeoConBalanceServiceImpl serviceNeoconHeader;
 	
 	/*Balance*/
 	
@@ -74,13 +64,13 @@ public class BalanceController {
 	
 	@GetMapping("/balancedetallecuenta/{id}")
 	public ResponseEntity<BalanceDetalleResponseRest> findByBalanceDetalleCuentaId(@PathVariable Integer id){
-		ResponseEntity<BalanceDetalleResponseRest> response = serviceBalanceDetalle.findBalanceDetalleId(id);
+		ResponseEntity<BalanceDetalleResponseRest> response = serviceBalance.findBalanceDetalleId(id);
 		return response;
 	}
 	
 	@GetMapping("/balancedetallerubro/{id}")
 	public ResponseEntity<BalanceDetalleResponseRest> findByBalanceDetalleRubroId(@PathVariable Integer id){
-		ResponseEntity<BalanceDetalleResponseRest> response = serviceBalanceDetalle.findBalanceDetalleRubroId(id);
+		ResponseEntity<BalanceDetalleResponseRest> response = serviceBalance.findBalanceDetalleRubroId(id);
 		return response;
 	}
 	
@@ -106,31 +96,31 @@ public class BalanceController {
 	public ResponseEntity<NeoConBalanceDetalleResponseRest> saveNeoConHeaders(@RequestParam("file") MultipartFile file,
 											 @RequestParam("periodo") Integer periodo,
 											 @RequestParam("acronimo") String acronimo) {
-	  ResponseEntity<NeoConBalanceDetalleResponseRest> response = serviceNeoconDetalle.saveNeoConBalanceDetalles(file, periodo, acronimo);
+	  ResponseEntity<NeoConBalanceDetalleResponseRest> response = serviceNeoconHeader.saveNeoConBalanceDetalles(file, periodo, acronimo);
 	  return response;
 	}
 	
 	@GetMapping("/neoconbalancedetallecuenta/{id}")
 	public ResponseEntity<NeoConBalanceDetalleResponseRest> findNeoBalanceDetalleNaturalezaId(@PathVariable Integer id){
-		ResponseEntity<NeoConBalanceDetalleResponseRest> response = serviceNeoconDetalle.findNeoBalanceDetalleId(id);
+		ResponseEntity<NeoConBalanceDetalleResponseRest> response = serviceNeoconHeader.findNeoBalanceDetalleId(id);
 		return response;
 	}
 	
 	@GetMapping("/neoconbalancedetallerubro/{id}")
 	public ResponseEntity<NeoConBalanceDetalleResponseRest> findNeoBalanceDetalleIntergrupoId(@PathVariable Integer id){
-		ResponseEntity<NeoConBalanceDetalleResponseRest> response = serviceNeoconDetalle.findNeoBalanceDetalleRubroId(id);
+		ResponseEntity<NeoConBalanceDetalleResponseRest> response = serviceNeoconHeader.findNeoBalanceDetalleRubroId(id);
 		return response;
 	}
 	
 	@PostMapping("/reporteproestpec")
 	public ResponseEntity<NeoConBalanceDetalleResponseRest> resporteProestpec(@RequestParam("periodo") Integer periodo) {
-	  ResponseEntity<NeoConBalanceDetalleResponseRest> response = serviceNeoconDetalle.ReporteProestec(periodo);
+	  ResponseEntity<NeoConBalanceDetalleResponseRest> response = serviceNeoconHeader.ReporteProestec(periodo);
 	  return response;
 	}
 	
 	@PostMapping("/descarganeoconbalance")
 	public ResponseEntity<NeoConBalanceDetalleResponseRest> DescargaCodGInterfaz(@RequestParam("periodo") Integer periodo, @RequestParam("acronimo") String acronimo){
-		ResponseEntity<NeoConBalanceDetalleResponseRest> response = serviceNeoconDetalle.DescargaCodGInterfaz(periodo, acronimo);
+		ResponseEntity<NeoConBalanceDetalleResponseRest> response = serviceNeoconHeader.DescargaCodGInterfaz(periodo, acronimo);
 		return response;
 	}
 	

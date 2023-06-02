@@ -34,14 +34,14 @@ public class RubroServiceImpl implements IRubroService{
 	ResultSet rs;
 
 	@Override
-	public ResponseEntity<RubroResponseRest> findAllRubro() {
+	public ResponseEntity<RubroResponseRest> findAllRubro(String estado) {
 		
 		RubroResponseRest response = new RubroResponseRest();
 		List<Rubro> rubros = new ArrayList<Rubro>();
 		
 		try (Connection cn = DriverManager.getConnection(connectionUrl);
-	            CallableStatement cst = cn.prepareCall("{CALL SP_ALL_RUBROS }")) {
-
+	            CallableStatement cst = cn.prepareCall("{CALL SP_ALL_RUBROS(?) }")) {
+				cst.setString(1, estado);
 	        try (ResultSet rs = cst.executeQuery()) {
 	            while (rs.next()) {
 	            	Rubro rubro = new Rubro();

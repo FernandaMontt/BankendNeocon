@@ -25,8 +25,7 @@ import cl.forum.neoconportal.response.InterGroupResponseRest;
 import cl.forum.neoconportal.response.RubroResponseRest;
 import cl.forum.neoconportal.services.ICuentaEmpresaService;
 import cl.forum.neoconportal.services.IEmpresaService;
-import cl.forum.neoconportal.services.IInterGroupDetalleService;
-import cl.forum.neoconportal.services.IInterGroupHService;
+import cl.forum.neoconportal.services.IInterGrupoService;
 import cl.forum.neoconportal.services.IRubroService;
 
 @CrossOrigin(origins = {"http://localhost:4200"})
@@ -44,16 +43,13 @@ public class ConfiguracionController {
     private ICuentaEmpresaService cuentaEmpresaService;
     
     @Autowired
-    private IInterGroupHService interGroupHService;
-    
-    @Autowired
-    private IInterGroupDetalleService interGroupDetalleService;
+    private IInterGrupoService interGrupoService;
     
     /*Service Rubro*/
     
-    @GetMapping("/rubros")
-	public ResponseEntity<RubroResponseRest> findAllRubros(){
-		ResponseEntity<RubroResponseRest> response = rubroService.findAllRubro();
+    @GetMapping("/rubros/estado/{estado}")
+	public ResponseEntity<RubroResponseRest> findAllRubros(@PathVariable String estado){
+		ResponseEntity<RubroResponseRest> response = rubroService.findAllRubro(estado);
 		return response;
 	}
 	
@@ -86,13 +82,6 @@ public class ConfiguracionController {
 		ResponseEntity<RubroResponseRest> response = rubroService.updateRubros(rubro);
 		return response;
 	}
-	
-	@GetMapping("/rubros/activos")
-	public ResponseEntity<RubroResponseRest> findAllRubrosActivos(){
-		ResponseEntity<RubroResponseRest> response = rubroService.findAllActivos();
-		return response;
-	}
-	
 	/*Empresa Service*/
 	
 	@GetMapping("/empresas")
@@ -179,70 +168,70 @@ public class ConfiguracionController {
 	
 	@GetMapping("/intergrupoheader")
 	public ResponseEntity<InterGroupResponseRest> findAllInterGroupHeader(){
-		ResponseEntity<InterGroupResponseRest> response = interGroupHService.findAllIntergrupo();
+		ResponseEntity<InterGroupResponseRest> response = interGrupoService.findAllIntergrupo();
 		return response;
 	}
 	
 	@PostMapping("/intergrupoheader")
 	public ResponseEntity<InterGroupResponseRest> saveRubros(@RequestBody InterGroupHeader interGroupHeader){
-		ResponseEntity<InterGroupResponseRest> response = interGroupHService.saveInterGruposH(interGroupHeader);
+		ResponseEntity<InterGroupResponseRest> response = interGrupoService.saveInterGruposH(interGroupHeader);
 		return response;
 	}
 	
 	@DeleteMapping("/intergrupoheader/{id}")
 	public ResponseEntity<InterGroupResponseRest> updatestateIntergrupo(@PathVariable Integer id){
-		ResponseEntity<InterGroupResponseRest> response = interGroupHService.updatestateIntergrupo(id);
+		ResponseEntity<InterGroupResponseRest> response = interGrupoService.updatestateIntergrupo(id);
 		return response;
 	}
 	
 	@PutMapping("/intergrupoheader/{id}")
 	public ResponseEntity<InterGroupResponseRest> updateInterGruposH(@RequestBody InterGroupHeader interGroupHeader){
-		ResponseEntity<InterGroupResponseRest> response = interGroupHService.updateInterGruposH(interGroupHeader);
+		ResponseEntity<InterGroupResponseRest> response = interGrupoService.updateInterGruposH(interGroupHeader);
 		return response;
 	}
 	
 	@GetMapping("/intergrupodetalle/{id}")
 	public ResponseEntity<InterGroupDetalleResponseRest> findByNumeroIG(@PathVariable Integer id){
-		ResponseEntity<InterGroupDetalleResponseRest> response = interGroupDetalleService.findByNumeroIG(id);
+		ResponseEntity<InterGroupDetalleResponseRest> response = interGrupoService.findByNumeroIG(id);
 		return response;
 	}
 	
 	@PostMapping("/intergrupodetalle")
 	public ResponseEntity<InterGroupDetalleResponseRest> saveInterGruposD(@RequestBody InterGroupDetalle interGroupDetalle){
-		ResponseEntity<InterGroupDetalleResponseRest> response = interGroupDetalleService.saveInterGruposD(interGroupDetalle);
+		ResponseEntity<InterGroupDetalleResponseRest> response = interGrupoService.saveInterGruposD(interGroupDetalle);
 		return response;
 	}
 	
 	@PostMapping("/intergrupodetalle/{id}")
 	public ResponseEntity<InterGroupDetalleResponseRest> deleteIntergrupodetalle(@RequestParam("numeroig") Integer numeroig, @RequestParam("acronimo") String acronimo,
 			@RequestParam("codigocuenta") int codigocuenta){
-		ResponseEntity<InterGroupDetalleResponseRest> response = interGroupDetalleService.deleteIntergrupodetalle(numeroig, acronimo, codigocuenta);
+		ResponseEntity<InterGroupDetalleResponseRest> response = interGrupoService.deleteIntergrupodetalle(numeroig, acronimo, codigocuenta);
 		return response;
 	}
 	
 	@GetMapping("/intergrupodetalle/id/{id}")
-	public ResponseEntity<InterGroupDetalleResponseRest> findById(@PathVariable Integer id){
-		ResponseEntity<InterGroupDetalleResponseRest> response = interGroupDetalleService.findById(id);
+	public ResponseEntity<InterGroupDetalleResponseRest> findByIdIntergrupo(@PathVariable Integer id){
+		ResponseEntity<InterGroupDetalleResponseRest> response = interGrupoService.findById(id);
 		return response;
 	}
 	
 	@PostMapping("/intergrupodetalle/allintergrupo")
 	public ResponseEntity<InterGroupDetalleResponseRest> searchInterCuentaEmpresa(@RequestParam("codigorubro") Integer codigorubro, @RequestParam("acronimo") String acronimo, 
 			@RequestParam("numeroig") Integer numeroig){
-		ResponseEntity<InterGroupDetalleResponseRest> response = interGroupDetalleService.searchInterCuentaEmpresa(codigorubro, acronimo, numeroig);
+		ResponseEntity<InterGroupDetalleResponseRest> response = interGrupoService.searchInterCuentaEmpresa(codigorubro, acronimo, numeroig);
 		return response;
 	}
 	
 	@PostMapping("/intergrupodetalle2/allintergrupo")
 	public ResponseEntity<InterGroupDetalleResponseRest> searchInterCuentaEmpresa2(@RequestParam("codigorubro") Integer codigorubro, @RequestParam("acronimo") String acronimo,
 			@RequestParam("numeroig") Integer numeroig){
-		ResponseEntity<InterGroupDetalleResponseRest> response = interGroupDetalleService.searchInterCuentaEmpresa2(codigorubro, acronimo, numeroig);
+		ResponseEntity<InterGroupDetalleResponseRest> response = interGrupoService.searchInterCuentaEmpresa2(codigorubro, acronimo, numeroig);
 		return response;
 	}
 	
 	@GetMapping("/intergruporeporte")
 	public ResponseEntity<InterGroupDetalleResponseRest> reporteintegrupo(){
-		ResponseEntity<InterGroupDetalleResponseRest> response = interGroupDetalleService.reporteintegrupo();
+		ResponseEntity<InterGroupDetalleResponseRest> response = interGrupoService.reporteintegrupo();
 		return response;
 	}
 }
