@@ -63,26 +63,18 @@ public class BalanceController {
 	}
 	
 	@GetMapping("/balancedetallecuenta/{id}")
-	public ResponseEntity<BalanceDetalleResponseRest> findByBalanceDetalleCuentaId(@PathVariable Integer id){
-		ResponseEntity<BalanceDetalleResponseRest> response = serviceBalance.findBalanceDetalleId(id);
+	public ResponseEntity<BalanceDetalleResponseRest> validateTestCuentaBalance(@PathVariable Integer id){
+		ResponseEntity<BalanceDetalleResponseRest> response = serviceBalance.validateTestCuentaBalance(id);
 		return response;
 	}
 	
 	@GetMapping("/balancedetallerubro/{id}")
-	public ResponseEntity<BalanceDetalleResponseRest> findByBalanceDetalleRubroId(@PathVariable Integer id){
-		ResponseEntity<BalanceDetalleResponseRest> response = serviceBalance.findBalanceDetalleRubroId(id);
+	public ResponseEntity<BalanceDetalleResponseRest> validateTestRubroBalance(@PathVariable Integer id){
+		ResponseEntity<BalanceDetalleResponseRest> response = serviceBalance.validateTestRubroBalance(id);
 		return response;
 	}
 	
 	/*NeoConBalance*/
-	
-	@PostMapping("/uploadNeoconHeader")
-	public ResponseEntity<NeoConHeaderResponseRest> saveNeoConHeaders(
-											 @RequestParam("periodo") Integer periodo,
-											 @RequestParam("acronimo") String acronimo) {
-	  ResponseEntity<NeoConHeaderResponseRest> response = serviceNeoconHeader.saveNeoConHeaders(periodo, acronimo);
-	  return response;
-	}
 	
 	@PostMapping("/obtenerneoconid")
 	public ResponseEntity<NeoConHeaderResponseRest> findNeoConBalanceId(
@@ -93,22 +85,22 @@ public class BalanceController {
 	}
 	
 	@PostMapping("/uploadNeoConBalanceDetalle")
-	public ResponseEntity<NeoConBalanceDetalleResponseRest> saveNeoConHeaders(@RequestParam("file") MultipartFile file,
+	public ResponseEntity<NeoConBalanceDetalleResponseRest> createNeoConBalanceDetalles(@RequestParam("file") MultipartFile file,
 											 @RequestParam("periodo") Integer periodo,
 											 @RequestParam("acronimo") String acronimo) {
-	  ResponseEntity<NeoConBalanceDetalleResponseRest> response = serviceNeoconHeader.saveNeoConBalanceDetalles(file, periodo, acronimo);
+	  ResponseEntity<NeoConBalanceDetalleResponseRest> response = serviceNeoconHeader.createNeoConBalanceDetalles(file, periodo, acronimo);
 	  return response;
 	}
 	
 	@GetMapping("/neoconbalancedetallecuenta/{id}")
-	public ResponseEntity<NeoConBalanceDetalleResponseRest> findNeoBalanceDetalleNaturalezaId(@PathVariable Integer id){
-		ResponseEntity<NeoConBalanceDetalleResponseRest> response = serviceNeoconHeader.findNeoBalanceDetalleId(id);
+	public ResponseEntity<NeoConBalanceDetalleResponseRest> validateTestCuentaNeoConBalance(@PathVariable Integer id){
+		ResponseEntity<NeoConBalanceDetalleResponseRest> response = serviceNeoconHeader.validateTestCuentaNeoConBalance(id);
 		return response;
 	}
 	
 	@GetMapping("/neoconbalancedetallerubro/{id}")
-	public ResponseEntity<NeoConBalanceDetalleResponseRest> findNeoBalanceDetalleIntergrupoId(@PathVariable Integer id){
-		ResponseEntity<NeoConBalanceDetalleResponseRest> response = serviceNeoconHeader.findNeoBalanceDetalleRubroId(id);
+	public ResponseEntity<NeoConBalanceDetalleResponseRest> validateTestRubroNeoConBalance(@PathVariable Integer id){
+		ResponseEntity<NeoConBalanceDetalleResponseRest> response = serviceNeoconHeader.validateTestRubroNeoConBalance(id);
 		return response;
 	}
 	

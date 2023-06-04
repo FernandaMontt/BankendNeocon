@@ -9,13 +9,11 @@ import cl.forum.neoconportal.response.NeoConHeaderResponseRest;
 
 public interface INeoConBalanceService {
 
-	public ResponseEntity<NeoConHeaderResponseRest> saveNeoConHeaders(@RequestParam("periodo") Integer periodo,
-			 @RequestParam("acronimo") String acronimo);
 	public ResponseEntity<NeoConHeaderResponseRest> findNeoConBalanceId(@RequestParam("periodo") Integer periodo,@RequestParam("acronimo") String acronimo);
-	public ResponseEntity<NeoConBalanceDetalleResponseRest> saveNeoConBalanceDetalles(@RequestParam("file") MultipartFile file,
+	public ResponseEntity<NeoConBalanceDetalleResponseRest> createNeoConBalanceDetalles(@RequestParam("file") MultipartFile file,
 			@RequestParam("periodo") Integer periodo,@RequestParam("acronimo") String acronimo);
-	public ResponseEntity<NeoConBalanceDetalleResponseRest> findNeoBalanceDetalleId(Integer id_neocon);
-	public ResponseEntity<NeoConBalanceDetalleResponseRest> findNeoBalanceDetalleRubroId(Integer id_neocon);
+	public ResponseEntity<NeoConBalanceDetalleResponseRest> validateTestCuentaNeoConBalance(Integer id_neocon);
+	public ResponseEntity<NeoConBalanceDetalleResponseRest> validateTestRubroNeoConBalance(Integer id_neocon);
 	public ResponseEntity<NeoConBalanceDetalleResponseRest> ReporteProestec(@RequestParam("periodo") Integer periodo);
 	public ResponseEntity<NeoConBalanceDetalleResponseRest> DescargaCodGInterfaz(@RequestParam("periodo") Integer periodo,@RequestParam("acronimo") String acronimo);
 }

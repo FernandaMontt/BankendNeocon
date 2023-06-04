@@ -10,12 +10,11 @@ import cl.forum.neoconportal.response.InterGroupResponseRest;
 
 public interface IInterGrupoService {
 
-	public ResponseEntity<InterGroupResponseRest> findAllIntergrupo();
-	public ResponseEntity<InterGroupResponseRest> saveInterGruposH(InterGroupHeader interGroupHeader);
+	public ResponseEntity<InterGroupResponseRest> createInterGruposH(InterGroupHeader interGroupHeader);
 	public ResponseEntity<InterGroupResponseRest> updatestateIntergrupo(Integer Id);
 	public ResponseEntity<InterGroupResponseRest> updateInterGruposH(InterGroupHeader interGroupHeader);
 	public ResponseEntity<InterGroupDetalleResponseRest> findByNumeroIG(Integer Id);
-	public ResponseEntity<InterGroupDetalleResponseRest> saveInterGruposD(InterGroupDetalle interGroupDetalle);
+	public ResponseEntity<InterGroupDetalleResponseRest> createInterGruposD(InterGroupDetalle interGroupDetalle);
 	public ResponseEntity<InterGroupDetalleResponseRest> deleteIntergrupodetalle(
 			@RequestParam("numeroig") Integer numeroig, @RequestParam("acronimo") String acronimo,
 			@RequestParam("codigocuenta") int codigocuenta);

@@ -182,7 +182,7 @@ public class CuentaEmpresaServiceImpl implements ICuentaEmpresaService{
 
 	@Override
 	@Transactional
-	public ResponseEntity<CuentaEmpresaResponseRest> saveCuentaEmpresa(CuentaEmpresa cuentaEmpresa) {
+	public ResponseEntity<CuentaEmpresaResponseRest> createCuentaEmpresa(CuentaEmpresa cuentaEmpresa) {
 		// TODO Auto-generated method stub
 		CuentaEmpresaResponseRest response = new CuentaEmpresaResponseRest();
 		List<CuentaEmpresa> cuentaEmpresas = new ArrayList<CuentaEmpresa>();

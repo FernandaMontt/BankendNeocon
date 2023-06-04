@@ -33,39 +33,6 @@ public class EmpresaServiceImpl implements IEmpresaService{
                     + "loginTimeout=30;";
 	ResultSet rs;
 
-	
-	
-	@Override
-	public ResponseEntity<EmpresaResponseRest> findAllEmpresa() {
-
-		EmpresaResponseRest response = new EmpresaResponseRest();
-		List<Empresa> empresas = new ArrayList<Empresa>();
-		
-		try (Connection cn = DriverManager.getConnection(connectionUrl);
-	            CallableStatement cst = cn.prepareCall("{CALL SP_ALL_EMPRESAS }")) {
-
-	        try (ResultSet rs = cst.executeQuery()) {
-	            while (rs.next()) {
-	            	Empresa empresa = new Empresa();
-	            	empresa.setEmpresaId(rs.getInt("EMPRESA_ID"));
-	            	empresa.setEmpresaNombre(rs.getString("EMPRESA_NOMBRE"));
-	            	empresa.setEmpresaNif(rs.getInt("EMPRESA_NIF"));
-	            	empresa.setAbreviatura(rs.getString("ABREVIATURA"));
-	            	empresa.setAcronimo(rs.getString("ACRONIMO"));
-	            	empresa.setEstado(rs.getString("ESTADO"));
-	            	empresas.add(empresa);
-	            }
-	            response.getEmpresaResponse().setEmpresa(empresas);
-	        }
-	    } catch (SQLException e) {
-	        e.printStackTrace();
-	        return new ResponseEntity<EmpresaResponseRest>(response, HttpStatus.INTERNAL_SERVER_ERROR);
-	    }
-	    return new ResponseEntity<EmpresaResponseRest>(response, HttpStatus.OK);
-	}
-
-
-
 	@Override
 	@Transactional(readOnly=true)
 	public ResponseEntity<EmpresaResponseRest> findByEmpresaId(Integer Id) {

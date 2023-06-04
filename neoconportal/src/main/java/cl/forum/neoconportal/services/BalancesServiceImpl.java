@@ -306,7 +306,7 @@ public class BalancesServiceImpl implements IBalancesService{
 	}
 	
 	@Override
-	public ResponseEntity<BalanceDetalleResponseRest> findBalanceDetalleId(Integer id_balance) {
+	public ResponseEntity<BalanceDetalleResponseRest> validateTestCuentaBalance(Integer id_balance) {
 		BalanceDetalleResponseRest response = new BalanceDetalleResponseRest();
 		List<BalanceDetalle> balanceDetalles = new ArrayList<BalanceDetalle>();
 		
@@ -331,7 +331,7 @@ public class BalancesServiceImpl implements IBalancesService{
 	}
 
 	@Override
-	public ResponseEntity<BalanceDetalleResponseRest> findBalanceDetalleRubroId(Integer id_balance) {
+	public ResponseEntity<BalanceDetalleResponseRest> validateTestRubroBalance(Integer id_balance) {
 		BalanceDetalleResponseRest response = new BalanceDetalleResponseRest();
 		List<BalanceDetalle> balanceDetalles = new ArrayList<BalanceDetalle>();
 		

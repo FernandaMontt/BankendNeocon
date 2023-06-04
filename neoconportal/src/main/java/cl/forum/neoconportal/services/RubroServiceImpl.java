@@ -153,7 +153,7 @@ public class RubroServiceImpl implements IRubroService{
 
 	@Override
 	@Transactional
-	public ResponseEntity<RubroResponseRest> saveRubros(Rubro rubro) {
+	public ResponseEntity<RubroResponseRest> createRubros(Rubro rubro) {
 		// TODO Auto-generated method stub
 		RubroResponseRest response = new RubroResponseRest();
 		List<Rubro> rubros = new ArrayList<Rubro>();

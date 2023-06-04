@@ -31,41 +31,10 @@ public class InterGrupoServiceImpl implements IInterGrupoService{
                     + "trustServerCertificate=true;"
                     + "loginTimeout=30;";
 	ResultSet rs;
-	
-	@Override
-	public ResponseEntity<InterGroupResponseRest> findAllIntergrupo() {
-		InterGroupResponseRest response = new InterGroupResponseRest();
-		List<InterGroupHeader> interGroupHeaders = new ArrayList<InterGroupHeader>();
-		
-		try (Connection cn = DriverManager.getConnection(connectionUrl);
-	            CallableStatement cst = cn.prepareCall("{CALL SP_ALL_INTERGROUPHEADER }")) {
-				
-	        try (ResultSet rs = cst.executeQuery()) {
-	            while (rs.next()) {
-	            	InterGroupHeader interGroupHeaderss = new InterGroupHeader();
-	            	interGroupHeaderss.setInterGrupoId(rs.getInt("INTERGRUPO_ID"));
-	            	interGroupHeaderss.setNumeroIg(rs.getInt("NUMERO_IG"));
-	            	interGroupHeaderss.setDescripcionIg(rs.getString("DESCRIPCION_IG"));
-	            	interGroupHeaderss.setEmpresa1(rs.getString("EMPRESA1"));
-	            	interGroupHeaderss.setEmpresa2(rs.getString("EMPRESA2"));
-	            	interGroupHeaderss.setRubro1(rs.getInt("RUBRO1"));
-	            	interGroupHeaderss.setRubro2(rs.getInt("RUBRO2"));
-	            	interGroupHeaderss.setEstado(rs.getString("ESTADO"));
-	            	interGroupHeaders.add(interGroupHeaderss);
-	            }
-	            response.getInterGroupHResponse().setInterGroupHeader(interGroupHeaders);
-	        }
-	    } catch (SQLException e) {
-	        e.printStackTrace();
-	        return new ResponseEntity<InterGroupResponseRest>(response, HttpStatus.INTERNAL_SERVER_ERROR);
-	    }
-	    return new ResponseEntity<InterGroupResponseRest>(response, HttpStatus.OK);
-		
-	}
 
 	@Override
 	@Transactional
-	public ResponseEntity<InterGroupResponseRest> saveInterGruposH(InterGroupHeader interGroupHeader) {
+	public ResponseEntity<InterGroupResponseRest> createInterGruposH(InterGroupHeader interGroupHeader) {
 		// TODO Auto-generated method stub
 		InterGroupResponseRest response = new InterGroupResponseRest();
 		List<InterGroupHeader> interGroupHeaders = new ArrayList<InterGroupHeader>();
@@ -205,7 +174,7 @@ public class InterGrupoServiceImpl implements IInterGrupoService{
 
 	@Override
 	@Transactional
-	public ResponseEntity<InterGroupDetalleResponseRest> saveInterGruposD(InterGroupDetalle interGroupDetalle) {
+	public ResponseEntity<InterGroupDetalleResponseRest> createInterGruposD(InterGroupDetalle interGroupDetalle) {
 		// TODO Auto-generated method stub
 		InterGroupDetalleResponseRest response = new InterGroupDetalleResponseRest();
 		List<InterGroupDetalle> InterGroupDetalles = new ArrayList<InterGroupDetalle>();

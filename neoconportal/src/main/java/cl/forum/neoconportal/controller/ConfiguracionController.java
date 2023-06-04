@@ -72,8 +72,8 @@ public class ConfiguracionController {
 	}
 	
 	@PostMapping("/rubros")
-	public ResponseEntity<RubroResponseRest> saveRubros(@RequestBody Rubro rubro){
-		ResponseEntity<RubroResponseRest> response = rubroService.saveRubros(rubro);
+	public ResponseEntity<RubroResponseRest> createRubros(@RequestBody Rubro rubro){
+		ResponseEntity<RubroResponseRest> response = rubroService.createRubros(rubro);
 		return response;
 	}
 	
@@ -84,12 +84,6 @@ public class ConfiguracionController {
 	}
 	/*Empresa Service*/
 	
-	@GetMapping("/empresas")
-	public ResponseEntity<EmpresaResponseRest> findAlLEmpresa(){
-		ResponseEntity<EmpresaResponseRest> response = empresaService.findAllEmpresa();
-		return response;
-	}
-	
 	@GetMapping("/empresas/{id}")
 	public ResponseEntity<EmpresaResponseRest> findByEmpresaId(@PathVariable Integer id){
 		ResponseEntity<EmpresaResponseRest> response = empresaService.findByEmpresaId(id);
@@ -97,12 +91,6 @@ public class ConfiguracionController {
 	}
 	
 	/*Cuenta Empresa Service*/
-	
-	@GetMapping("/cuentaEmpresas")
-	public ResponseEntity<CuentaEmpresaResponseRest> findAllCuentaEmpresa(){
-		ResponseEntity<CuentaEmpresaResponseRest> response = cuentaEmpresaService.findAllCuentas();
-		return response;
-	}
 	
 	@GetMapping("/cuentaEmpresas/{id}")
 	public ResponseEntity<CuentaEmpresaResponseRest> findByCuentaEmpresaId(@PathVariable Integer id){
@@ -123,8 +111,8 @@ public class ConfiguracionController {
 	}
 	
 	@PostMapping("/cuentaEmpresas")
-	public ResponseEntity<CuentaEmpresaResponseRest> saveCuentaEmpresa(@RequestBody CuentaEmpresa cuentaEmpresa){
-		ResponseEntity<CuentaEmpresaResponseRest> response = cuentaEmpresaService.saveCuentaEmpresa(cuentaEmpresa);
+	public ResponseEntity<CuentaEmpresaResponseRest> createCuentaEmpresa(@RequestBody CuentaEmpresa cuentaEmpresa){
+		ResponseEntity<CuentaEmpresaResponseRest> response = cuentaEmpresaService.createCuentaEmpresa(cuentaEmpresa);
 		return response;
 	}
 	
@@ -166,15 +154,9 @@ public class ConfiguracionController {
 	
 	/*Intergrupo*/
 	
-	@GetMapping("/intergrupoheader")
-	public ResponseEntity<InterGroupResponseRest> findAllInterGroupHeader(){
-		ResponseEntity<InterGroupResponseRest> response = interGrupoService.findAllIntergrupo();
-		return response;
-	}
-	
 	@PostMapping("/intergrupoheader")
-	public ResponseEntity<InterGroupResponseRest> saveRubros(@RequestBody InterGroupHeader interGroupHeader){
-		ResponseEntity<InterGroupResponseRest> response = interGrupoService.saveInterGruposH(interGroupHeader);
+	public ResponseEntity<InterGroupResponseRest> createInterGruposH(@RequestBody InterGroupHeader interGroupHeader){
+		ResponseEntity<InterGroupResponseRest> response = interGrupoService.createInterGruposH(interGroupHeader);
 		return response;
 	}
 	
@@ -197,8 +179,8 @@ public class ConfiguracionController {
 	}
 	
 	@PostMapping("/intergrupodetalle")
-	public ResponseEntity<InterGroupDetalleResponseRest> saveInterGruposD(@RequestBody InterGroupDetalle interGroupDetalle){
-		ResponseEntity<InterGroupDetalleResponseRest> response = interGrupoService.saveInterGruposD(interGroupDetalle);
+	public ResponseEntity<InterGroupDetalleResponseRest> createInterGruposD(@RequestBody InterGroupDetalle interGroupDetalle){
+		ResponseEntity<InterGroupDetalleResponseRest> response = interGrupoService.createInterGruposD(interGroupDetalle);
 		return response;
 	}
 	

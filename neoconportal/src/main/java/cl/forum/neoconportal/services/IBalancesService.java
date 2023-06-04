@@ -15,6 +15,6 @@ public interface IBalancesService {
 	public ResponseEntity<BalanceResponseRest> findBalanceId(@RequestParam("periodo") Integer periodo,@RequestParam("acronimo") String acronimo);
 	public ResponseEntity<BalanceResponseRest> uploadFileBalance2(@RequestParam("file") MultipartFile file,
 			@RequestParam("periodo") Integer periodo,@RequestParam("acronimo") String acronimo);
-	public ResponseEntity<BalanceDetalleResponseRest> findBalanceDetalleId(Integer id_balance);
-	public ResponseEntity<BalanceDetalleResponseRest> findBalanceDetalleRubroId(Integer id_balance);
+	public ResponseEntity<BalanceDetalleResponseRest> validateTestCuentaBalance(Integer id_balance);
+	public ResponseEntity<BalanceDetalleResponseRest> validateTestRubroBalance(Integer id_balance);
 }

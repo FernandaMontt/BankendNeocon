@@ -37,38 +37,6 @@ public class NeoConBalanceServiceImpl implements INeoConBalanceService{
 	ResultSet rs;
 	
 	@Override
-	@Transactional
-	public ResponseEntity<NeoConHeaderResponseRest> saveNeoConHeaders(@RequestParam("periodo") Integer periodo,
-			 @RequestParam("acronimo") String acronimo) {
-		// TODO Auto-generated method stub
-				NeoConHeaderResponseRest response = new NeoConHeaderResponseRest();
-				List<NeoConHeader> neoConHeaders = new ArrayList<NeoConHeader>();
-				
-				try (Connection cn = DriverManager.getConnection(connectionUrl);
-			            CallableStatement cst = cn.prepareCall("{CALL SP_INSERT_NEOCONHEADER(?,?) }")) {
-						cst.setInt(1, periodo);
-						cst.setString(2, acronimo);
-			        try (ResultSet rs = cst.executeQuery()) {
-			            while (rs.next()) {
-			            	NeoConHeader NeoConHeaderss = new NeoConHeader();
-			            	NeoConHeaderss.setNeoconId(rs.getInt("NEOCONID"));
-			            	NeoConHeaderss.setFechaProceso(rs.getDate("FECHAPROCESO"));
-			            	NeoConHeaderss.setVersion(rs.getInt("VERSION"));
-			            	NeoConHeaderss.setPeriodo(rs.getInt("PERIODO"));
-			            	NeoConHeaderss.setAcronimo(rs.getString("ACRONIMO"));
-			            	NeoConHeaderss.setHora(rs.getTime("HORA"));
-			            	neoConHeaders.add(NeoConHeaderss);
-			            }
-			            response.getNeoConHeaderResponse().setNeoConHeader(neoConHeaders);
-			        }
-			    } catch (SQLException e) {
-			        e.printStackTrace();
-			        return new ResponseEntity<NeoConHeaderResponseRest>(response, HttpStatus.INTERNAL_SERVER_ERROR);
-			    }
-			    return new ResponseEntity<NeoConHeaderResponseRest>(response, HttpStatus.OK);
-	}
-
-	@Override
 	public ResponseEntity<NeoConHeaderResponseRest> findNeoConBalanceId(Integer periodo, String acronimo) {
 		// TODO Auto-generated method stub
 		NeoConHeaderResponseRest response = new NeoConHeaderResponseRest();
@@ -103,7 +71,7 @@ public class NeoConBalanceServiceImpl implements INeoConBalanceService{
 	
 	@Override
 	@Transactional
-	public ResponseEntity<NeoConBalanceDetalleResponseRest> saveNeoConBalanceDetalles(@RequestParam("file") MultipartFile file,
+	public ResponseEntity<NeoConBalanceDetalleResponseRest> createNeoConBalanceDetalles(@RequestParam("file") MultipartFile file,
 			@RequestParam("periodo") Integer periodo,@RequestParam("acronimo") String acronimo) {
 		// TODO Auto-generated method stub
 		NeoConBalanceDetalleResponseRest response = new NeoConBalanceDetalleResponseRest();
@@ -117,6 +85,11 @@ public class NeoConBalanceServiceImpl implements INeoConBalanceService{
 	        String[] rows = fileContent.split("\n");
 	        //String[] headers = rows[0].split(",");
 	        cn = DriverManager.getConnection(connectionUrl);
+	        //NEoconHeader
+	        CallableStatement cst4 = cn.prepareCall("{CALL SP_INSERT_NEOCONHEADER(?,?) }");
+			cst4.setInt(1, periodo);
+			cst4.setString(2, acronimo);
+	        
 			// Llamada al procedimiento almacenado
 			CallableStatement cst = cn.prepareCall("{CALL SP_INSERT_NEOCONBALANCEDETALLE(?,?,?,?,?) }");
 
@@ -172,7 +145,7 @@ public class NeoConBalanceServiceImpl implements INeoConBalanceService{
 	}
 
 	@Override
-	public ResponseEntity<NeoConBalanceDetalleResponseRest> findNeoBalanceDetalleId(Integer id_neocon) {
+	public ResponseEntity<NeoConBalanceDetalleResponseRest> validateTestCuentaNeoConBalance(Integer id_neocon) {
 		NeoConBalanceDetalleResponseRest response = new NeoConBalanceDetalleResponseRest();
 		List<NeoConBalanceDetalle> neoConBalanceDetalles = new ArrayList<NeoConBalanceDetalle>();
 		
@@ -204,7 +177,7 @@ public class NeoConBalanceServiceImpl implements INeoConBalanceService{
 	}
 
 	@Override
-	public ResponseEntity<NeoConBalanceDetalleResponseRest> findNeoBalanceDetalleRubroId(Integer id_neocon) {
+	public ResponseEntity<NeoConBalanceDetalleResponseRest> validateTestRubroNeoConBalance(Integer id_neocon) {
 		NeoConBalanceDetalleResponseRest response = new NeoConBalanceDetalleResponseRest();
 		List<NeoConBalanceDetalle> neoConBalanceDetalles = new ArrayList<NeoConBalanceDetalle>();
 		
