@@ -237,6 +237,7 @@ public class InterGrupoServiceImpl implements IInterGrupoService{
 	    			interGroupDetalle.setEmpresa2(rs.getString("EMPRESA2"));
 	    			interGroupDetalle.setRubro1(rs.getInt("RUBRO1"));
 	    			interGroupDetalle.setRubro2(rs.getInt("RUBRO2"));
+	    			interGroupDetalle.setEstado(rs.getString("ESTADO"));
 	    			InterGroupDetalles.add(interGroupDetalle);
 	            }
 	            response.getInterGroupHResponse().setInterGroupHeader(InterGroupDetalles);
