@@ -62,6 +62,18 @@ public class InterGrupoServiceImpl implements IInterGrupoService{
 	            }
 	            response.getInterGroupHResponse().setInterGroupHeader(interGroupHeaders);
 	        }
+	        if(interGroupHeader.getNumeroIg() != 0) {
+		          String username = System.getProperty("user.name");
+		  	      String detalleTabla = "Tabla INTERGRUPOHEADER";
+		  	      String accion = "Se agrego nuevo INTERGRUPOHEADER";
+		  	      String detalle = "Nuevo INTERGRUPOHEADER agregado, número ig " + interGroupHeader.getNumeroIg() ;
+		  	      CallableStatement cst2 = cn.prepareCall("{CALL SP_INSERT_ACCION(?,?,?,?) }");
+		  	      cst2.setString(1, detalleTabla);
+		  	      cst2.setString(2, accion);
+		  	      cst2.setString(3, username);
+		  	      cst2.setString(4, detalle);
+		  	      rs = cst2.executeQuery();
+		        }
 	    } catch (SQLException e) {
 	        e.printStackTrace();
 	        return new ResponseEntity<InterGroupResponseRest>(response, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -76,7 +88,7 @@ public class InterGrupoServiceImpl implements IInterGrupoService{
 		// TODO Auto-generated method stub
 		InterGroupResponseRest response = new InterGroupResponseRest();
 		List<InterGroupHeader> interGroupHeaders = new ArrayList<InterGroupHeader>();
-		
+		int CodigoIntergrupo = 0;
 		try (Connection cn = DriverManager.getConnection(connectionUrl);
 	            CallableStatement cst = cn.prepareCall("{CALL SP_DESHABILITAR_INTERGRUPO(?) }")) {
 				cst.setString(1, Id.toString());
@@ -85,6 +97,9 @@ public class InterGrupoServiceImpl implements IInterGrupoService{
 	            	InterGroupHeader interGroupHeaderss = new InterGroupHeader();
 	            	interGroupHeaderss.setInterGrupoId(rs.getInt("INTERGRUPO_ID"));
 	            	interGroupHeaderss.setNumeroIg(rs.getInt("NUMERO_IG"));
+	            	if(Id != 0) {
+	            		CodigoIntergrupo = interGroupHeaderss.getNumeroIg();
+					}
 	            	interGroupHeaderss.setDescripcionIg(rs.getString("DESCRIPCION_IG"));
 	            	interGroupHeaderss.setEmpresa1(rs.getString("EMPRESA1"));
 	            	interGroupHeaderss.setEmpresa2(rs.getString("EMPRESA2"));
@@ -95,6 +110,18 @@ public class InterGrupoServiceImpl implements IInterGrupoService{
 	            }
 	            response.getInterGroupHResponse().setInterGroupHeader(interGroupHeaders);
 	        }
+	        if(Id != 0) {
+		          String username = System.getProperty("user.name");
+		  	      String detalleTabla = "Tabla INTERGRUPOHEADER";
+		  	      String accion = "Cambio de estado";
+		  	      String detalle = "Se deshabilito el intergrupo, número ig " + CodigoIntergrupo ;
+		  	      CallableStatement cst2 = cn.prepareCall("{CALL SP_INSERT_ACCION(?,?,?,?) }");
+		  	      cst2.setString(1, detalleTabla);
+		  	      cst2.setString(2, accion);
+		  	      cst2.setString(3, username);
+		  	      cst2.setString(4, detalle);
+		  	      rs = cst2.executeQuery();
+		        }
 	    } catch (SQLException e) {
 	        e.printStackTrace();
 	        return new ResponseEntity<InterGroupResponseRest>(response, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -133,6 +160,18 @@ public class InterGrupoServiceImpl implements IInterGrupoService{
 			            }
 			            response.getInterGroupHResponse().setInterGroupHeader(interGroupHeaders);
 			        }
+			        if(interGroupHeader.getNumeroIg() != 0) {
+				          String username = System.getProperty("user.name");
+				  	      String detalleTabla = "Tabla INTERGRUPOHEADER";
+				  	      String accion = "Se modificó INTERGRUPOHEADER";
+				  	      String detalle = "Se modifica la tabla INTERGRUPOHEADER, número ig " + interGroupHeader.getNumeroIg() ;
+				  	      CallableStatement cst2 = cn.prepareCall("{CALL SP_INSERT_ACCION(?,?,?,?) }");
+				  	      cst2.setString(1, detalleTabla);
+				  	      cst2.setString(2, accion);
+				  	      cst2.setString(3, username);
+				  	      cst2.setString(4, detalle);
+				  	      rs = cst2.executeQuery();
+				        }
 			    } catch (SQLException e) {
 			        e.printStackTrace();
 			        return new ResponseEntity<InterGroupResponseRest>(response, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -188,6 +227,18 @@ public class InterGrupoServiceImpl implements IInterGrupoService{
 	            
 	            
 	        }
+	        if(interGroupDetalle.getNumeroIg() != 0) {
+		          String username = System.getProperty("user.name");
+		  	      String detalleTabla = "Tabla INETERGRUPODETALLE";
+		  	      String accion = "Se agrego nuevo INETERGRUPODETALLE";
+		  	      String detalle = "Nuevo INETERGRUPODETALLE agregado, número ig " + interGroupDetalle.getNumeroIg() ;
+		  	      CallableStatement cst2 = cn.prepareCall("{CALL SP_INSERT_ACCION(?,?,?,?) }");
+		  	      cst2.setString(1, detalleTabla);
+		  	      cst2.setString(2, accion);
+		  	      cst2.setString(3, username);
+		  	      cst2.setString(4, detalle);
+		  	      rs = cst2.executeQuery();
+		        }
 	    } catch (SQLException e) {
 	        e.printStackTrace();
 	        return new ResponseEntity<InterGroupDetalleResponseRest>(response, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -212,6 +263,18 @@ public class InterGrupoServiceImpl implements IInterGrupoService{
 	        try (ResultSet rs = cst.executeQuery()) {
 	            
 	        }
+	        if(numeroig != 0) {
+		          String username = System.getProperty("user.name");
+		  	      String detalleTabla = "Tabla INETERGRUPODETALLE";
+		  	      String accion = "Se borró la cuenta en la tabla INETERGRUPODETALLE";
+		  	      String detalle = "Se borro la cuenta en la tabla INETERGRUPODETALLE, número ig " + numeroig ;
+		  	      CallableStatement cst2 = cn.prepareCall("{CALL SP_INSERT_ACCION(?,?,?,?) }");
+		  	      cst2.setString(1, detalleTabla);
+		  	      cst2.setString(2, accion);
+		  	      cst2.setString(3, username);
+		  	      cst2.setString(4, detalle);
+		  	      rs = cst2.executeQuery();
+		        }
 	    } catch (SQLException e) {
 	        e.printStackTrace();
 	        return new ResponseEntity<InterGroupDetalleResponseRest>(response, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -231,6 +294,7 @@ public class InterGrupoServiceImpl implements IInterGrupoService{
 	        try (ResultSet rs = cst.executeQuery()) {
 	            while (rs.next()) {
 	            	InterGroupHeader interGroupDetalle = new InterGroupHeader();
+	            	interGroupDetalle.setInterGrupoId(rs.getInt("INTERGRUPO_ID"));
 	    			interGroupDetalle.setNumeroIg(rs.getInt("NUMERO_IG"));;
 	    			interGroupDetalle.setDescripcionIg(rs.getString("DESCRIPCION_IG"));
 	    			interGroupDetalle.setEmpresa1(rs.getString("EMPRESA1"));

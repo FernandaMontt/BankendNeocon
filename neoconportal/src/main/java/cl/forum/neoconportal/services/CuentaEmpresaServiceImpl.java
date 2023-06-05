@@ -153,7 +153,7 @@ public class CuentaEmpresaServiceImpl implements ICuentaEmpresaService{
 		
 		CuentaEmpresaResponseRest response = new CuentaEmpresaResponseRest();
 		List<CuentaEmpresa> cuentaEmpresas = new ArrayList<CuentaEmpresa>();
-		
+		String CodigoCuenta = "";
 		try (Connection cn = DriverManager.getConnection(connectionUrl);
 	            CallableStatement cst = cn.prepareCall("{CALL SP_CHANGESTATE_CUENTA_EMPRESA(?) }")) {
 				cst.setString(1, Id.toString());
@@ -164,6 +164,9 @@ public class CuentaEmpresaServiceImpl implements ICuentaEmpresaService{
 	            	cuentaEmpresa.setEmpresaId(rs.getInt("EMPRESA_ID"));
 	            	cuentaEmpresa.setRubroId(rs.getInt("RUBRO_ID"));
 	            	cuentaEmpresa.setCuentaCodigo(rs.getDouble("CUENTA_CODIGO"));
+	            	if(Id != 0) {
+	            		CodigoCuenta = cuentaEmpresa.getCuentaCodigo().toString();
+					}
 	            	cuentaEmpresa.setCuentaDescripcion(rs.getString("CUENTA_DESCRIPCION"));
 	            	cuentaEmpresa.setCuentaTipo(rs.getString("CUENTA_TIPO"));
 	            	cuentaEmpresa.setEstado(rs.getString("ESTADO"));
@@ -171,6 +174,18 @@ public class CuentaEmpresaServiceImpl implements ICuentaEmpresaService{
 	            }
 	            response.getCuentaEmpresaResponse().setCuentaEmpresa(cuentaEmpresas);
 	        }
+	        if(Id != 0) {
+		          String username = System.getProperty("user.name");
+		  	      String detalleTabla = "Tabla CUENTA_EMPRESA";
+		  	      String accion = "Cambio de estado";
+		  	      String detalle = "Se deshabilito la cuenta_empresa " + CodigoCuenta ;
+		  	      CallableStatement cst2 = cn.prepareCall("{CALL SP_INSERT_ACCION(?,?,?,?) }");
+		  	      cst2.setString(1, detalleTabla);
+		  	      cst2.setString(2, accion);
+		  	      cst2.setString(3, username);
+		  	      cst2.setString(4, detalle);
+		  	      rs = cst2.executeQuery();
+		        }
 	    } catch (SQLException e) {
 	        e.printStackTrace();
 	        return new ResponseEntity<CuentaEmpresaResponseRest>(response, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -208,6 +223,18 @@ public class CuentaEmpresaServiceImpl implements ICuentaEmpresaService{
 	            }
 	            response.getCuentaEmpresaResponse().setCuentaEmpresa(cuentaEmpresas);
 	        }
+	        if(cuentaEmpresa.getCuentaCodigo().toString() != "0") {
+		          String username = System.getProperty("user.name");
+		  	      String detalleTabla = "Tabla CUENTA_EMPRESA";
+		  	      String accion = "Se agrego nueva cuenta_empresa";
+		  	      String detalle = "Nueva cuenta_empresa agregada, código " + cuentaEmpresa.getCuentaCodigo() ;
+		  	      CallableStatement cst2 = cn.prepareCall("{CALL SP_INSERT_ACCION(?,?,?,?) }");
+		  	      cst2.setString(1, detalleTabla);
+		  	      cst2.setString(2, accion);
+		  	      cst2.setString(3, username);
+		  	      cst2.setString(4, detalle);
+		  	      rs = cst2.executeQuery();
+		        }
 	    } catch (SQLException e) {
 	        e.printStackTrace();
 	        return new ResponseEntity<CuentaEmpresaResponseRest>(response, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -247,6 +274,18 @@ public class CuentaEmpresaServiceImpl implements ICuentaEmpresaService{
 	            }
 	            response.getCuentaEmpresaResponse().setCuentaEmpresa(cuentaEmpresas);
 	        }
+	        if(cuentaEmpresa.getCuentaCodigo().toString() != "0") {
+		          String username = System.getProperty("user.name");
+		  	      String detalleTabla = "Tabla CUENTA_EMPRESA";
+		  	      String accion = "Se modificó la cuenta_empresa";
+		  	      String detalle = "Se modifica la cuenta_empresa, código " + cuentaEmpresa.getCuentaCodigo() ;
+		  	      CallableStatement cst2 = cn.prepareCall("{CALL SP_INSERT_ACCION(?,?,?,?) }");
+		  	      cst2.setString(1, detalleTabla);
+		  	      cst2.setString(2, accion);
+		  	      cst2.setString(3, username);
+		  	      cst2.setString(4, detalle);
+		  	      rs = cst2.executeQuery();
+		        }
 	    } catch (SQLException e) {
 	        e.printStackTrace();
 	        return new ResponseEntity<CuentaEmpresaResponseRest>(response, HttpStatus.INTERNAL_SERVER_ERROR);

@@ -120,7 +120,7 @@ public class RubroServiceImpl implements IRubroService{
 	        }
 	        if(Id != 0) {
 	          String username = System.getProperty("user.name");
-	  	      String detalleTabla = "Tabla Rubro";
+	  	      String detalleTabla = "Tabla RUBRO";
 	  	      String accion = "Cambio de estado";
 	  	      String detalle = "Se deshabilito el Rubro " + CodigoRubro ;
 	  	      CallableStatement cst2 = cn.prepareCall("{CALL SP_INSERT_ACCION(?,?,?,?) }");
@@ -196,7 +196,7 @@ public class RubroServiceImpl implements IRubroService{
 	        }
 	        if(rubro.getRubroCodigo().toString() != "0") {
 		          String username = System.getProperty("user.name");
-		  	      String detalleTabla = "Tabla Rubro";
+		  	      String detalleTabla = "Tabla RUBRO";
 		  	      String accion = "Se agrego nuevo Rubro";
 		  	      String detalle = "Nuevo Rubro agregado, código " + rubro.getRubroCodigo() ;
 		  	      CallableStatement cst2 = cn.prepareCall("{CALL SP_INSERT_ACCION(?,?,?,?) }");
@@ -242,7 +242,7 @@ public class RubroServiceImpl implements IRubroService{
 	        }
 	        if(rubro.getRubroCodigo().toString() != "0") {
 		          String username = System.getProperty("user.name");
-		  	      String detalleTabla = "Tabla Rubro";
+		  	      String detalleTabla = "Tabla RUBRO";
 		  	      String accion = "Se modificó Rubro";
 		  	      String detalle = "Se modifica el Rubro código " + rubro.getRubroCodigo() ;
 		  	      CallableStatement cst2 = cn.prepareCall("{CALL SP_INSERT_ACCION(?,?,?,?) }");
