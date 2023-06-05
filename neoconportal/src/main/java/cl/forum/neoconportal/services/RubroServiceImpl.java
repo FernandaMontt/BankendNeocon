@@ -98,8 +98,10 @@ public class RubroServiceImpl implements IRubroService{
 		// TODO Auto-generated method stub
 		RubroResponseRest response = new RubroResponseRest();
 		List<Rubro> rubros = new ArrayList<Rubro>();
-		
+		//String username = System.getProperty("user.name");
+		//String detalleTabla = "Tabla Rubro";
 		try (Connection cn = DriverManager.getConnection(connectionUrl);
+				
 	            CallableStatement cst = cn.prepareCall("{CALL SP_CHANGESTATE_RUBROS(?) }")) {
 				cst.setString(1, Id.toString());
 	        try (ResultSet rs = cst.executeQuery()) {

@@ -192,8 +192,8 @@ public class ConfiguracionController {
 	}
 	
 	@GetMapping("/intergrupodetalle/id/{id}")
-	public ResponseEntity<InterGroupDetalleResponseRest> findByIdIntergrupo(@PathVariable Integer id){
-		ResponseEntity<InterGroupDetalleResponseRest> response = interGrupoService.findById(id);
+	public ResponseEntity<InterGroupResponseRest> findByIdIntergrupo(@PathVariable Integer id){
+		ResponseEntity<InterGroupResponseRest> response = interGrupoService.findById(id);
 		return response;
 	}
 	

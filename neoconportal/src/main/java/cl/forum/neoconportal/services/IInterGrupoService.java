@@ -18,7 +18,7 @@ public interface IInterGrupoService {
 	public ResponseEntity<InterGroupDetalleResponseRest> deleteIntergrupodetalle(
 			@RequestParam("numeroig") Integer numeroig, @RequestParam("acronimo") String acronimo,
 			@RequestParam("codigocuenta") int codigocuenta);
-	public ResponseEntity<InterGroupDetalleResponseRest> findById(Integer IdInter);
+	public ResponseEntity<InterGroupResponseRest> findById(Integer IdInter);
 	public ResponseEntity<InterGroupDetalleResponseRest> searchInterCuentaEmpresa(
 			@RequestParam("codigorubro") Integer codigorubro, @RequestParam("acronimo") String acronimo,
 			@RequestParam("numeroig") Integer numeroig);

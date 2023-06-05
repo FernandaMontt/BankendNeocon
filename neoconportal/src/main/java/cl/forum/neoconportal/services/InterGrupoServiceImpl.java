@@ -221,16 +221,16 @@ public class InterGrupoServiceImpl implements IInterGrupoService{
 	}
 
 	@Override
-	public ResponseEntity<InterGroupDetalleResponseRest> findById(Integer IdInter) {
-		InterGroupDetalleResponseRest response = new InterGroupDetalleResponseRest();
-		List<InterGroupDetalle> InterGroupDetalles = new ArrayList<InterGroupDetalle>();
+	public ResponseEntity<InterGroupResponseRest> findById(Integer IdInter) {
+		InterGroupResponseRest response = new InterGroupResponseRest();
+		List<InterGroupHeader> InterGroupDetalles = new ArrayList<InterGroupHeader>();
 		
 		try (Connection cn = DriverManager.getConnection(connectionUrl);
 	            CallableStatement cst = cn.prepareCall("{CALL SP_GET_SOURCEBYIDINTER_INTERGROUP(?) }")) {
 				cst.setInt(1, IdInter);
 	        try (ResultSet rs = cst.executeQuery()) {
 	            while (rs.next()) {
-	            	InterGroupDetalle interGroupDetalle = new InterGroupDetalle();
+	            	InterGroupHeader interGroupDetalle = new InterGroupHeader();
 	    			interGroupDetalle.setNumeroIg(rs.getInt("NUMERO_IG"));;
 	    			interGroupDetalle.setDescripcionIg(rs.getString("DESCRIPCION_IG"));
 	    			interGroupDetalle.setEmpresa1(rs.getString("EMPRESA1"));
@@ -239,13 +239,13 @@ public class InterGrupoServiceImpl implements IInterGrupoService{
 	    			interGroupDetalle.setRubro2(rs.getInt("RUBRO2"));
 	    			InterGroupDetalles.add(interGroupDetalle);
 	            }
-	            response.getInterGroupDetalleResponse().setInterGroupDetalle(InterGroupDetalles);
+	            response.getInterGroupHResponse().setInterGroupHeader(InterGroupDetalles);
 	        }
 	    } catch (SQLException e) {
 	        e.printStackTrace();
-	        return new ResponseEntity<InterGroupDetalleResponseRest>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+	        return new ResponseEntity<InterGroupResponseRest>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 	    }
-	    return new ResponseEntity<InterGroupDetalleResponseRest>(response, HttpStatus.OK);
+	    return new ResponseEntity<InterGroupResponseRest>(response, HttpStatus.OK);
 		
 	}
 
