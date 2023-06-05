@@ -105,13 +105,13 @@ public class BalanceController {
 	}
 	
 	@PostMapping("/reporteproestpec")
-	public ResponseEntity<NeoConBalanceDetalleResponseRest> resporteProestpec(@RequestParam("periodo") Integer periodo) {
+	public ResponseEntity<NeoConBalanceDetalleResponseRest> resportProestpec(@RequestParam("periodo") Integer periodo) {
 	  ResponseEntity<NeoConBalanceDetalleResponseRest> response = serviceNeoconHeader.ReporteProestec(periodo);
 	  return response;
 	}
 	
 	@PostMapping("/descarganeoconbalance")
-	public ResponseEntity<NeoConBalanceDetalleResponseRest> DescargaCodGInterfaz(@RequestParam("periodo") Integer periodo, @RequestParam("acronimo") String acronimo){
+	public ResponseEntity<NeoConBalanceDetalleResponseRest> reportCodGInterfaz(@RequestParam("periodo") Integer periodo, @RequestParam("acronimo") String acronimo){
 		ResponseEntity<NeoConBalanceDetalleResponseRest> response = serviceNeoconHeader.DescargaCodGInterfaz(periodo, acronimo);
 		return response;
 	}
