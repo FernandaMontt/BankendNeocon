@@ -89,7 +89,7 @@ public class NeoConBalanceServiceImpl implements INeoConBalanceService{
 	        CallableStatement cst4 = cn.prepareCall("{CALL SP_INSERT_NEOCONHEADER(?,?) }");
 			cst4.setInt(1, periodo);
 			cst4.setString(2, acronimo);
-	        
+			rs = cst4.executeQuery();	  
 			// Llamada al procedimiento almacenado
 			CallableStatement cst = cn.prepareCall("{CALL SP_INSERT_NEOCONBALANCEDETALLE(?,?,?,?,?) }");
 
