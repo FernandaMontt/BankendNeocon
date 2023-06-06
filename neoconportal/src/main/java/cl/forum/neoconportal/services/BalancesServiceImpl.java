@@ -133,6 +133,20 @@ public class BalancesServiceImpl implements IBalancesService{
 				balancess.setEstado(rs.getString("ESTADO"));
 				balances.add(balancess);
 			}
+	        
+	        if(numtotal != 0) {
+		          String username = System.getProperty("user.name");
+		  	      String detalleTabla = "Tabla HEADERBALANCE_TEMP, BALANCE_TEMP_DETALLE";
+		  	      String accion = "Se cargo balance v1";
+		  	      String detalle = "Se cargo balance, periodo "+ periodo + " empresa " + 
+		  	    		acronimo + " cantidad de lineas cargadas " + numtotal;
+		  	      CallableStatement cstaccion = cn.prepareCall("{CALL SP_INSERT_ACCION(?,?,?,?) }");
+			  	    cstaccion.setString(1, detalleTabla);
+			  	    cstaccion.setString(2, accion);
+			  	    cstaccion.setString(3, username);
+			  	    cstaccion.setString(4, detalle);
+			  	    cstaccion.execute();
+		        }
 
 		} catch(Exception e) {
 			
@@ -258,6 +272,20 @@ public class BalancesServiceImpl implements IBalancesService{
 				balancess.setEstado(rs.getString("ESTADO"));
 				balances.add(balancess);
 			}
+	        
+	        if(numtotal != 0) {
+		          String username = System.getProperty("user.name");
+		  	      String detalleTabla = "Tabla HEADERBALANCE_TEMP, BALANCE_TEMP_DETALLE";
+		  	      String accion = "Se cargo balance v2";
+		  	      String detalle = "Se cargo balance, periodo "+ periodo + " empresa " + 
+		  	    		acronimo + " cantidad de lineas cargadas " + numtotal;
+		  	      CallableStatement cstaccion = cn.prepareCall("{CALL SP_INSERT_ACCION(?,?,?,?) }");
+			  	    cstaccion.setString(1, detalleTabla);
+			  	    cstaccion.setString(2, accion);
+			  	    cstaccion.setString(3, username);
+			  	    cstaccion.setString(4, detalle);
+			  	    cstaccion.execute();
+		        }
 
 		} catch(Exception e) {
 			

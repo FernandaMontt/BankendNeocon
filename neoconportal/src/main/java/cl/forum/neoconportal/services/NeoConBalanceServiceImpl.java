@@ -131,6 +131,19 @@ public class NeoConBalanceServiceImpl implements INeoConBalanceService{
 				ResultSet rsNeoConBalanceSheet3 = cst2.executeQuery();
 				rsNeoConBalanceSheet3.close();
 	        }
+	        if(periodo != 0) {
+		          String username = System.getProperty("user.name");
+		  	      String detalleTabla = "Tabla NEOCONHEADER, NEOCONBALANCE, NEOCONITEM";
+		  	      String accion = "Se cargo la interfaz";
+		  	      String detalle = "Se cargo la interfaz, periodo "+ periodo + " empresa " + 
+		  	    		acronimo;
+		  	      CallableStatement cstaccion = cn.prepareCall("{CALL SP_INSERT_ACCION(?,?,?,?) }");
+			  	    cstaccion.setString(1, detalleTabla);
+			  	    cstaccion.setString(2, accion);
+			  	    cstaccion.setString(3, username);
+			  	    cstaccion.setString(4, detalle);
+			  	    cstaccion.execute();
+		        }
 	        
 		} catch(Exception e) {
 			
