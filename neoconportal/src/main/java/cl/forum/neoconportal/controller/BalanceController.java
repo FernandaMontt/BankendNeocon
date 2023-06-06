@@ -84,11 +84,11 @@ public class BalanceController {
 	  return response;
 	}
 	
-	@PostMapping("/uploadNeoConBalanceDetalle")
-	public ResponseEntity<NeoConBalanceDetalleResponseRest> createNeoConBalanceDetalles(@RequestParam("file") MultipartFile file,
+	@PostMapping("/uploadneoconbalancesheet")
+	public ResponseEntity<NeoConBalanceDetalleResponseRest> createNeoConBalanceSheet(
 											 @RequestParam("periodo") Integer periodo,
 											 @RequestParam("acronimo") String acronimo) {
-	  ResponseEntity<NeoConBalanceDetalleResponseRest> response = serviceNeoconHeader.createNeoConBalanceDetalles(file, periodo, acronimo);
+	  ResponseEntity<NeoConBalanceDetalleResponseRest> response = serviceNeoconHeader.createNeoConBalanceSheet(periodo, acronimo);
 	  return response;
 	}
 	

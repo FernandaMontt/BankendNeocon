@@ -71,44 +71,20 @@ public class NeoConBalanceServiceImpl implements INeoConBalanceService{
 	
 	@Override
 	@Transactional
-	public ResponseEntity<NeoConBalanceDetalleResponseRest> createNeoConBalanceDetalles(@RequestParam("file") MultipartFile file,
+	public ResponseEntity<NeoConBalanceDetalleResponseRest> createNeoConBalanceSheet(
 			@RequestParam("periodo") Integer periodo,@RequestParam("acronimo") String acronimo) {
 		// TODO Auto-generated method stub
 		NeoConBalanceDetalleResponseRest response = new NeoConBalanceDetalleResponseRest();
 		List<NeoConBalanceDetalle> neoConBalanceDetalles = new ArrayList<NeoConBalanceDetalle>();
 
 		try {
-	        // Leer y procesar el contenido del archivo
-			String fileContent = new String(file.getBytes());
-	        fileContent = replaceCommasInsideQuotes(fileContent);
-	        fileContent = fileContent.replaceAll("\r", ""); // Eliminar los caracteres \r
-	        String[] rows = fileContent.split("\n");
-	        //String[] headers = rows[0].split(",");
 	        cn = DriverManager.getConnection(connectionUrl);
 	        //NEoconHeader
-	        CallableStatement cst4 = cn.prepareCall("{CALL SP_INSERT_NEOCONHEADER(?,?) }");
+	        CallableStatement cst4 = cn.prepareCall("{CALL SP_INSERT_NEOCONBALANCESHEET(?,?) }");
 			cst4.setInt(1, periodo);
 			cst4.setString(2, acronimo);
 			rs = cst4.executeQuery();	  
-			// Llamada al procedimiento almacenado
-			CallableStatement cst = cn.prepareCall("{CALL SP_INSERT_NEOCONBALANCEDETALLE(?,?,?,?,?) }");
-
-	        for (int i = 1; i < rows.length; i++) {
-	        	String[] row = rows[i].split(",");
-	        	String valor = row[2];
-	        	String cuenta = row[0];
-	        	cuenta = cuenta.replace(".", "");
-	        	valor = valor.replace(",", ".");
-	        	valor = valor.replace("(", "").trim();
-	        	valor = valor.replace(")", "").trim();
-	        	valor = valor.replace(".", "");
-				cst.setInt(1, periodo);
-				cst.setString(2, acronimo);
-				cst.setDouble(3, Double.parseDouble(valor));
-				cst.setDouble(4, Double.parseDouble(cuenta));
-				cst.setString(5, row[1]);
-				rs = cst.executeQuery();	        
-	        }
+			
 	        //empieza nuevo procedimiento validacion cuenta y rubro
 	        CallableStatement cst3 = cn.prepareCall("{CALL SP_VALDICAR_NATURALEZA_IG(?,?) }");
 	        cst3.setInt(1, periodo);

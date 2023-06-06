@@ -10,7 +10,7 @@ import cl.forum.neoconportal.response.NeoConHeaderResponseRest;
 public interface INeoConBalanceService {
 
 	public ResponseEntity<NeoConHeaderResponseRest> findNeoConBalanceId(@RequestParam("periodo") Integer periodo,@RequestParam("acronimo") String acronimo);
-	public ResponseEntity<NeoConBalanceDetalleResponseRest> createNeoConBalanceDetalles(@RequestParam("file") MultipartFile file,
+	public ResponseEntity<NeoConBalanceDetalleResponseRest> createNeoConBalanceSheet(
 			@RequestParam("periodo") Integer periodo,@RequestParam("acronimo") String acronimo);
 	public ResponseEntity<NeoConBalanceDetalleResponseRest> validateTestCuentaNeoConBalance(Integer id_neocon);
 	public ResponseEntity<NeoConBalanceDetalleResponseRest> validateTestRubroNeoConBalance(Integer id_neocon);
