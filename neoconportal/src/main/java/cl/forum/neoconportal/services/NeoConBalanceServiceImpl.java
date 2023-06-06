@@ -277,8 +277,7 @@ public class NeoConBalanceServiceImpl implements INeoConBalanceService{
 	        if(!neoConBalanceDetalles.isEmpty()) {
 	        	//empieza nuevo procedimiento que pone las fecha inicial y fecha fin
 		        CallableStatement cst2 = cn.prepareCall("{CALL SP_CLEAN_NEOCONTABLES }");
-				ResultSet rsNeoConBalanceSheet3 = cst2.executeQuery();
-				rsNeoConBalanceSheet3.close();
+		        cst2.execute();
 	        }
 	        
 	    } catch (SQLException e) {
