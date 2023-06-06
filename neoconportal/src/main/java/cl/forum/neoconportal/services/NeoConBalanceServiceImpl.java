@@ -9,13 +9,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.sql.Statement;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 
 import cl.forum.neoconportal.model.NeoConBalanceDetalle;
 import cl.forum.neoconportal.model.NeoConHeader;
@@ -79,29 +79,58 @@ public class NeoConBalanceServiceImpl implements INeoConBalanceService{
 
 		try {
 	        cn = DriverManager.getConnection(connectionUrl);
-	        //NEoconHeader
-	        CallableStatement cst4 = cn.prepareCall("{CALL SP_INSERT_NEOCONBALANCESHEET(?,?) }");
-			cst4.setInt(1, periodo);
-			cst4.setString(2, acronimo);
-			rs = cst4.executeQuery();	  
-			
-	        //empieza nuevo procedimiento validacion cuenta y rubro
-	        CallableStatement cst3 = cn.prepareCall("{CALL SP_VALDICAR_NATURALEZA_IG(?,?) }");
-	        cst3.setInt(1, periodo);
-			cst3.setString(2, acronimo);
-			rs = cst3.executeQuery();
-	        
-	        
-	        //empieza nuevo procedimiento que pone las fecha inicial y fecha fin
-	        CallableStatement cst2 = cn.prepareCall("{CALL SP_INSERT_NEOCONITEM(?,?) }");
-	        cst2.setInt(1, periodo);
-			cst2.setString(2, acronimo);
-			rs = cst2.executeQuery();
-	        
-	        while(rs.next()) {
-            	// Se obtienen la salida del procedimineto almacenado
-	        	
-			}
+	        if (acronimo.equals("0")) {
+	        	// Obtener todas las empresas disponibles
+				Statement stmt = cn.createStatement();
+				String query = "SELECT ACRONIMO FROM EMPRESA";
+				ResultSet rsEmpresas = stmt.executeQuery(query);
+				List<String> empresas = new ArrayList<>();
+				while (rsEmpresas.next()) {
+					empresas.add(rsEmpresas.getString("ACRONIMO"));
+				}
+				rsEmpresas.close();
+				// Iterar sobre las empresas y ejecutar el procedimiento almacenado para cada una
+				for (String empresa : empresas) {
+					CallableStatement cst4 = cn.prepareCall("{CALL SP_INSERT_NEOCONBALANCESHEET(?,?) }");
+					cst4.setInt(1, periodo);
+					cst4.setString(2, empresa);
+					ResultSet rsNeoConBalanceSheet = cst4.executeQuery();
+					// Realizar el procesamiento de los resultados como sea necesario
+					rsNeoConBalanceSheet.close();
+					//empieza nuevo procedimiento validacion cuenta y rubro
+			        CallableStatement cst3 = cn.prepareCall("{CALL SP_VALDICAR_NATURALEZA_IG(?,?) }");
+			        cst3.setInt(1, periodo);
+					cst3.setString(2, empresa);
+					ResultSet rsNeoConBalanceSheet2 = cst3.executeQuery();
+					rsNeoConBalanceSheet2.close();
+					//empieza nuevo procedimiento que pone las fecha inicial y fecha fin
+			        CallableStatement cst2 = cn.prepareCall("{CALL SP_INSERT_NEOCONITEM(?,?) }");
+			        cst2.setInt(1, periodo);
+					cst2.setString(2, empresa);
+					ResultSet rsNeoConBalanceSheet3 = cst2.executeQuery();
+					rsNeoConBalanceSheet3.close();
+				}
+	        }else {
+	        	// Acá puedes mantener el código existente para el caso en que el acrónimo no sea "Todas"
+				CallableStatement cst4 = cn.prepareCall("{CALL SP_INSERT_NEOCONBALANCESHEET(?,?) }");
+				cst4.setInt(1, periodo);
+				cst4.setString(2, acronimo);
+				ResultSet rsNeoConBalanceSheet = cst4.executeQuery();
+				// Realizar el procesamiento de los resultados como sea necesario
+				rsNeoConBalanceSheet.close();
+				//empieza nuevo procedimiento validacion cuenta y rubro
+		        CallableStatement cst3 = cn.prepareCall("{CALL SP_VALDICAR_NATURALEZA_IG(?,?) }");
+		        cst3.setInt(1, periodo);
+				cst3.setString(2, acronimo);
+				ResultSet rsNeoConBalanceSheet2 = cst3.executeQuery();
+				rsNeoConBalanceSheet2.close();
+				//empieza nuevo procedimiento que pone las fecha inicial y fecha fin
+		        CallableStatement cst2 = cn.prepareCall("{CALL SP_INSERT_NEOCONITEM(?,?) }");
+		        cst2.setInt(1, periodo);
+				cst2.setString(2, acronimo);
+				ResultSet rsNeoConBalanceSheet3 = cst2.executeQuery();
+				rsNeoConBalanceSheet3.close();
+	        }
 	        
 		} catch(Exception e) {
 			
