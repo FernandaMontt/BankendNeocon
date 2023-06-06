@@ -172,7 +172,7 @@ public class CuentaEmpresaServiceImpl implements ICuentaEmpresaService{
 	            	cuentaEmpresa.setEstado(rs.getString("ESTADO"));
 	            	cuentaEmpresas.add(cuentaEmpresa);
 	            }
-	            response.getCuentaEmpresaResponse().setCuentaEmpresa(cuentaEmpresas);
+	            
 	        }
 	        if(Id != 0) {
 		          String username = System.getProperty("user.name");
@@ -186,6 +186,7 @@ public class CuentaEmpresaServiceImpl implements ICuentaEmpresaService{
 		  	      cst2.setString(4, detalle);
 		  	      rs = cst2.executeQuery();
 		        }
+	        response.getCuentaEmpresaResponse().setCuentaEmpresa(cuentaEmpresas);
 	    } catch (SQLException e) {
 	        e.printStackTrace();
 	        return new ResponseEntity<CuentaEmpresaResponseRest>(response, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -221,13 +222,16 @@ public class CuentaEmpresaServiceImpl implements ICuentaEmpresaService{
 					cuentaEmpresass.setEstado(rs.getString("ESTADO"));
 	            	cuentaEmpresas.add(cuentaEmpresass);
 	            }
-	            response.getCuentaEmpresaResponse().setCuentaEmpresa(cuentaEmpresas);
+	            
 	        }
 	        if(cuentaEmpresa.getCuentaCodigo().toString() != "0") {
 		          String username = System.getProperty("user.name");
 		  	      String detalleTabla = "Tabla CUENTA_EMPRESA";
 		  	      String accion = "Se agrego nueva cuenta_empresa";
-		  	      String detalle = "Nueva cuenta_empresa agregada, código " + cuentaEmpresa.getCuentaCodigo() ;
+		  	      String detalle = "Nueva cuenta_empresa agregada, cuenta " + cuentaEmpresa.getCuentaCodigo() + 
+		  	    		  " empresa " + cuentaEmpresa.getEmpresaId() + " rubro " + cuentaEmpresa.getRubroId() +
+		  	    		  " nombre cuenta " + cuentaEmpresa.getCuentaDescripcion() + " estado " + 
+		  	    		cuentaEmpresa.getEstado();
 		  	      CallableStatement cst2 = cn.prepareCall("{CALL SP_INSERT_ACCION(?,?,?,?) }");
 		  	      cst2.setString(1, detalleTabla);
 		  	      cst2.setString(2, accion);
@@ -235,6 +239,7 @@ public class CuentaEmpresaServiceImpl implements ICuentaEmpresaService{
 		  	      cst2.setString(4, detalle);
 		  	      rs = cst2.executeQuery();
 		        }
+	        response.getCuentaEmpresaResponse().setCuentaEmpresa(cuentaEmpresas);
 	    } catch (SQLException e) {
 	        e.printStackTrace();
 	        return new ResponseEntity<CuentaEmpresaResponseRest>(response, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -272,13 +277,16 @@ public class CuentaEmpresaServiceImpl implements ICuentaEmpresaService{
 					cuentaEmpresass.setEstado(rs.getString("ESTADO"));
 	            	cuentaEmpresas.add(cuentaEmpresass);
 	            }
-	            response.getCuentaEmpresaResponse().setCuentaEmpresa(cuentaEmpresas);
+	            
 	        }
 	        if(cuentaEmpresa.getCuentaCodigo().toString() != "0") {
 		          String username = System.getProperty("user.name");
 		  	      String detalleTabla = "Tabla CUENTA_EMPRESA";
 		  	      String accion = "Se modificó la cuenta_empresa";
-		  	      String detalle = "Se modifica la cuenta_empresa, código " + cuentaEmpresa.getCuentaCodigo() ;
+		  	      String detalle = "Se modifica la cuenta_empresa, cuenta " + cuentaEmpresa.getCuentaCodigo() + 
+		  	    		  " empresa " + cuentaEmpresa.getEmpresaId() + " rubro " + cuentaEmpresa.getRubroId() +
+		  	    		  " nombre cuenta " + cuentaEmpresa.getCuentaDescripcion() + " estado " + 
+		  	    		cuentaEmpresa.getEstado();
 		  	      CallableStatement cst2 = cn.prepareCall("{CALL SP_INSERT_ACCION(?,?,?,?) }");
 		  	      cst2.setString(1, detalleTabla);
 		  	      cst2.setString(2, accion);
@@ -286,6 +294,7 @@ public class CuentaEmpresaServiceImpl implements ICuentaEmpresaService{
 		  	      cst2.setString(4, detalle);
 		  	      rs = cst2.executeQuery();
 		        }
+	        response.getCuentaEmpresaResponse().setCuentaEmpresa(cuentaEmpresas);
 	    } catch (SQLException e) {
 	        e.printStackTrace();
 	        return new ResponseEntity<CuentaEmpresaResponseRest>(response, HttpStatus.INTERNAL_SERVER_ERROR);

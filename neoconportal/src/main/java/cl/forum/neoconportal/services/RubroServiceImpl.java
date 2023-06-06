@@ -116,7 +116,7 @@ public class RubroServiceImpl implements IRubroService{
 					rubro.setRubroEstado(rs.getString("RUBRO_ESTADO"));
 	    			rubros.add(rubro);
 	            }
-	            response.getRubroResponse().setRubro(rubros);
+	            
 	        }
 	        if(Id != 0) {
 	          String username = System.getProperty("user.name");
@@ -130,7 +130,7 @@ public class RubroServiceImpl implements IRubroService{
 	  	      cst2.setString(4, detalle);
 	  	      rs = cst2.executeQuery();
 	        }
-	      
+	        response.getRubroResponse().setRubro(rubros);
 	      
 	    } catch (SQLException e) {
 	        e.printStackTrace();
@@ -192,13 +192,13 @@ public class RubroServiceImpl implements IRubroService{
 					rubross.setRubroEstado(rs.getString("RUBRO_ESTADO"));
 					rubros.add(rubross);
 	            }
-	            response.getRubroResponse().setRubro(rubros);
 	        }
 	        if(rubro.getRubroCodigo().toString() != "0") {
 		          String username = System.getProperty("user.name");
 		  	      String detalleTabla = "Tabla RUBRO";
 		  	      String accion = "Se agrego nuevo Rubro";
-		  	      String detalle = "Nuevo Rubro agregado, código " + rubro.getRubroCodigo() ;
+		  	      String detalle = "Nuevo Rubro agregado, código " + rubro.getRubroCodigo() + " nombre: " +  rubro.getRubroDescripcion()
+		  	      + " naturaleza " + rubro.getRubroNaturaleza() + " estado " + rubro.getRubroEstado();
 		  	      CallableStatement cst2 = cn.prepareCall("{CALL SP_INSERT_ACCION(?,?,?,?) }");
 		  	      cst2.setString(1, detalleTabla);
 		  	      cst2.setString(2, accion);
@@ -206,6 +206,7 @@ public class RubroServiceImpl implements IRubroService{
 		  	      cst2.setString(4, detalle);
 		  	      rs = cst2.executeQuery();
 		        }
+	        response.getRubroResponse().setRubro(rubros);
 	    } catch (SQLException e) {
 	        e.printStackTrace();
 	        return new ResponseEntity<RubroResponseRest>(response, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -238,13 +239,14 @@ public class RubroServiceImpl implements IRubroService{
 					rubross.setRubroEstado(rs.getString("RUBRO_ESTADO"));
 					rubros.add(rubross);
 	            }
-	            response.getRubroResponse().setRubro(rubros);
+	            
 	        }
 	        if(rubro.getRubroCodigo().toString() != "0") {
 		          String username = System.getProperty("user.name");
 		  	      String detalleTabla = "Tabla RUBRO";
 		  	      String accion = "Se modificó Rubro";
-		  	      String detalle = "Se modifica el Rubro código " + rubro.getRubroCodigo() ;
+		  	      String detalle = "Se modifica el Rubro código " + rubro.getRubroCodigo() + " nombre: " +  rubro.getRubroDescripcion()
+		  	      + " naturaleza " + rubro.getRubroNaturaleza() + " estado " + rubro.getRubroEstado();
 		  	      CallableStatement cst2 = cn.prepareCall("{CALL SP_INSERT_ACCION(?,?,?,?) }");
 		  	      cst2.setString(1, detalleTabla);
 		  	      cst2.setString(2, accion);
@@ -252,6 +254,7 @@ public class RubroServiceImpl implements IRubroService{
 		  	      cst2.setString(4, detalle);
 		  	      rs = cst2.executeQuery();
 		        }
+	        response.getRubroResponse().setRubro(rubros);
 	    } catch (SQLException e) {
 	        e.printStackTrace();
 	        return new ResponseEntity<RubroResponseRest>(response, HttpStatus.INTERNAL_SERVER_ERROR);
