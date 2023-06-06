@@ -160,7 +160,7 @@ public class ConfiguracionController {
 		return response;
 	}
 	
-	@DeleteMapping("/intergrupoheader/{id}")
+	@DeleteMapping("/intergrupoheader/state/{id}")
 	public ResponseEntity<InterGroupResponseRest> updatestateIntergrupo(@PathVariable Integer id){
 		ResponseEntity<InterGroupResponseRest> response = interGrupoService.updatestateIntergrupo(id);
 		return response;
