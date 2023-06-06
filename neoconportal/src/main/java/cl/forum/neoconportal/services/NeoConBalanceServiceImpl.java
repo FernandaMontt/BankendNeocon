@@ -274,6 +274,13 @@ public class NeoConBalanceServiceImpl implements INeoConBalanceService{
 	            }
 	            response.getNeoConBalanceDetalleResponse().setNeoConBalanceDetalle(neoConBalanceDetalles);
 	        }
+	        if(!neoConBalanceDetalles.isEmpty()) {
+	        	//empieza nuevo procedimiento que pone las fecha inicial y fecha fin
+		        CallableStatement cst2 = cn.prepareCall("{CALL SP_CLEAN_NEOCONTABLES }");
+				ResultSet rsNeoConBalanceSheet3 = cst2.executeQuery();
+				rsNeoConBalanceSheet3.close();
+	        }
+	        
 	    } catch (SQLException e) {
 	        e.printStackTrace();
 	        return new ResponseEntity<NeoConBalanceDetalleResponseRest>(response, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -281,33 +288,5 @@ public class NeoConBalanceServiceImpl implements INeoConBalanceService{
 	    return new ResponseEntity<NeoConBalanceDetalleResponseRest>(response, HttpStatus.OK);
 	}
 	
-	private String replaceCommasInsideQuotes(String input) {
-		StringBuilder result = new StringBuilder();
-	    Matcher matcher = Pattern.compile("\"([^\"]*)\"").matcher(input);
-	    int lastIndex = 0;
-
-	    while (matcher.find()) {
-	        result.append(input, lastIndex, matcher.start()); // Agregar el texto antes de la coincidencia
-	        String match = matcher.group(1); // Obtener el texto dentro de las comillas
-	        match = match.replace(",", " ").replace("\"", " "); // Eliminar comas y comillas dentro del texto
-	        // Verificar si el texto contiene paréntesis y si el contenido es numérico
-	        if (match.contains("(") && match.contains(")")) {
-	        	int startIndex = match.indexOf("(");
-	            int endIndex = match.indexOf(")");
-	            String content = match.substring(startIndex + 1, endIndex).trim();
-	            if (content.matches("-?\\d+(\\.\\d+)?")) {
-	                match = content; // Conservar solo el valor numérico dentro de los paréntesis
-	            }
-	        }
-	        result.append(match); // Agregar el texto modificado
-	        lastIndex = matcher.end();
-	    }
-
-	    if (lastIndex < input.length()) {
-	        result.append(input.substring(lastIndex)); // Agregar el texto restante después de la última coincidencia
-	    }
-
-	    return result.toString();
-	}
-
+	
 }
