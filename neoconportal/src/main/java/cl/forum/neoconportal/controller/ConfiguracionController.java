@@ -47,39 +47,39 @@ public class ConfiguracionController {
     
     /*Service Rubro*/
     
-    @GetMapping("/rubros/estado/{estado}")
-	public ResponseEntity<RubroResponseRest> findAllRubros(@PathVariable String estado){
-		ResponseEntity<RubroResponseRest> response = rubroService.findAllRubro(estado);
+    @GetMapping("/item/state/{state}")
+	public ResponseEntity<RubroResponseRest> findAllItems(@PathVariable String state){
+		ResponseEntity<RubroResponseRest> response = rubroService.findAllItems(state);
 		return response;
 	}
 	
-	@GetMapping("/rubros/{id}")
-	public ResponseEntity<RubroResponseRest> findByRubrosId(@PathVariable Integer id){
-		ResponseEntity<RubroResponseRest> response = rubroService.findByRubroId(id);
+	@GetMapping("/item/{id}")
+	public ResponseEntity<RubroResponseRest> findByItemId(@PathVariable Integer id){
+		ResponseEntity<RubroResponseRest> response = rubroService.findByItemId(id);
 		return response;
 	}
 	
-	@DeleteMapping("/rubros/{id}")
-	public ResponseEntity<RubroResponseRest> updatestate(@PathVariable Integer id){
-		ResponseEntity<RubroResponseRest> response = rubroService.updatestate(id);
+	@DeleteMapping("/item/{id}")
+	public ResponseEntity<RubroResponseRest> updateItemState(@PathVariable Integer id){
+		ResponseEntity<RubroResponseRest> response = rubroService.updateState(id);
 		return response;
 	}
 	
-	@GetMapping("/rubros/codigo/{codigo}")
-	public ResponseEntity<RubroResponseRest> findByRubrosCodigo(@PathVariable String codigo){
-		ResponseEntity<RubroResponseRest> response = rubroService.findByRubroCodigo(codigo);
+	@GetMapping("/item/code/{code}")
+	public ResponseEntity<RubroResponseRest> findItemByCode(@PathVariable String code){
+		ResponseEntity<RubroResponseRest> response = rubroService.findItemByCode(code);
 		return response;
 	}
 	
-	@PostMapping("/rubros")
-	public ResponseEntity<RubroResponseRest> createRubros(@RequestBody Rubro rubro){
-		ResponseEntity<RubroResponseRest> response = rubroService.createRubros(rubro);
+	@PostMapping("/items")
+	public ResponseEntity<RubroResponseRest> createItem(@RequestBody Rubro rubro){
+		ResponseEntity<RubroResponseRest> response = rubroService.createItem(rubro);
 		return response;
 	}
 	
-	@PutMapping("/rubros/{id}")
-	public ResponseEntity<RubroResponseRest> updateRubros(@RequestBody Rubro rubro){
-		ResponseEntity<RubroResponseRest> response = rubroService.updateRubros(rubro);
+	@PutMapping("/items/{id}")
+	public ResponseEntity<RubroResponseRest> updateItem(@RequestBody Rubro rubro){
+		ResponseEntity<RubroResponseRest> response = rubroService.updateItem(rubro);
 		return response;
 	}
 	/*Empresa Service*/

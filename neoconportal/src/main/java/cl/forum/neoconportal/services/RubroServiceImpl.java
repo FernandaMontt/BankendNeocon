@@ -34,14 +34,14 @@ public class RubroServiceImpl implements IRubroService{
 	ResultSet rs;
 
 	@Override
-	public ResponseEntity<RubroResponseRest> findAllRubro(String estado) {
+	public ResponseEntity<RubroResponseRest> findAllItems(String state) {
 		
 		RubroResponseRest response = new RubroResponseRest();
 		List<Rubro> rubros = new ArrayList<Rubro>();
 		
 		try (Connection cn = DriverManager.getConnection(connectionUrl);
 	            CallableStatement cst = cn.prepareCall("{CALL SP_ALL_RUBROS(?) }")) {
-				cst.setString(1, estado);
+				cst.setString(1, state);
 	        try (ResultSet rs = cst.executeQuery()) {
 	            while (rs.next()) {
 	            	Rubro rubro = new Rubro();
@@ -64,7 +64,7 @@ public class RubroServiceImpl implements IRubroService{
 
 	@Override
 	@Transactional(readOnly=true)
-	public ResponseEntity<RubroResponseRest> findByRubroId(Integer Id) {
+	public ResponseEntity<RubroResponseRest> findByItemId(Integer Id) {
 		
 		RubroResponseRest response = new RubroResponseRest();
 		List<Rubro> rubros = new ArrayList<Rubro>();
@@ -94,7 +94,7 @@ public class RubroServiceImpl implements IRubroService{
 
 	@Override
 	@Transactional
-	public ResponseEntity<RubroResponseRest> updatestate(Integer Id) {
+	public ResponseEntity<RubroResponseRest> updateState(Integer Id) {
 		// TODO Auto-generated method stub
 		RubroResponseRest response = new RubroResponseRest();
 		List<Rubro> rubros = new ArrayList<Rubro>();
@@ -142,13 +142,13 @@ public class RubroServiceImpl implements IRubroService{
 
 	@Override
 	@Transactional(readOnly=true)
-	public ResponseEntity<RubroResponseRest> findByRubroCodigo(String Codigo) {
+	public ResponseEntity<RubroResponseRest> findItemByCode(String code) {
 		RubroResponseRest response = new RubroResponseRest();
 		List<Rubro> rubros = new ArrayList<Rubro>();
 		
 		try (Connection cn = DriverManager.getConnection(connectionUrl);
 	            CallableStatement cst = cn.prepareCall("{CALL SP_GET_SOURCEBYCODIGO_RUBROS(?) }")) {
-				cst.setString(1, Codigo.toString());
+				cst.setString(1, code.toString());
 	        try (ResultSet rs = cst.executeQuery()) {
 	            while (rs.next()) {
 	            	Rubro rubro = new Rubro();
@@ -171,7 +171,7 @@ public class RubroServiceImpl implements IRubroService{
 
 	@Override
 	@Transactional
-	public ResponseEntity<RubroResponseRest> createRubros(Rubro rubro) {
+	public ResponseEntity<RubroResponseRest> createItem(Rubro rubro) {
 		// TODO Auto-generated method stub
 		RubroResponseRest response = new RubroResponseRest();
 		List<Rubro> rubros = new ArrayList<Rubro>();
@@ -217,7 +217,7 @@ public class RubroServiceImpl implements IRubroService{
 
 	@Override
 	@Transactional
-	public ResponseEntity<RubroResponseRest> updateRubros(Rubro rubro) {
+	public ResponseEntity<RubroResponseRest> updateItem(Rubro rubro) {
 		// TODO Auto-generated method stub
 		RubroResponseRest response = new RubroResponseRest();
 		List<Rubro> rubros = new ArrayList<Rubro>();
@@ -255,34 +255,6 @@ public class RubroServiceImpl implements IRubroService{
 		  	      rs = cst2.executeQuery();
 		        }
 	        response.getRubroResponse().setRubro(rubros);
-	    } catch (SQLException e) {
-	        e.printStackTrace();
-	        return new ResponseEntity<RubroResponseRest>(response, HttpStatus.INTERNAL_SERVER_ERROR);
-	    }
-	    return new ResponseEntity<RubroResponseRest>(response, HttpStatus.OK);
-		
-	}
-
-	@Override
-	public ResponseEntity<RubroResponseRest> findAllActivos() {
-		RubroResponseRest response = new RubroResponseRest();
-		List<Rubro> rubros = new ArrayList<Rubro>();
-		
-		try (Connection cn = DriverManager.getConnection(connectionUrl);
-	            CallableStatement cst = cn.prepareCall("{CALL SP_ALL_RUBROSACTIVOS }")) {
-				
-	        try (ResultSet rs = cst.executeQuery()) {
-	            while (rs.next()) {
-	            	Rubro rubro = new Rubro();
-	                rubro.setRubroId(rs.getInt("RUBRO_ID"));
-	                rubro.setRubroCodigo(rs.getString("Rubro"));
-	                rubro.setRubroDescripcion(rs.getString("Descripción"));
-	                rubro.setRubroNaturaleza(rs.getString("Naturaleza"));
-	                rubro.setRubroEstado(rs.getString("Estado"));
-	                rubros.add(rubro);
-	            }
-	            response.getRubroResponse().setRubro(rubros);
-	        }
 	    } catch (SQLException e) {
 	        e.printStackTrace();
 	        return new ResponseEntity<RubroResponseRest>(response, HttpStatus.INTERNAL_SERVER_ERROR);

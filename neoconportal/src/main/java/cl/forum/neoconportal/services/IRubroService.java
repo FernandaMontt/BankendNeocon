@@ -7,12 +7,11 @@ import cl.forum.neoconportal.response.RubroResponseRest;
 
 public interface IRubroService {
 	
-	public ResponseEntity<RubroResponseRest> findAllRubro(String estado);
-	public ResponseEntity<RubroResponseRest> findByRubroId(Integer Id);
-	public ResponseEntity<RubroResponseRest> updatestate(Integer Id);
-	public ResponseEntity<RubroResponseRest> findByRubroCodigo(String Codigo);
-	public ResponseEntity<RubroResponseRest> createRubros(Rubro rubro);
-	public ResponseEntity<RubroResponseRest> updateRubros(Rubro rubro);
-	public ResponseEntity<RubroResponseRest> findAllActivos();
+	public ResponseEntity<RubroResponseRest> findAllItems(String state);
+	public ResponseEntity<RubroResponseRest> findByItemId(Integer Id);
+	public ResponseEntity<RubroResponseRest> updateState(Integer Id);
+	public ResponseEntity<RubroResponseRest> findItemByCode(String code);
+	public ResponseEntity<RubroResponseRest> createItem(Rubro rubro);
+	public ResponseEntity<RubroResponseRest> updateItem(Rubro rubro);
 	
 }
