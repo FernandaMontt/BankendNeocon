@@ -10,20 +10,20 @@ import cl.forum.neoconportal.response.InterGroupResponseRest;
 
 public interface IInterGrupoService {
 
-	public ResponseEntity<InterGroupResponseRest> createInterGruposH(InterGroupHeader interGroupHeader);
-	public ResponseEntity<InterGroupResponseRest> updatestateIntergrupo(Integer Id);
-	public ResponseEntity<InterGroupResponseRest> updateInterGruposH(InterGroupHeader interGroupHeader);
-	public ResponseEntity<InterGroupDetalleResponseRest> findByNumeroIG(Integer Id);
-	public ResponseEntity<InterGroupDetalleResponseRest> createInterGruposD(InterGroupDetalle interGroupDetalle);
-	public ResponseEntity<InterGroupDetalleResponseRest> deleteIntergrupodetalle(
+	public ResponseEntity<InterGroupResponseRest> createInterGroup(InterGroupHeader interGroupHeader);
+	public ResponseEntity<InterGroupResponseRest> updateInterGroupState(Integer Id);
+	public ResponseEntity<InterGroupResponseRest> updateInterGroup(InterGroupHeader interGroupHeader);
+	public ResponseEntity<InterGroupDetalleResponseRest> findByNumberIG(Integer Id);
+	public ResponseEntity<InterGroupDetalleResponseRest> createInterGroupDetail(InterGroupDetalle interGroupDetalle);
+	public ResponseEntity<InterGroupDetalleResponseRest> deleteInterGroupDetail(
 			@RequestParam("numeroig") Integer numeroig, @RequestParam("acronimo") String acronimo,
 			@RequestParam("codigocuenta") int codigocuenta);
-	public ResponseEntity<InterGroupResponseRest> findById(Integer IdInter);
-	public ResponseEntity<InterGroupDetalleResponseRest> searchInterCuentaEmpresa(
+	public ResponseEntity<InterGroupResponseRest> findInterGroupById(Integer IdInter);
+	public ResponseEntity<InterGroupDetalleResponseRest> searchIntergroupCompanyAccounts(
 			@RequestParam("codigorubro") Integer codigorubro, @RequestParam("acronimo") String acronimo,
 			@RequestParam("numeroig") Integer numeroig);
-	public ResponseEntity<InterGroupDetalleResponseRest> searchInterCuentaEmpresa2(
+	public ResponseEntity<InterGroupDetalleResponseRest> searchIntergroupCompanyAccounts2(
 			@RequestParam("codigorubro") Integer codigorubro, @RequestParam("acronimo") String acronimo,
 			@RequestParam("numeroig") Integer numeroig);
-	public ResponseEntity<InterGroupDetalleResponseRest> reporteintegrupo();
+	public ResponseEntity<InterGroupDetalleResponseRest> reportInterGroup();
 }

@@ -34,7 +34,7 @@ public class InterGrupoServiceImpl implements IInterGrupoService{
 
 	@Override
 	@Transactional
-	public ResponseEntity<InterGroupResponseRest> createInterGruposH(InterGroupHeader interGroupHeader) {
+	public ResponseEntity<InterGroupResponseRest> createInterGroup(InterGroupHeader interGroupHeader) {
 		// TODO Auto-generated method stub
 		InterGroupResponseRest response = new InterGroupResponseRest();
 		List<InterGroupHeader> interGroupHeaders = new ArrayList<InterGroupHeader>();
@@ -88,7 +88,7 @@ public class InterGrupoServiceImpl implements IInterGrupoService{
 
 	@Override
 	@Transactional
-	public ResponseEntity<InterGroupResponseRest> updatestateIntergrupo(Integer Id) {
+	public ResponseEntity<InterGroupResponseRest> updateInterGroupState(Integer Id) {
 		// TODO Auto-generated method stub
 		InterGroupResponseRest response = new InterGroupResponseRest();
 		List<InterGroupHeader> interGroupHeaders = new ArrayList<InterGroupHeader>();
@@ -137,7 +137,7 @@ public class InterGrupoServiceImpl implements IInterGrupoService{
 
 	@Override
 	@Transactional
-	public ResponseEntity<InterGroupResponseRest> updateInterGruposH(InterGroupHeader interGroupHeader) {
+	public ResponseEntity<InterGroupResponseRest> updateInterGroup(InterGroupHeader interGroupHeader) {
 		// TODO Auto-generated method stub
 				InterGroupResponseRest response = new InterGroupResponseRest();
 				List<InterGroupHeader> interGroupHeaders = new ArrayList<InterGroupHeader>();
@@ -190,7 +190,7 @@ public class InterGrupoServiceImpl implements IInterGrupoService{
 	}
 	
 	@Override
-	public ResponseEntity<InterGroupDetalleResponseRest> findByNumeroIG(Integer Id) {
+	public ResponseEntity<InterGroupDetalleResponseRest> findByNumberIG(Integer Id) {
 	    InterGroupDetalleResponseRest response = new InterGroupDetalleResponseRest();
 	    List<InterGroupDetalle> InterGroupDetalles = new ArrayList<InterGroupDetalle>();
 
@@ -222,7 +222,7 @@ public class InterGrupoServiceImpl implements IInterGrupoService{
 
 	@Override
 	@Transactional
-	public ResponseEntity<InterGroupDetalleResponseRest> createInterGruposD(InterGroupDetalle interGroupDetalle) {
+	public ResponseEntity<InterGroupDetalleResponseRest> createInterGroupDetail(InterGroupDetalle interGroupDetalle) {
 		// TODO Auto-generated method stub
 		InterGroupDetalleResponseRest response = new InterGroupDetalleResponseRest();
 		List<InterGroupDetalle> InterGroupDetalles = new ArrayList<InterGroupDetalle>();
@@ -269,7 +269,7 @@ public class InterGrupoServiceImpl implements IInterGrupoService{
 
 	@Override
 	@Transactional
-	public ResponseEntity<InterGroupDetalleResponseRest> deleteIntergrupodetalle(Integer numeroig, String acronimo,
+	public ResponseEntity<InterGroupDetalleResponseRest> deleteInterGroupDetail(Integer numeroig, String acronimo,
 			int codigocuenta) {
 		// TODO Auto-generated method stub
 		InterGroupDetalleResponseRest response = new InterGroupDetalleResponseRest();
@@ -316,7 +316,7 @@ public class InterGrupoServiceImpl implements IInterGrupoService{
 	}
 
 	@Override
-	public ResponseEntity<InterGroupResponseRest> findById(Integer IdInter) {
+	public ResponseEntity<InterGroupResponseRest> findInterGroupById(Integer IdInter) {
 		InterGroupResponseRest response = new InterGroupResponseRest();
 		List<InterGroupHeader> InterGroupDetalles = new ArrayList<InterGroupHeader>();
 		
@@ -348,7 +348,7 @@ public class InterGrupoServiceImpl implements IInterGrupoService{
 
 	@Override
 	@Transactional(readOnly=true)
-	public ResponseEntity<InterGroupDetalleResponseRest> searchInterCuentaEmpresa(Integer codigorubro,
+	public ResponseEntity<InterGroupDetalleResponseRest> searchIntergroupCompanyAccounts(Integer codigorubro,
 			String acronimo, Integer numeroig) {
 		InterGroupDetalleResponseRest response = new InterGroupDetalleResponseRest();
 		List<InterGroupDetalle> InterGroupDetalles = new ArrayList<InterGroupDetalle>();
@@ -377,7 +377,7 @@ public class InterGrupoServiceImpl implements IInterGrupoService{
 	}
 
 	@Override
-	public ResponseEntity<InterGroupDetalleResponseRest> searchInterCuentaEmpresa2(Integer codigorubro,
+	public ResponseEntity<InterGroupDetalleResponseRest> searchIntergroupCompanyAccounts2(Integer codigorubro,
 			String acronimo, Integer numeroig) {
 		InterGroupDetalleResponseRest response = new InterGroupDetalleResponseRest();
 		List<InterGroupDetalle> InterGroupDetalles = new ArrayList<InterGroupDetalle>();
@@ -406,7 +406,7 @@ public class InterGrupoServiceImpl implements IInterGrupoService{
 	}
 
 	@Override
-	public ResponseEntity<InterGroupDetalleResponseRest> reporteintegrupo() {
+	public ResponseEntity<InterGroupDetalleResponseRest> reportInterGroup() {
 		InterGroupDetalleResponseRest response = new InterGroupDetalleResponseRest();
 		List<InterGroupDetalle> InterGroupDetalles = new ArrayList<InterGroupDetalle>();
 		
