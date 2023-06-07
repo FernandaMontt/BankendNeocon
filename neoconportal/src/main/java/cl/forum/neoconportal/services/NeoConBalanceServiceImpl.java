@@ -132,6 +132,9 @@ public class NeoConBalanceServiceImpl implements INeoConBalanceService{
 				rsNeoConBalanceSheet3.close();
 	        }
 	        if(periodo != 0) {
+	        		if(acronimo.equals(0)) {
+	        			acronimo = "Todas las empresas";
+	        		}
 		          String username = System.getProperty("user.name");
 		  	      String detalleTabla = "Tabla NEOCONHEADER, NEOCONBALANCE, NEOCONITEM";
 		  	      String accion = "Se cargo la interfaz";
