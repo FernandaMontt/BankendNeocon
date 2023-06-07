@@ -35,7 +35,7 @@ public class EmpresaServiceImpl implements IEmpresaService{
 
 	@Override
 	@Transactional(readOnly=true)
-	public ResponseEntity<EmpresaResponseRest> findByEmpresaId(Integer Id) {
+	public ResponseEntity<EmpresaResponseRest> findCompanyById(Integer Id) {
 
 		EmpresaResponseRest response = new EmpresaResponseRest();
 		List<Empresa> empresas = new ArrayList<Empresa>();

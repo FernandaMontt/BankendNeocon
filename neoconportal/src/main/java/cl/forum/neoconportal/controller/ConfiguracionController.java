@@ -84,71 +84,65 @@ public class ConfiguracionController {
 	}
 	/*Empresa Service*/
 	
-	@GetMapping("/empresas/{id}")
-	public ResponseEntity<EmpresaResponseRest> findByEmpresaId(@PathVariable Integer id){
-		ResponseEntity<EmpresaResponseRest> response = empresaService.findByEmpresaId(id);
+	@GetMapping("/company/{id}")
+	public ResponseEntity<EmpresaResponseRest> findCompanyById(@PathVariable Integer id){
+		ResponseEntity<EmpresaResponseRest> response = empresaService.findCompanyById(id);
 		return response;
 	}
 	
 	/*Cuenta Empresa Service*/
 	
-	@GetMapping("/cuentaEmpresas/{id}")
-	public ResponseEntity<CuentaEmpresaResponseRest> findByCuentaEmpresaId(@PathVariable Integer id){
-		ResponseEntity<CuentaEmpresaResponseRest> response = cuentaEmpresaService.findByCuentasEmpresaId(id);
+	@GetMapping("/companyaccount/{id}")
+	public ResponseEntity<CuentaEmpresaResponseRest> findCompanyAccountById(@PathVariable Integer id){
+		ResponseEntity<CuentaEmpresaResponseRest> response = cuentaEmpresaService.findCompanyAccountById(id);
 		return response;
 	}
 	
-	@GetMapping("/cuentaEmpresas/idempresa/{idempresa}")
-	public ResponseEntity<CuentaEmpresaResponseRest> findByCuentasEmpresaEmpresaId(@PathVariable Integer idempresa){
-		ResponseEntity<CuentaEmpresaResponseRest> response = cuentaEmpresaService.findByCuentasEmpresaEmpresaId(idempresa);
+	@GetMapping("/companyaccount/idcompany/{idcompany}")
+	public ResponseEntity<CuentaEmpresaResponseRest> findCompanyAccountByCompanyId(@PathVariable Integer idcompany){
+		ResponseEntity<CuentaEmpresaResponseRest> response = cuentaEmpresaService.findCompanyAccountByCompanyId(idcompany);
 		return response;
 	}
 	
-	@DeleteMapping("/cuentaEmpresas/{id}")
-	public ResponseEntity<CuentaEmpresaResponseRest> updatestateCuentaEmpresa(@PathVariable Integer id){
-		ResponseEntity<CuentaEmpresaResponseRest> response = cuentaEmpresaService.updatestateCuentaEmpresa(id);
+	@DeleteMapping("/companyaccount/{id}")
+	public ResponseEntity<CuentaEmpresaResponseRest> updateCompanyAccountState(@PathVariable Integer id){
+		ResponseEntity<CuentaEmpresaResponseRest> response = cuentaEmpresaService.updateCompanyAccountState(id);
 		return response;
 	}
 	
-	@PostMapping("/cuentaEmpresas")
-	public ResponseEntity<CuentaEmpresaResponseRest> createCuentaEmpresa(@RequestBody CuentaEmpresa cuentaEmpresa){
-		ResponseEntity<CuentaEmpresaResponseRest> response = cuentaEmpresaService.createCuentaEmpresa(cuentaEmpresa);
+	@PostMapping("/companyaccount")
+	public ResponseEntity<CuentaEmpresaResponseRest> createCompanyAccount(@RequestBody CuentaEmpresa cuentaEmpresa){
+		ResponseEntity<CuentaEmpresaResponseRest> response = cuentaEmpresaService.createCompanyAccount(cuentaEmpresa);
 		return response;
 	}
 	
-	@PutMapping("/cuentaEmpresas/{id}")
-	public ResponseEntity<CuentaEmpresaResponseRest> updateCuentaEmpresa(@RequestBody CuentaEmpresa cuentaEmpresa){
-		ResponseEntity<CuentaEmpresaResponseRest> response = cuentaEmpresaService.updateCuentaEmpresa(cuentaEmpresa);
+	@PutMapping("/companyaccount/{id}")
+	public ResponseEntity<CuentaEmpresaResponseRest> updateCompanyAccount(@RequestBody CuentaEmpresa cuentaEmpresa){
+		ResponseEntity<CuentaEmpresaResponseRest> response = cuentaEmpresaService.updateCompanyAccount(cuentaEmpresa);
 		return response;
 	}
 	
-	@GetMapping("/cuentaEmpresas/codigo/{codigo}")
-	public ResponseEntity<CuentaEmpresaResponseRest> findByCuentaEmpresaCodigo(@PathVariable String codigo){
-		ResponseEntity<CuentaEmpresaResponseRest> response = cuentaEmpresaService.findByCuentaCodigo(codigo);
+	@GetMapping("/companyaccount/code/{code}")
+	public ResponseEntity<CuentaEmpresaResponseRest> findCompanyAccountByCode(@PathVariable String code){
+		ResponseEntity<CuentaEmpresaResponseRest> response = cuentaEmpresaService.findCompanyAccountByCode(code);
 		return response;
 	}
 	
-	@PostMapping("/cuentaEmpresas/allintergrupo")
-	public ResponseEntity<CuentaEmpresaResponseRest> searchInterCuentaEmpresa(@RequestParam("codigorubro") Integer codigorubro, @RequestParam("acronimo") String acronimo){
-		ResponseEntity<CuentaEmpresaResponseRest> response = cuentaEmpresaService.searchInterCuentaEmpresa(codigorubro, acronimo);
+	@PostMapping("/companyaccount/accountplan")
+	public ResponseEntity<CuentaEmpresaResponseRest> reportAccountPlanHomologo(@RequestParam("acronimo") String acronimo){
+		ResponseEntity<CuentaEmpresaResponseRest> response = cuentaEmpresaService.reportAccountPlanHomologo(acronimo);
 		return response;
 	}
 	
-	@PostMapping("/cuentaempresa/plancuentas")
-	public ResponseEntity<CuentaEmpresaResponseRest> searchInterCuentaEmpresa(@RequestParam("acronimo") String acronimo){
-		ResponseEntity<CuentaEmpresaResponseRest> response = cuentaEmpresaService.reportePlanCuentasHomologo(acronimo);
-		return response;
-	}
-	
-	@PostMapping("/uploadcuentas")
-	public ResponseEntity<CuentaEmpresaResponseRest> uploadFile(@RequestParam("file") MultipartFile file,@RequestParam("acronimo") String acronimo) {
-	  ResponseEntity<CuentaEmpresaResponseRest> response = cuentaEmpresaService.cargarFile(file, acronimo);
+	@PostMapping("/uploadaccount")
+	public ResponseEntity<CuentaEmpresaResponseRest> uploadAccountFile(@RequestParam("file") MultipartFile file,@RequestParam("acronimo") String acronimo) {
+	  ResponseEntity<CuentaEmpresaResponseRest> response = cuentaEmpresaService.uploadAccountFile(file, acronimo);
 	  return response;
 	}
 	
-	@PostMapping("/uploadcuentasv2")
-	public ResponseEntity<CuentaEmpresaResponseRest> uploadFilev2(@RequestParam("file") MultipartFile file,@RequestParam("acronimo") String acronimo) {
-	  ResponseEntity<CuentaEmpresaResponseRest> response = cuentaEmpresaService.cargarFilev2(file, acronimo);
+	@PostMapping("/uploadaccountv2")
+	public ResponseEntity<CuentaEmpresaResponseRest> uploadAccountFilev2(@RequestParam("file") MultipartFile file,@RequestParam("acronimo") String acronimo) {
+	  ResponseEntity<CuentaEmpresaResponseRest> response = cuentaEmpresaService.uploadAccountFilev2(file, acronimo);
 	  return response;
 	}
 	

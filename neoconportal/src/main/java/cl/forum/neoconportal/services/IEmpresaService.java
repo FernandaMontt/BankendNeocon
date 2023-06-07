@@ -6,7 +6,7 @@ import cl.forum.neoconportal.response.EmpresaResponseRest;
 
 public interface IEmpresaService {
 	
-	public ResponseEntity<EmpresaResponseRest> findByEmpresaId(Integer Id);
+	public ResponseEntity<EmpresaResponseRest> findCompanyById(Integer Id);
 	
 
 }

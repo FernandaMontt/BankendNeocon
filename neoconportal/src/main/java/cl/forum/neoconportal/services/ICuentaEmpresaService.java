@@ -10,18 +10,17 @@ import cl.forum.neoconportal.response.CuentaEmpresaResponseRest;
 
 public interface ICuentaEmpresaService {
 	
-	public ResponseEntity<CuentaEmpresaResponseRest> findAllCuentas();
-	public ResponseEntity<CuentaEmpresaResponseRest> findByCuentasEmpresaId(Integer Id);
-	public ResponseEntity<CuentaEmpresaResponseRest> findByCuentasEmpresaEmpresaId(Integer IdEmpresa);
-	public ResponseEntity<CuentaEmpresaResponseRest> updatestateCuentaEmpresa(Integer Id);
-	public ResponseEntity<CuentaEmpresaResponseRest> createCuentaEmpresa(CuentaEmpresa cuentaEmpresa);
-	public ResponseEntity<CuentaEmpresaResponseRest> updateCuentaEmpresa(CuentaEmpresa cuentaEmpresa);
-	public ResponseEntity<CuentaEmpresaResponseRest> findByCuentaCodigo(String Codigo);
+	public ResponseEntity<CuentaEmpresaResponseRest> findCompanyAccountById(Integer Id);
+	public ResponseEntity<CuentaEmpresaResponseRest> findCompanyAccountByCompanyId(Integer IdCompany);
+	public ResponseEntity<CuentaEmpresaResponseRest> updateCompanyAccountState(Integer Id);
+	public ResponseEntity<CuentaEmpresaResponseRest> createCompanyAccount(CuentaEmpresa cuentaEmpresa);
+	public ResponseEntity<CuentaEmpresaResponseRest> updateCompanyAccount(CuentaEmpresa cuentaEmpresa);
+	public ResponseEntity<CuentaEmpresaResponseRest> findCompanyAccountByCode(String Codigo);
 	public ResponseEntity<CuentaEmpresaResponseRest> searchInterCuentaEmpresa(
 			@RequestParam("codigorubro") Integer codigorubro, @RequestParam("acronimo") String acronimo);
-	public ResponseEntity<CuentaEmpresaResponseRest> reportePlanCuentasHomologo(@RequestParam("acronimo") String acronimo);
-	public ResponseEntity<CuentaEmpresaResponseRest> cargarFile(@RequestParam("file") MultipartFile file,
+	public ResponseEntity<CuentaEmpresaResponseRest> reportAccountPlanHomologo(@RequestParam("acronimo") String acronimo);
+	public ResponseEntity<CuentaEmpresaResponseRest> uploadAccountFile(@RequestParam("file") MultipartFile file,
 			@RequestParam("acronimo") String acronimo);
-	public ResponseEntity<CuentaEmpresaResponseRest> cargarFilev2(@RequestParam("file") MultipartFile file,
+	public ResponseEntity<CuentaEmpresaResponseRest> uploadAccountFilev2(@RequestParam("file") MultipartFile file,
 			@RequestParam("acronimo") String acronimo);
 }

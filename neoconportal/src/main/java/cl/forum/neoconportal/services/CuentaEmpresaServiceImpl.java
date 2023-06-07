@@ -38,46 +38,9 @@ public class CuentaEmpresaServiceImpl implements ICuentaEmpresaService{
 	ResultSet rs;
 
 	
-	
-	@Override
-	public ResponseEntity<CuentaEmpresaResponseRest> findAllCuentas() {
-
-			CuentaEmpresaResponseRest response = new CuentaEmpresaResponseRest();
-			List<CuentaEmpresa> cuentaEmpresas = new ArrayList<CuentaEmpresa>();
-			
-			try (Connection cn = DriverManager.getConnection(connectionUrl);
-		            CallableStatement cst = cn.prepareCall("{CALL SP_ALL_CUENTA_EMPRESA }")) {
-
-		        try (ResultSet rs = cst.executeQuery()) {
-		            while (rs.next()) {
-		            	CuentaEmpresa cuentaEmpresa = new CuentaEmpresa();
-		            	cuentaEmpresa.setCuentaEmpresaId(rs.getInt("CUENTA_EMPRESA_ID"));
-		            	cuentaEmpresa.setEmpresaId(rs.getInt("EMPRESA_ID"));
-		            	cuentaEmpresa.setNombreempresa(rs.getString("Empresa"));
-		            	cuentaEmpresa.setRubroId(rs.getInt("RUBRO_ID"));
-		            	cuentaEmpresa.setCuentaCodigo(rs.getDouble("Cuenta"));
-		            	cuentaEmpresa.setRubroCodigo(rs.getString("Rubro"));
-		            	cuentaEmpresa.setRubroDescripcion(rs.getString("Descripcion_Rubro"));
-		            	cuentaEmpresa.setCuentaDescripcion(rs.getString("Descripcion"));
-		            	cuentaEmpresa.setCuentaTipo(rs.getString("TipoCuenta"));
-		            	cuentaEmpresa.setEstado(rs.getString("Estado"));
-		            	cuentaEmpresas.add(cuentaEmpresa);
-		            }
-		            response.getCuentaEmpresaResponse().setCuentaEmpresa(cuentaEmpresas);
-		        }
-		    } catch (SQLException e) {
-		        e.printStackTrace();
-		        return new ResponseEntity<CuentaEmpresaResponseRest>(response, HttpStatus.INTERNAL_SERVER_ERROR);
-		    }
-		    return new ResponseEntity<CuentaEmpresaResponseRest>(response, HttpStatus.OK);
-			
-	}
-
-
-
 	@Override
 	@Transactional(readOnly=true)
-	public ResponseEntity<CuentaEmpresaResponseRest> findByCuentasEmpresaId(Integer Id) {
+	public ResponseEntity<CuentaEmpresaResponseRest> findCompanyAccountById(Integer Id) {
 
 		CuentaEmpresaResponseRest response = new CuentaEmpresaResponseRest();
 		List<CuentaEmpresa> cuentaEmpresas = new ArrayList<CuentaEmpresa>();
@@ -112,14 +75,14 @@ public class CuentaEmpresaServiceImpl implements ICuentaEmpresaService{
 
 	@Override
 	@Transactional(readOnly=true)
-	public ResponseEntity<CuentaEmpresaResponseRest> findByCuentasEmpresaEmpresaId(Integer IdEmpresa) {
+	public ResponseEntity<CuentaEmpresaResponseRest> findCompanyAccountByCompanyId(Integer IdCompany) {
 
 		CuentaEmpresaResponseRest response = new CuentaEmpresaResponseRest();
 		List<CuentaEmpresa> cuentaEmpresas = new ArrayList<CuentaEmpresa>();
 		
 		try (Connection cn = DriverManager.getConnection(connectionUrl);
 	            CallableStatement cst = cn.prepareCall("{CALL SP_GET_SOURCEBYEMPRESACUENTA_EMPRESA(?) }")) {
-				cst.setString(1, IdEmpresa.toString());
+				cst.setString(1, IdCompany.toString());
 	        try (ResultSet rs = cst.executeQuery()) {
 	            while (rs.next()) {
 	            	CuentaEmpresa cuentaEmpresa = new CuentaEmpresa();
@@ -149,7 +112,7 @@ public class CuentaEmpresaServiceImpl implements ICuentaEmpresaService{
 
 	@Override
 	@Transactional
-	public ResponseEntity<CuentaEmpresaResponseRest> updatestateCuentaEmpresa(Integer Id) {
+	public ResponseEntity<CuentaEmpresaResponseRest> updateCompanyAccountState(Integer Id) {
 		
 		CuentaEmpresaResponseRest response = new CuentaEmpresaResponseRest();
 		List<CuentaEmpresa> cuentaEmpresas = new ArrayList<CuentaEmpresa>();
@@ -198,7 +161,7 @@ public class CuentaEmpresaServiceImpl implements ICuentaEmpresaService{
 
 	@Override
 	@Transactional
-	public ResponseEntity<CuentaEmpresaResponseRest> createCuentaEmpresa(CuentaEmpresa cuentaEmpresa) {
+	public ResponseEntity<CuentaEmpresaResponseRest> createCompanyAccount(CuentaEmpresa cuentaEmpresa) {
 		// TODO Auto-generated method stub
 		CuentaEmpresaResponseRest response = new CuentaEmpresaResponseRest();
 		List<CuentaEmpresa> cuentaEmpresas = new ArrayList<CuentaEmpresa>();
@@ -252,7 +215,7 @@ public class CuentaEmpresaServiceImpl implements ICuentaEmpresaService{
 
 	@Override
 	@Transactional
-	public ResponseEntity<CuentaEmpresaResponseRest> updateCuentaEmpresa(CuentaEmpresa cuentaEmpresa) {
+	public ResponseEntity<CuentaEmpresaResponseRest> updateCompanyAccount(CuentaEmpresa cuentaEmpresa) {
 		// TODO Auto-generated method stub
 		CuentaEmpresaResponseRest response = new CuentaEmpresaResponseRest();
 		List<CuentaEmpresa> cuentaEmpresas = new ArrayList<CuentaEmpresa>();
@@ -306,7 +269,7 @@ public class CuentaEmpresaServiceImpl implements ICuentaEmpresaService{
 
 	@Override
 	@Transactional(readOnly=true)
-	public ResponseEntity<CuentaEmpresaResponseRest> findByCuentaCodigo(String Codigo) {
+	public ResponseEntity<CuentaEmpresaResponseRest> findCompanyAccountByCode(String Codigo) {
 		CuentaEmpresaResponseRest response = new CuentaEmpresaResponseRest();
 		List<CuentaEmpresa> cuentaEmpresas = new ArrayList<CuentaEmpresa>();
 		
@@ -370,7 +333,7 @@ public class CuentaEmpresaServiceImpl implements ICuentaEmpresaService{
 
 
 	@Override
-	public ResponseEntity<CuentaEmpresaResponseRest> reportePlanCuentasHomologo(String acronimo) {
+	public ResponseEntity<CuentaEmpresaResponseRest> reportAccountPlanHomologo(String acronimo) {
 		CuentaEmpresaResponseRest response = new CuentaEmpresaResponseRest();
 		List<CuentaEmpresa> cuentaEmpresas = new ArrayList<CuentaEmpresa>();
 		
@@ -400,7 +363,7 @@ public class CuentaEmpresaServiceImpl implements ICuentaEmpresaService{
 
 
 	@Override
-	public ResponseEntity<CuentaEmpresaResponseRest> cargarFile(MultipartFile file, String acronimo) {
+	public ResponseEntity<CuentaEmpresaResponseRest> uploadAccountFile(MultipartFile file, String acronimo) {
 
 		CuentaEmpresaResponseRest response = new CuentaEmpresaResponseRest();
 		List<Balance> balances = new ArrayList<Balance>();
@@ -476,7 +439,7 @@ public class CuentaEmpresaServiceImpl implements ICuentaEmpresaService{
 	}
 	
 	@Override
-	public ResponseEntity<CuentaEmpresaResponseRest> cargarFilev2(MultipartFile file, String acronimo) {
+	public ResponseEntity<CuentaEmpresaResponseRest> uploadAccountFilev2(MultipartFile file, String acronimo) {
 
 		CuentaEmpresaResponseRest response = new CuentaEmpresaResponseRest();
 		List<CuentaEmpresa> cuentas = new ArrayList<CuentaEmpresa>();
