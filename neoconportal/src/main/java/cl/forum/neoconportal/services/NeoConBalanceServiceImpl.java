@@ -37,7 +37,7 @@ public class NeoConBalanceServiceImpl implements INeoConBalanceService{
 	ResultSet rs;
 	
 	@Override
-	public ResponseEntity<NeoConHeaderResponseRest> findNeoConBalanceId(Integer periodo, String acronimo) {
+	public ResponseEntity<NeoConHeaderResponseRest> findNeoConBalanceSheetId(Integer periodo, String acronimo) {
 		// TODO Auto-generated method stub
 		NeoConHeaderResponseRest response = new NeoConHeaderResponseRest();
 		List<NeoConHeader> neoConHeaders = new ArrayList<NeoConHeader>();
@@ -166,7 +166,7 @@ public class NeoConBalanceServiceImpl implements INeoConBalanceService{
 	}
 
 	@Override
-	public ResponseEntity<NeoConBalanceDetalleResponseRest> validateTestCuentaNeoConBalance(Integer id_neocon) {
+	public ResponseEntity<NeoConBalanceDetalleResponseRest> validateAccountNeoconBalanceSheet(Integer id_neocon) {
 		NeoConBalanceDetalleResponseRest response = new NeoConBalanceDetalleResponseRest();
 		List<NeoConBalanceDetalle> neoConBalanceDetalles = new ArrayList<NeoConBalanceDetalle>();
 		
@@ -198,7 +198,7 @@ public class NeoConBalanceServiceImpl implements INeoConBalanceService{
 	}
 
 	@Override
-	public ResponseEntity<NeoConBalanceDetalleResponseRest> validateTestRubroNeoConBalance(Integer id_neocon) {
+	public ResponseEntity<NeoConBalanceDetalleResponseRest> validateItemAccountNeoconBalanceSheet(Integer id_neocon) {
 		NeoConBalanceDetalleResponseRest response = new NeoConBalanceDetalleResponseRest();
 		List<NeoConBalanceDetalle> neoConBalanceDetalles = new ArrayList<NeoConBalanceDetalle>();
 		
@@ -230,7 +230,7 @@ public class NeoConBalanceServiceImpl implements INeoConBalanceService{
 	}
 
 	@Override
-	public ResponseEntity<NeoConBalanceDetalleResponseRest> ReporteProestec(Integer periodo) {
+	public ResponseEntity<NeoConBalanceDetalleResponseRest> reportNeoconBalanceSheetProespect(Integer periodo) {
 		// TODO Auto-generated method stub
 		NeoConBalanceDetalleResponseRest response = new NeoConBalanceDetalleResponseRest();
 		List<NeoConBalanceDetalle> neoConBalanceDetalles = new ArrayList<NeoConBalanceDetalle>();
@@ -260,7 +260,7 @@ public class NeoConBalanceServiceImpl implements INeoConBalanceService{
 	}
 
 	@Override
-	public ResponseEntity<NeoConBalanceDetalleResponseRest> DescargaCodGInterfaz(@RequestParam("periodo") Integer periodo, @RequestParam("acronimo") String acronimo) {
+	public ResponseEntity<NeoConBalanceDetalleResponseRest> reportNeoconBalanceSheet(@RequestParam("periodo") Integer periodo, @RequestParam("acronimo") String acronimo) {
 		NeoConBalanceDetalleResponseRest response = new NeoConBalanceDetalleResponseRest();
 		List<NeoConBalanceDetalle> neoConBalanceDetalles = new ArrayList<NeoConBalanceDetalle>();
 		

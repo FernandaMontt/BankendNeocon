@@ -36,7 +36,7 @@ public class BalancesServiceImpl implements IBalancesService{
 	ResultSet rs;
 	
 	@Override
-	public ResponseEntity<BalanceResponseRest> findAllBalances() {
+	public ResponseEntity<BalanceResponseRest> findAllBalanceSheet() {
 		BalanceResponseRest response = new BalanceResponseRest();
 		List<Balance> balances = new ArrayList<Balance>();
 		
@@ -66,7 +66,7 @@ public class BalancesServiceImpl implements IBalancesService{
 	}
 
 	@Override
-	public ResponseEntity<BalanceResponseRest> uploadFile(MultipartFile file, Integer periodo, String acronimo) {
+	public ResponseEntity<BalanceResponseRest> uploadBalanceSheetFile(MultipartFile file, Integer periodo, String acronimo) {
 		
 		BalanceResponseRest response = new BalanceResponseRest();
 		List<Balance> balances = new ArrayList<Balance>();
@@ -166,7 +166,7 @@ public class BalancesServiceImpl implements IBalancesService{
 	}
 
 	@Override
-	public ResponseEntity<BalanceResponseRest> findBalanceId(Integer periodo, String acronimo) {
+	public ResponseEntity<BalanceResponseRest> findBalanceSheetById(Integer periodo, String acronimo) {
 		BalanceResponseRest response = new BalanceResponseRest();
 		List<Balance> balances = new ArrayList<Balance>();
 		
@@ -198,7 +198,7 @@ public class BalancesServiceImpl implements IBalancesService{
 	}
 
 	@Override
-	public ResponseEntity<BalanceResponseRest> uploadFileBalance2(MultipartFile file, Integer periodo,
+	public ResponseEntity<BalanceResponseRest> uploadBalanceSheetFile2(MultipartFile file, Integer periodo,
 			String acronimo) {
 		BalanceResponseRest response = new BalanceResponseRest();
 		List<Balance> balances = new ArrayList<Balance>();
@@ -334,7 +334,7 @@ public class BalancesServiceImpl implements IBalancesService{
 	}
 	
 	@Override
-	public ResponseEntity<BalanceDetalleResponseRest> validateTestCuentaBalance(Integer id_balance) {
+	public ResponseEntity<BalanceDetalleResponseRest> validateAccountBalanceSheet(Integer id_balance) {
 		BalanceDetalleResponseRest response = new BalanceDetalleResponseRest();
 		List<BalanceDetalle> balanceDetalles = new ArrayList<BalanceDetalle>();
 		
@@ -359,7 +359,7 @@ public class BalancesServiceImpl implements IBalancesService{
 	}
 
 	@Override
-	public ResponseEntity<BalanceDetalleResponseRest> validateTestRubroBalance(Integer id_balance) {
+	public ResponseEntity<BalanceDetalleResponseRest> validateItemAccountBalanceSheet(Integer id_balance) {
 		BalanceDetalleResponseRest response = new BalanceDetalleResponseRest();
 		List<BalanceDetalle> balanceDetalles = new ArrayList<BalanceDetalle>();
 		

@@ -32,55 +32,55 @@ public class BalanceController {
 	/*Balance*/
 	
 
-	@GetMapping("/balance")
-	public ResponseEntity<BalanceResponseRest> findAllBalances(){
-		ResponseEntity<BalanceResponseRest> response = serviceBalance.findAllBalances();
+	@GetMapping("/balancesheet")
+	public ResponseEntity<BalanceResponseRest> findAllBalanceSheet(){
+		ResponseEntity<BalanceResponseRest> response = serviceBalance.findAllBalanceSheet();
 		return response;
 	}
 	
-	@PostMapping("/uploadbalance")
-	public ResponseEntity<BalanceResponseRest> uploadFile(@RequestParam("file") MultipartFile file,
+	@PostMapping("/uploadbalancesheet")
+	public ResponseEntity<BalanceResponseRest> uploadBalanceSheetFile(@RequestParam("file") MultipartFile file,
 											 @RequestParam("periodo") Integer periodo,
 											 @RequestParam("acronimo") String acronimo) {
-	  ResponseEntity<BalanceResponseRest> response = serviceBalance.uploadFile(file, periodo, acronimo);
+	  ResponseEntity<BalanceResponseRest> response = serviceBalance.uploadBalanceSheetFile(file, periodo, acronimo);
 	  return response;
 	}
 	
-	@PostMapping("/obtenerid")
-	public ResponseEntity<BalanceResponseRest> findBalanceId(
+	@PostMapping("/getbalancesheetid")
+	public ResponseEntity<BalanceResponseRest> findBalanceSheetById(
 											 @RequestParam("periodo") Integer periodo,
 											 @RequestParam("acronimo") String acronimo) {
-	  ResponseEntity<BalanceResponseRest> response = serviceBalance.findBalanceId(periodo, acronimo);
+	  ResponseEntity<BalanceResponseRest> response = serviceBalance.findBalanceSheetById(periodo, acronimo);
 	  return response;
 	}
 	
-	@PostMapping("/uploadbalance2")
-	public ResponseEntity<BalanceResponseRest> uploadFileBalance2(@RequestParam("file") MultipartFile file,
+	@PostMapping("/uploadbalancesheet2")
+	public ResponseEntity<BalanceResponseRest> uploadBalanceSheetFile2(@RequestParam("file") MultipartFile file,
 											 @RequestParam("periodo") Integer periodo,
 											 @RequestParam("acronimo") String acronimo) {
-	  ResponseEntity<BalanceResponseRest> response = serviceBalance.uploadFileBalance2(file, periodo, acronimo);
+	  ResponseEntity<BalanceResponseRest> response = serviceBalance.uploadBalanceSheetFile2(file, periodo, acronimo);
 	  return response;
 	}
 	
-	@GetMapping("/balancedetallecuenta/{id}")
-	public ResponseEntity<BalanceDetalleResponseRest> validateTestCuentaBalance(@PathVariable Integer id){
-		ResponseEntity<BalanceDetalleResponseRest> response = serviceBalance.validateTestCuentaBalance(id);
+	@GetMapping("/balancedetailaccount/{id}")
+	public ResponseEntity<BalanceDetalleResponseRest> validateAccountBalanceSheet(@PathVariable Integer id){
+		ResponseEntity<BalanceDetalleResponseRest> response = serviceBalance.validateAccountBalanceSheet(id);
 		return response;
 	}
 	
-	@GetMapping("/balancedetallerubro/{id}")
-	public ResponseEntity<BalanceDetalleResponseRest> validateTestRubroBalance(@PathVariable Integer id){
-		ResponseEntity<BalanceDetalleResponseRest> response = serviceBalance.validateTestRubroBalance(id);
+	@GetMapping("/balancedetailitem/{id}")
+	public ResponseEntity<BalanceDetalleResponseRest> validateItemAccountBalanceSheet(@PathVariable Integer id){
+		ResponseEntity<BalanceDetalleResponseRest> response = serviceBalance.validateItemAccountBalanceSheet(id);
 		return response;
 	}
 	
 	/*NeoConBalance*/
 	
-	@PostMapping("/obtenerneoconid")
-	public ResponseEntity<NeoConHeaderResponseRest> findNeoConBalanceId(
+	@PostMapping("/getneoconid")
+	public ResponseEntity<NeoConHeaderResponseRest> findNeoConBalanceSheetId(
 											 @RequestParam("periodo") Integer periodo,
 											 @RequestParam("acronimo") String acronimo) {
-	  ResponseEntity<NeoConHeaderResponseRest> response = serviceNeoconHeader.findNeoConBalanceId(periodo, acronimo);
+	  ResponseEntity<NeoConHeaderResponseRest> response = serviceNeoconHeader.findNeoConBalanceSheetId(periodo, acronimo);
 	  return response;
 	}
 	
@@ -92,27 +92,27 @@ public class BalanceController {
 	  return response;
 	}
 	
-	@GetMapping("/neoconbalancedetallecuenta/{id}")
-	public ResponseEntity<NeoConBalanceDetalleResponseRest> validateTestCuentaNeoConBalance(@PathVariable Integer id){
-		ResponseEntity<NeoConBalanceDetalleResponseRest> response = serviceNeoconHeader.validateTestCuentaNeoConBalance(id);
+	@GetMapping("/neoconbalancedetailaccount/{id}")
+	public ResponseEntity<NeoConBalanceDetalleResponseRest> validateAccountNeoconBalanceSheet(@PathVariable Integer id){
+		ResponseEntity<NeoConBalanceDetalleResponseRest> response = serviceNeoconHeader.validateAccountNeoconBalanceSheet(id);
 		return response;
 	}
 	
-	@GetMapping("/neoconbalancedetallerubro/{id}")
-	public ResponseEntity<NeoConBalanceDetalleResponseRest> validateTestRubroNeoConBalance(@PathVariable Integer id){
-		ResponseEntity<NeoConBalanceDetalleResponseRest> response = serviceNeoconHeader.validateTestRubroNeoConBalance(id);
+	@GetMapping("/neoconbalancedetailitem/{id}")
+	public ResponseEntity<NeoConBalanceDetalleResponseRest> validateItemAccountNeoconBalanceSheet(@PathVariable Integer id){
+		ResponseEntity<NeoConBalanceDetalleResponseRest> response = serviceNeoconHeader.validateItemAccountNeoconBalanceSheet(id);
 		return response;
 	}
 	
-	@PostMapping("/reporteproestpec")
-	public ResponseEntity<NeoConBalanceDetalleResponseRest> resportProestpec(@RequestParam("periodo") Integer periodo) {
-	  ResponseEntity<NeoConBalanceDetalleResponseRest> response = serviceNeoconHeader.ReporteProestec(periodo);
+	@PostMapping("/reportproestpec")
+	public ResponseEntity<NeoConBalanceDetalleResponseRest> reportNeoconBalanceSheetProespect(@RequestParam("periodo") Integer periodo) {
+	  ResponseEntity<NeoConBalanceDetalleResponseRest> response = serviceNeoconHeader.reportNeoconBalanceSheetProespect(periodo);
 	  return response;
 	}
 	
-	@PostMapping("/descarganeoconbalance")
-	public ResponseEntity<NeoConBalanceDetalleResponseRest> reportCodGInterfaz(@RequestParam("periodo") Integer periodo, @RequestParam("acronimo") String acronimo){
-		ResponseEntity<NeoConBalanceDetalleResponseRest> response = serviceNeoconHeader.DescargaCodGInterfaz(periodo, acronimo);
+	@PostMapping("/reportneoconbalancesheet")
+	public ResponseEntity<NeoConBalanceDetalleResponseRest> reportNeoconBalanceSheet(@RequestParam("periodo") Integer periodo, @RequestParam("acronimo") String acronimo){
+		ResponseEntity<NeoConBalanceDetalleResponseRest> response = serviceNeoconHeader.reportNeoconBalanceSheet(periodo, acronimo);
 		return response;
 	}
 	
