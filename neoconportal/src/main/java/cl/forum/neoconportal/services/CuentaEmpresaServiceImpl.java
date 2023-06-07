@@ -551,6 +551,19 @@ public class CuentaEmpresaServiceImpl implements ICuentaEmpresaService{
 				cuentas.add(cuentass);
 			}
 	        response.getCuentaEmpresaResponse().setCuentaEmpresa(cuentas);
+	        if(numtotal != 0) {
+		          String username = System.getProperty("user.name");
+		  	      String detalleTabla = "Tabla CUENTA_EMPRESA";
+		  	      String accion = "Se carga el archivo cuenta";
+		  	      String detalle = "Se cargo la cuenta, empresa " + 
+		  	    		acronimo + " cantidad de lineas cargadas " + numtotal;
+		  	      CallableStatement cstaccion = cn.prepareCall("{CALL SP_INSERT_ACCION(?,?,?,?) }");
+			  	    cstaccion.setString(1, detalleTabla);
+			  	    cstaccion.setString(2, accion);
+			  	    cstaccion.setString(3, username);
+			  	    cstaccion.setString(4, detalle);
+			  	    cstaccion.execute();
+		        }
 
 		} catch(Exception e) {
 			
