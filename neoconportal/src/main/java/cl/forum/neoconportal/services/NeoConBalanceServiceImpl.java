@@ -82,7 +82,7 @@ public class NeoConBalanceServiceImpl implements INeoConBalanceService{
 	        if (acronimo.equals("0")) {
 	        	// Obtener todas las empresas disponibles
 				Statement stmt = cn.createStatement();
-				String query = "SELECT ACRONIMO FROM EMPRESA";
+				String query = "SELECT DISTINCT EMPRESA.ACRONIMO FROM EMPRESA INNER JOIN HEADERBALANCE_TEMP ON HEADERBALANCE_TEMP.ACRONIMO = EMPRESA.ACRONIMO ";
 				ResultSet rsEmpresas = stmt.executeQuery(query);
 				List<String> empresas = new ArrayList<>();
 				while (rsEmpresas.next()) {
