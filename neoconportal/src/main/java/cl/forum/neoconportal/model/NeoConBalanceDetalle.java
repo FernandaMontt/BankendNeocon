@@ -67,6 +67,8 @@ public class NeoConBalanceDetalle implements Serializable{
     private String naturalezaRubro;
     
     private String signoRubro;
+    
+    private int testNaturaleza;
 
 	@Column(name = "EMPRESA2_NIF")
     private String empresa2_nif;
@@ -222,6 +224,14 @@ public class NeoConBalanceDetalle implements Serializable{
 
 	public void setSignodelSaldo(String signodelSaldo) {
 		this.signodelSaldo = signodelSaldo;
+	}
+
+	public int getTestNaturaleza() {
+		return testNaturaleza;
+	}
+
+	public void setTestNaturaleza(int testNaturaleza) {
+		this.testNaturaleza = testNaturaleza;
 	}
 
 	public String getEmpresa2_nif() {

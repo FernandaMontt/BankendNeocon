@@ -282,6 +282,7 @@ public class NeoConBalanceServiceImpl implements INeoConBalanceService{
 	            	neoConBalanceDetalle.setSignodelSaldo(rs.getString("SIGNODELSALDO"));
 	            	neoConBalanceDetalle.setNaturalezaRubro(rs.getString("NATURALEZARUBRO"));
 	            	neoConBalanceDetalle.setSignoRubro(rs.getString("SIGNODELRUBRO"));
+	            	neoConBalanceDetalle.setTestNaturaleza(rs.getInt("TESTNATURALEZA"));
 	            	neoConBalanceDetalle.setEmpresa2_nif(rs.getString("EMPRESA2_NIF"));
 	            	neoConBalanceDetalle.setFiller1(rs.getString("FILLER1"));
 	            	neoConBalanceDetalle.setFiller2(rs.getString("FILLER2"));
