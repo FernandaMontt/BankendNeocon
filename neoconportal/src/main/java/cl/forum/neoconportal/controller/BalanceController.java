@@ -116,5 +116,11 @@ public class BalanceController {
 		return response;
 	}
 	
+	@GetMapping("/neoconitembalancesheet")
+	public ResponseEntity<NeoConBalanceDetalleResponseRest> findNeoConItemById(){
+		ResponseEntity<NeoConBalanceDetalleResponseRest> response = serviceNeoconHeader.findNeoConItemById();
+		return response;
+	}
+	
 
 }

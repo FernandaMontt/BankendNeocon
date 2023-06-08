@@ -291,17 +291,38 @@ public class NeoConBalanceServiceImpl implements INeoConBalanceService{
 	            }
 	            response.getNeoConBalanceDetalleResponse().setNeoConBalanceDetalle(neoConBalanceDetalles);
 	        }
-	        if(!neoConBalanceDetalles.isEmpty()) {
-	        	//empieza nuevo procedimiento que pone las fecha inicial y fecha fin
-		        CallableStatement cst2 = cn.prepareCall("{CALL SP_CLEAN_NEOCONTABLES }");
-		        cst2.execute();
-	        }
+	        
 	        
 	    } catch (SQLException e) {
 	        e.printStackTrace();
 	        return new ResponseEntity<NeoConBalanceDetalleResponseRest>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 	    }
 	    return new ResponseEntity<NeoConBalanceDetalleResponseRest>(response, HttpStatus.OK);
+	}
+
+	@Override
+	public ResponseEntity<NeoConBalanceDetalleResponseRest> findNeoConItemById() {
+		// TODO Auto-generated method stub
+		NeoConBalanceDetalleResponseRest response = new NeoConBalanceDetalleResponseRest();
+		List<NeoConBalanceDetalle> neoConBalanceDetalles = new ArrayList<NeoConBalanceDetalle>();
+			try {
+				cn = DriverManager.getConnection(connectionUrl);
+				CallableStatement cstaccion;
+				cstaccion = cn.prepareCall("{CALL SP_CLEAN_NEOCONTABLES }");
+				cstaccion.execute();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+		        return new ResponseEntity<NeoConBalanceDetalleResponseRest>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+			} finally{
+				try {
+					cn.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		return new ResponseEntity<NeoConBalanceDetalleResponseRest>(response, HttpStatus.OK);  
 	}
 	
 	

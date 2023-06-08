@@ -16,4 +16,5 @@ public interface INeoConBalanceService {
 	public ResponseEntity<NeoConBalanceDetalleResponseRest> validateItemAccountNeoconBalanceSheet(Integer id_neocon);
 	public ResponseEntity<NeoConBalanceDetalleResponseRest> reportNeoconBalanceSheetProespect(@RequestParam("periodo") Integer periodo);
 	public ResponseEntity<NeoConBalanceDetalleResponseRest> reportNeoconBalanceSheet(@RequestParam("periodo") Integer periodo,@RequestParam("acronimo") String acronimo);
+	public ResponseEntity<NeoConBalanceDetalleResponseRest> findNeoConItemById();
 }
