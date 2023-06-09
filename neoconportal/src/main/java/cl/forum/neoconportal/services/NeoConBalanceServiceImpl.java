@@ -236,7 +236,7 @@ public class NeoConBalanceServiceImpl implements INeoConBalanceService{
 		List<NeoConBalanceDetalle> neoConBalanceDetalles = new ArrayList<NeoConBalanceDetalle>();
 		
 		try (Connection cn = DriverManager.getConnection(connectionUrl);
-	            CallableStatement cst = cn.prepareCall("{CALL SP_GET_DESCARGA_PROESPECT(?) }")) {
+	            CallableStatement cst = cn.prepareCall("{CALL SP_GET_REPORT_PROESPECT(?) }")) {
 				cst.setString(1, periodo.toString());
 	        try (ResultSet rs = cst.executeQuery()) {
 	            while (rs.next()) {
@@ -265,7 +265,7 @@ public class NeoConBalanceServiceImpl implements INeoConBalanceService{
 		List<NeoConBalanceDetalle> neoConBalanceDetalles = new ArrayList<NeoConBalanceDetalle>();
 		
 		try (Connection cn = DriverManager.getConnection(connectionUrl);
-	            CallableStatement cst = cn.prepareCall("{CALL SP_GET_DESCARGA_GINTERFAZ(?,?) }")) {
+	            CallableStatement cst = cn.prepareCall("{CALL SP_GET_REPORT_GINTERFAZ(?,?) }")) {
 				if(acronimo == "Todas") {
 					acronimo = "0";
 				}
@@ -308,7 +308,7 @@ public class NeoConBalanceServiceImpl implements INeoConBalanceService{
 			try {
 				cn = DriverManager.getConnection(connectionUrl);
 				CallableStatement cstaccion;
-				cstaccion = cn.prepareCall("{CALL SP_CLEAN_NEOCONTABLES }");
+				cstaccion = cn.prepareCall("{CALL SP_REFRESH_NEOCONTABLES }");
 				cstaccion.execute();
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block

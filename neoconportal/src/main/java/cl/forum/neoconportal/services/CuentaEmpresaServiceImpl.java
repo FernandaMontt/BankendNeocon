@@ -338,7 +338,7 @@ public class CuentaEmpresaServiceImpl implements ICuentaEmpresaService{
 		List<CuentaEmpresa> cuentaEmpresas = new ArrayList<CuentaEmpresa>();
 		
 		try (Connection cn = DriverManager.getConnection(connectionUrl);
-	            CallableStatement cst = cn.prepareCall("{CALL SP_GET_DESCARGA_PLANCUENTASHOMOLOGADO(?) }")) {
+	            CallableStatement cst = cn.prepareCall("{CALL SP_GET_REPORT_PLANCUENTASHOMOLOGADO(?) }")) {
 				cst.setString(1, acronimo);
 	        try (ResultSet rs = cst.executeQuery()) {
 	            while (rs.next()) {

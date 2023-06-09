@@ -411,7 +411,7 @@ public class InterGrupoServiceImpl implements IInterGrupoService{
 		List<InterGroupDetalle> InterGroupDetalles = new ArrayList<InterGroupDetalle>();
 		
 		try (Connection cn = DriverManager.getConnection(connectionUrl);
-	            CallableStatement cst = cn.prepareCall("{CALL SP_GET_DESCARGA_REPORTEINTERGRUPO }")) {
+	            CallableStatement cst = cn.prepareCall("{CALL SP_GET_REPORT_INTERGRUPO }")) {
 	        try (ResultSet rs = cst.executeQuery()) {
 	            while (rs.next()) {
 	            	InterGroupDetalle interGroupDetalle = new InterGroupDetalle();
