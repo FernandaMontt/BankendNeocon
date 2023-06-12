@@ -20,7 +20,7 @@ import cl.forum.neoconportal.services.NeoConBalanceServiceImpl;
 
 @CrossOrigin(origins = {"http://localhost:4200"})
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/neoconportal/v1")
 public class BalanceController {
 	
 	@Autowired
